@@ -20,3 +20,9 @@ MonoBehaviour:
   - characterName: Emma
     characterData: {fileID: 11400000, guid: c05e9c41376e49f4eb8d3d82d3d75b72, type: 2}
     dialogueLines: Hello, there
+  - characterName: Emma
+    characterData: {fileID: 11400000, guid: c05e9c41376e49f4eb8d3d82d3d75b72, type: 2}
+    dialogueLines: what are you doing
+  - characterName: Anna
+    characterData: {fileID: 11400000, guid: 98e213cbf70cca04ea1817daa1401b3a, type: 2}
+    dialogueLines: well im doing greate

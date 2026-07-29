@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,16 +7,16 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance { get; private set; }
 
-    [Header("Dialogue Character Position COnfig")]
-    [SerializeField] private DialogueCharacterController character1;
-    [SerializeField] private DialogueCharacterController character2;
+    [Header("Dialogue Character Position Config")]
+    [SerializeField] private List<DialogueCharacterController> slots = new();
     
     [Header(("Dialogue Data Config"))] 
     [SerializeField] private DialogueBox dialogueBox;
     [SerializeField] private DialogueDataSO dialogueDataSO;
     
-    private int _currDialogueIndex = 0;
-    
+    private int _currDialogueIndex = -1;
+    private readonly List<DialogueCharacterController> _recencyOrder = new();
+    private bool isDialogueActive = false;
     
     private void Awake()
     {
@@ -29,43 +30,106 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Update()
     {
-        //Init Character from the dialogueDataSO
-        StartDialogue();
+        if (Input.GetKeyDown(KeyCode.Space))
+            StartDialogue();
     }
+
+    #region ============== Dialogue Character Controller ==============
 
     private Character FindCharacterByData(CharacterDataSO characterData)
     {
-        for (int i = 0; i < character1.Characters.Count; i++)
-            if (character1.Characters[i].CharacterData == characterData)
-                return character1.Characters[i];
-
-        for (int i = 0; i < character2.Characters.Count; i++)
-            if (character2.Characters[i].CharacterData == characterData)
-                return character2.Characters[i];
-
+        foreach (var slot in slots)
+        {
+            var match = slot.Characters.FirstOrDefault(c => c.CharacterData == characterData);
+            if (match != null)
+                return match;
+        }
+ 
+        Debug.Log($"[{gameObject.name}] Character {characterData.name} not found");
         return null;
     }
 
-    private DialogueCharacterController GetOwningSlot(Character character)
+    private void TouchSlot(DialogueCharacterController slot)
     {
-        if (character1.Contains(character))
-            return character1;
-        if (character2.Contains(character))
-            return character2;
-        return null;
+        _recencyOrder.Remove(slot);
+        _recencyOrder.Insert(0, slot);
+    }
+
+    private DialogueCharacterController GetLeastRecentlyUsedSlot()
+    {
+        for (int i = _recencyOrder.Count - 1; i >= 0; i--)
+        {
+            if (slots.Contains(_recencyOrder[i]))
+                return _recencyOrder[i];
+        }
+        
+        return slots.FirstOrDefault(s => s.ActiveCharacter != null) ?? slots[0];
+    }
+    
+    private DialogueCharacterController AssignSlot(CharacterDataSO characterData)
+    {
+        var existingSlot = slots.FirstOrDefault(s => s.ActiveCharacter != null && s.ActiveCharacter.CharacterData == characterData);
+        if (existingSlot != null)
+        {
+            Debug.Log("Using existing slot");
+            TouchSlot(existingSlot);
+            return existingSlot;
+        }
+        
+        var freeSlot = slots.FirstOrDefault(s => s.ActiveCharacter == null);
+        if (freeSlot != null)
+        {
+            Debug.Log("Using Free slot");
+            TouchSlot(freeSlot);
+            return freeSlot;
+        }
+        
+        Debug.Log("Find slot by LRU");
+        var lru = GetLeastRecentlyUsedSlot();
+        TouchSlot(lru);
+        return lru;
     }
     
     private void DisplayCurrentLine()
     {
         var line = dialogueDataSO.dialogueData[_currDialogueIndex];
-        dialogueBox.UpdateDialogueBox(line);
+        var targetData = line.characterData;
         
+        var targetSlot = AssignSlot(targetData);
+
+        foreach (var slot in slots)
+        {
+            if (slot != targetSlot && slot.ActiveCharacter != null && slot.ActiveCharacter.CharacterData == targetData)
+            {
+                slot.ClearSlot();
+            }
+        }
+        
+        targetSlot.ChangeCharacterByData(targetData);
+        
+        foreach (var slot in slots)
+        {
+            if (slot == targetSlot)
+            {
+                Debug.Log($"[{gameObject.name} - DisplayCurrentLine] Character {targetData.name} show in {targetSlot.name}");
+                slot.ShowActiveCharacter();
+            }
+            else
+                slot.DimActiveCharacter();
+        }
+
+        dialogueBox.UpdateDialogueBox(line);
     }
+
+    #endregion
     
     public void StartDialogue()
     {
+        if (isDialogueActive)
+            return;
+        
         if (dialogueBox == null)
         {
             Debug.LogError($"[{gameObject.name} - StartDialogue] Dialogue Box is Null");
@@ -78,6 +142,8 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         
+        isDialogueActive = true;
+        _currDialogueIndex = 0;
         DisplayCurrentLine();
     }
     

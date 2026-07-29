@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: UI
+    uniqueID: 3676533285
+    locked: 0
   - name: Sky
     uniqueID: 1529271909
     locked: 0
@@ -49,6 +52,9 @@ TagManager:
     locked: 0
   - name: Mounten
     uniqueID: 2523796991
+    locked: 0
+  - name: Character
+    uniqueID: 1792149815
     locked: 0
   - name: Ground
     uniqueID: 3990991521

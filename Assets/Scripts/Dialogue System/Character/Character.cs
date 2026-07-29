@@ -40,26 +40,78 @@ public class Character : MonoBehaviour
    
    public void InitCharacter()
    {
-      
+      _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+      if (_spriteRenderers == null || _spriteRenderers.Length == 0)
+      {
+         Debug.LogWarning($"[{gameObject.name}] No SpriteRenderers found on Character or its children");
+         return;
+      }
+
+      isInitialized = true;
+
+      FullHideCharacter();
    }
 
-   private void RunFade(Color targetColor, System.Action onComplete)
+   private void PlayAnimationFade(Color targetColor)
    {
-     
+      _fadeSequence?.Kill();
+
+      foreach (SpriteRenderer spriteRenderer in _spriteRenderers)
+      {
+         spriteRenderer.enabled = true;
+      }
+ 
+      Sequence sequence = DOTween.Sequence();
+      foreach (SpriteRenderer spriteRenderer in _spriteRenderers)
+      {
+         sequence.Join(spriteRenderer.DOColor(targetColor, fadeDuration));
+      }
+ 
+      sequence.OnComplete(() =>
+      {
+         _fadeSequence = null;
+      });
+ 
+      _fadeSequence = sequence;
    }
    
-   public void HideCharacter()
+   public void DimCharacter()
    {
+      if (!isInitialized)
+      {
+         Debug.LogWarning($"[{gameObject.name}] Character not initialized");
+         return;
+      }
       
+      Debug.Log($"[{transform.parent.name} - {gameObject.name}] Dimming Character");
+      PlayAnimationFade(dimColor);
    }
 
    public void ShowCharacter()
    {
+      if (!isInitialized)
+      {
+         Debug.LogWarning($"[{gameObject.name}] Character not initialized");
+         return;
+      }
       
+      Debug.Log($"[{transform.parent.name} - {gameObject.name}] Showing Character");
+      PlayAnimationFade(showColor);
    }
    
    public void FullHideCharacter()
    {
+      if (!isInitialized) return;
+
+      _fadeSequence?.Kill();
+      _fadeSequence = null;
+
+      foreach (SpriteRenderer spriteRenderer in _spriteRenderers)
+      {
+         spriteRenderer.color = hideColor;
+         spriteRenderer.enabled = false;
+      }
       
+      Debug.Log($"[{gameObject.name}] Full Hide Character");
    }
 }
