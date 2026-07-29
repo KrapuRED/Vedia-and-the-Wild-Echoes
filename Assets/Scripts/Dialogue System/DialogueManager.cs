@@ -73,7 +73,6 @@ public class DialogueManager : MonoBehaviour
         var existingSlot = slots.FirstOrDefault(s => s.ActiveCharacter != null && s.ActiveCharacter.CharacterData == characterData);
         if (existingSlot != null)
         {
-            Debug.Log("Using existing slot");
             TouchSlot(existingSlot);
             return existingSlot;
         }
@@ -81,12 +80,10 @@ public class DialogueManager : MonoBehaviour
         var freeSlot = slots.FirstOrDefault(s => s.ActiveCharacter == null);
         if (freeSlot != null)
         {
-            Debug.Log("Using Free slot");
             TouchSlot(freeSlot);
             return freeSlot;
         }
         
-        Debug.Log("Find slot by LRU");
         var lru = GetLeastRecentlyUsedSlot();
         TouchSlot(lru);
         return lru;
@@ -113,7 +110,6 @@ public class DialogueManager : MonoBehaviour
         {
             if (slot == targetSlot)
             {
-                Debug.Log($"[{gameObject.name} - DisplayCurrentLine] Character {targetData.name} show in {targetSlot.name}");
                 slot.ShowActiveCharacter();
             }
             else

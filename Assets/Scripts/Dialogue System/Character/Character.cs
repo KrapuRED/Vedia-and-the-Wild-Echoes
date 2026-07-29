@@ -25,6 +25,8 @@ public class Character : MonoBehaviour
    private bool isInitialized = false;
    private SpriteRenderer[] _spriteRenderers;
    private Sequence _fadeSequence;
+   
+   public bool IsInitialized => isInitialized;
 
    public CharacterDataSO CharacterData => characterData;
 
@@ -82,8 +84,7 @@ public class Character : MonoBehaviour
          Debug.LogWarning($"[{gameObject.name}] Character not initialized");
          return;
       }
-      
-      Debug.Log($"[{transform.parent.name} - {gameObject.name}] Dimming Character");
+
       PlayAnimationFade(dimColor);
    }
 
@@ -94,8 +95,7 @@ public class Character : MonoBehaviour
          Debug.LogWarning($"[{gameObject.name}] Character not initialized");
          return;
       }
-      
-      Debug.Log($"[{transform.parent.name} - {gameObject.name}] Showing Character");
+
       PlayAnimationFade(showColor);
    }
    
