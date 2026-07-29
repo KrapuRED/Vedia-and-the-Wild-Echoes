@@ -7,8 +7,8 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance { get; private set; }
 
     [Header("Dialogue Character Position COnfig")]
-    [SerializeField] private Transform character1;
-    [SerializeField] private Transform character2;
+    [SerializeField] private DialogueCharacterController character1;
+    [SerializeField] private DialogueCharacterController character2;
     
     [Header(("Dialogue Data Config"))] 
     [SerializeField] private DialogueBox dialogueBox;
@@ -16,7 +16,6 @@ public class DialogueManager : MonoBehaviour
     
     private int _currDialogueIndex = 0;
     
-    private readonly Dictionary<string, Character> _spawnedCharacters = new();
     
     private void Awake()
     {
@@ -33,58 +32,36 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         //Init Character from the dialogueDataSO
-        InitCharacters();
         StartDialogue();
     }
 
-    private void InitCharacters()
+    private Character FindCharacterByData(CharacterDataSO characterData)
     {
-        if (dialogueDataSO == null || dialogueDataSO.dialogueData.Count == 0)
-            return;
+        for (int i = 0; i < character1.Characters.Count; i++)
+            if (character1.Characters[i].CharacterData == characterData)
+                return character1.Characters[i];
 
-        // Grab the first two DISTINCT characters that appear in the dialogue
-        var distinctSpeakers = dialogueDataSO.dialogueData
-            .Where(d => d.characterData != null)
-            .Select(d => d.characterData)
-            .Distinct()
-            .Take(2)
-            .ToList();
+        for (int i = 0; i < character2.Characters.Count; i++)
+            if (character2.Characters[i].CharacterData == characterData)
+                return character2.Characters[i];
 
-        Transform[] slots = { character1, character2 };
-        PositionCharacter[] positions = { PositionCharacter.Left, PositionCharacter.Right };
-
-        for (int i = 0; i < distinctSpeakers.Count; i++)
-        {
-            var data = distinctSpeakers[i];
-
-            if (data.characterPrefab == null)
-            {
-                Debug.LogWarning($"[DialogueManager - InitCharacters] {data.characterName} has no characterPrefab assigned");
-                continue;
-            }
-
-            Character instance = Instantiate(data.characterPrefab, slots[i].position, Quaternion.identity, slots[i]);
-            instance.InitCharacter(positions[i]);
-            instance.HideCharacter(); // start hidden, shown when they speak
-
-            _spawnedCharacters[data.characterName] = instance;
-        }
-
+        return null;
     }
 
+    private DialogueCharacterController GetOwningSlot(Character character)
+    {
+        if (character1.Contains(character))
+            return character1;
+        if (character2.Contains(character))
+            return character2;
+        return null;
+    }
+    
     private void DisplayCurrentLine()
     {
         var line = dialogueDataSO.dialogueData[_currDialogueIndex];
         dialogueBox.UpdateDialogueBox(line);
-
-        // Show the current speaker, dim everyone else
-        foreach (var kvp in _spawnedCharacters)
-        {
-            if (kvp.Key == line.characterName)
-                kvp.Value.ShowCharacter();
-            else
-                kvp.Value.HideCharacter();
-        }
+        
     }
     
     public void StartDialogue()

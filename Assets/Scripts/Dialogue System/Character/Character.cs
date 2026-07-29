@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using DG.Tweening;
 
@@ -18,17 +19,18 @@ public class Character : MonoBehaviour
    [Header("Show/Hide Character")]
    [SerializeField] private float fadeDuration;
    [SerializeField] private Color hideColor;
+   [SerializeField] private Color dimColor;
    [SerializeField] private Color showColor;
    
+   private bool isInitialized = false;
    private SpriteRenderer[] _spriteRenderers;
    private Sequence _fadeSequence;
-   
+
+   public CharacterDataSO CharacterData => characterData;
+
    private void Awake()
    {
-      if (characterData == null)
-         return;
-
-      _spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+      InitCharacter();
    }
 
    private void OnDestroy()
@@ -36,48 +38,28 @@ public class Character : MonoBehaviour
       _fadeSequence?.Kill();
    }
    
-   public void InitCharacter(PositionCharacter position)
+   public void InitCharacter()
    {
-      positionCharacter = position;
-      bool isFlipped = positionCharacter == PositionCharacter.Left;
       
-      foreach (var sr in _spriteRenderers)
-      {
-         sr.flipX = isFlipped;
-      }
+   }
+
+   private void RunFade(Color targetColor, System.Action onComplete)
+   {
+     
    }
    
    public void HideCharacter()
    {
-      _fadeSequence?.Kill();
-      _fadeSequence = DOTween.Sequence();
-
-      foreach (var sr in _spriteRenderers)
-      {
-         _fadeSequence.Join(sr.DOColor(hideColor, fadeDuration));
-      } 
       
-      _fadeSequence.OnComplete(() =>
-      {
-         foreach (var sr in _spriteRenderers)
-            sr.enabled = false;
-      });
    }
 
    public void ShowCharacter()
    {
-      _fadeSequence?.Kill();
-      _fadeSequence = DOTween.Sequence();
-
-      foreach (var sr in _spriteRenderers)
-      {
-         _fadeSequence.Join(sr.DOColor(showColor, fadeDuration));
-      } 
       
-      _fadeSequence.OnComplete(() =>
-      {
-         foreach (var sr in _spriteRenderers)
-            sr.enabled = false;
-      });
+   }
+   
+   public void FullHideCharacter()
+   {
+      
    }
 }
