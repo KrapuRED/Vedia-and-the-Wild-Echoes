@@ -47,8 +47,7 @@ public class InputManager : MonoBehaviour
             Debug.LogError($"[{nameof(InputManager)}] gamePlayInput Asset Not yet been assign to Inspector!");
             return null;
         }
-        
-        Debug.Log($"[{nameof(InputManager)}] GetActionMap called : {actionMap}");
+
         var map = gamePlayInput.FindActionMap(actionMap, throwIfNotFound: false);
         if (map == null)
             Debug.LogError($"[{nameof(InputManager)}] No action map found for '{actionMap}'");
@@ -95,9 +94,6 @@ public class InputManager : MonoBehaviour
 
         currentMapName = _currentMap.name;
         OnActionMapChanged?.Invoke(mapName);
-        
-        Debug.LogWarning($"{_currentMap?.name} enabled={_currentMap?.enabled}");
-        Debug.Log($"[{nameof(InputManager)}] Success Switched to '{mapName}'");
     }
     
     private IEnumerator DeferredSwitchActionMap(string mapName, bool remember)
