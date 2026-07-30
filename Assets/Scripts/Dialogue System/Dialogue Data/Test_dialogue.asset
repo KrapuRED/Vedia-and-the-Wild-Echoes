@@ -26,3 +26,9 @@ MonoBehaviour:
   - characterName: Anna
     characterData: {fileID: 11400000, guid: 98e213cbf70cca04ea1817daa1401b3a, type: 2}
     dialogueLines: well im doing greate
+  - characterName: Lucy
+    characterData: {fileID: 11400000, guid: ca10d1d7d57ac3e458ceb79ec9f69d4d, type: 2}
+    dialogueLines: Hey you two
+  - characterName: Lucy
+    characterData: {fileID: 11400000, guid: ca10d1d7d57ac3e458ceb79ec9f69d4d, type: 2}
+    dialogueLines: what are u doing

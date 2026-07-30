@@ -11,6 +11,8 @@ public class MainMenuUITransition : UITransition
     [SerializeField] private RectTransform  uiElement;
     [SerializeField] private Vector2 onScreenPosition;
     [SerializeField] private Vector2 offScreenPosition;
+    
+    private Tween _transition;
 
     private void Awake()
     {
@@ -22,18 +24,20 @@ public class MainMenuUITransition : UITransition
     {
         //Going From top to bit bottom then adjust a bit
         uiElement.DOKill();
-        
         uiElement.anchoredPosition = offScreenPosition;
         
-        uiElement.DOAnchorPos(onScreenPosition, transitionDuration).SetEase(Ease.OutBack);
+        _transition = uiElement.DOAnchorPos(onScreenPosition, transitionDuration).SetEase(Ease.OutBack);
 
+        _transition.OnComplete(() => onTransitionIn?.Invoke());
     }
 
     public override void HideTransition()
     {
         uiElement.DOKill();
 
-        uiElement.DOAnchorPos(offScreenPosition, transitionDuration)
+        _transition = uiElement.DOAnchorPos(offScreenPosition, transitionDuration)
             .SetEase(Ease.InBack);
+
+        _transition.OnComplete(() => onTransitionOut?.Invoke());
     }
 }
