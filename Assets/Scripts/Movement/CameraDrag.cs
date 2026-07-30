@@ -12,8 +12,6 @@ public class CameraDrag : MonoBehaviour
     
     private Camera _camera;
     [SerializeField] private bool isDragging;
-    private bool _pendingStart;
-    private bool _pendingCancel;
     private InputManager _inputManager;
     
     private void Awake()
@@ -28,14 +26,15 @@ public class CameraDrag : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_inputManager != null)
-            _inputManager.OnActionMapChanged += HandleMapChange;
-        
         if (dragHoldAction != null)
         {
             dragHoldAction.action.started += OnDragStarted;
             dragHoldAction.action.canceled += OnDragCanceled;
+            
         }
+        
+        if (dragDeltaAction != null)
+            dragDeltaAction.action.Enable();
     }
 
     private void OnDisable() => OnRemoveListener();
@@ -43,56 +42,52 @@ public class CameraDrag : MonoBehaviour
 
     private void OnRemoveListener()
     {
-        Debug.Log("OnRemoveListener");
         if (dragHoldAction != null)
         {
             dragHoldAction.action.started -= OnDragStarted;
             dragHoldAction.action.canceled -= OnDragCanceled;
         }
-        
-        if (_inputManager != null)
-            _inputManager.OnActionMapChanged -= HandleMapChange;
     }
-
+    #endregion
+    
     private void HandleMapChange(string mapName)
     {
+        if (_inputManager == null)
+        {
+            Debug.LogError($"[{gameObject.name}] No InputManager found!");
+            return;
+        }
+        
         if (mapName != actionMapName)
+        {
+            _inputManager.PopActionMap();
             isDragging = false;
+        }
+        else
+        {
+            Debug.Log($"OnMapChange : {mapName}");
+            _inputManager.SwitchActionMap(mapName, true);
+        }
         
         if (dragHoldAction != null)
             dragHoldAction.action.Enable();
     }
     
-    #endregion
-    
     private void OnDragStarted(InputAction.CallbackContext _)
     {
         if (isDragging) return;
+        
         Debug.Log("OnDragStarted");
         isDragging = true;
-        _pendingStart = true;
+
     }
 
     private void OnDragCanceled(InputAction.CallbackContext _)
     {
         isDragging = false;
-        _pendingCancel = true;
+        
+        HandleMapChange(_inputManager.DefaultActionMap);
     }
-
-    private void Update()
-{
-    if (_pendingStart)
-    {
-        _pendingStart = false;
-        InputManager.Instance?.SwitchActionMap(actionMapName, remember: true);
-    }
-
-    if (_pendingCancel)
-    {
-        _pendingCancel = false;
-        InputManager.Instance?.PopActionMap();
-    }
-}
     
     private void LateUpdate()
     {
