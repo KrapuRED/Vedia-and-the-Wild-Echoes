@@ -12,7 +12,8 @@ public class CameraDrag : MonoBehaviour
     
     private Camera _camera;
     [SerializeField] private bool isDragging;
-
+    private bool _pendingStart;
+    private bool _pendingCancel;
     private InputManager _inputManager;
     
     private void Awake()
@@ -34,7 +35,6 @@ public class CameraDrag : MonoBehaviour
         {
             dragHoldAction.action.started += OnDragStarted;
             dragHoldAction.action.canceled += OnDragCanceled;
-
         }
     }
 
@@ -67,26 +67,39 @@ public class CameraDrag : MonoBehaviour
     
     private void OnDragStarted(InputAction.CallbackContext _)
     {
+        if (isDragging) return;
         Debug.Log("OnDragStarted");
         isDragging = true;
-        _inputManager.SwitchActionMap(actionMapName, remember: true);
+        _pendingStart = true;
     }
 
     private void OnDragCanceled(InputAction.CallbackContext _)
     {
-        Debug.Log("OnDragCanceled");
-        
         isDragging = false;
-        _inputManager.PopActionMap();
-        
+        _pendingCancel = true;
     }
 
+    private void Update()
+{
+    if (_pendingStart)
+    {
+        _pendingStart = false;
+        InputManager.Instance?.SwitchActionMap(actionMapName, remember: true);
+    }
+
+    if (_pendingCancel)
+    {
+        _pendingCancel = false;
+        InputManager.Instance?.PopActionMap();
+    }
+}
+    
     private void LateUpdate()
     {
         if (!isDragging || dragDeltaAction == null) return;
         
         Vector2 mouseDelta = dragDeltaAction.action.ReadValue<Vector2>();
-        if (mouseDelta ==  Vector2.zero)
+        if (mouseDelta == Vector2.zero)
             return;
         
         Vector3 right = _camera.transform.right;
@@ -98,7 +111,7 @@ public class CameraDrag : MonoBehaviour
         right.Normalize();
         forward.Normalize();
         
-        Vector3 dragVector = (-right * mouseDelta.x - forward *  mouseDelta.y) * dragSpeed;
+        Vector3 dragVector = (-right * mouseDelta.x - forward * mouseDelta.y) * dragSpeed;
         transform.position += dragVector;
     }
 }
