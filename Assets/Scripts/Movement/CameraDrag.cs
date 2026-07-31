@@ -1,8 +1,7 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CameraDrag : MonoBehaviour
+public class CameraDrag : CursorController
 {
     [Header("Cursor Converter Configuration")]
     [SerializeField] private string actionMapName;
@@ -28,9 +27,9 @@ public class CameraDrag : MonoBehaviour
     {
         if (dragHoldAction != null)
         {
-            dragHoldAction.action.started += OnDragStarted;
+            dragHoldAction.action.performed += OnDragStarted;
             dragHoldAction.action.canceled += OnDragCanceled;
-            
+            dragHoldAction.action.Enable();
         }
         
         if (dragDeltaAction != null)
@@ -44,13 +43,13 @@ public class CameraDrag : MonoBehaviour
     {
         if (dragHoldAction != null)
         {
-            dragHoldAction.action.started -= OnDragStarted;
+            dragHoldAction.action.performed -= OnDragStarted;
             dragHoldAction.action.canceled -= OnDragCanceled;
         }
     }
     #endregion
-    
-    private void HandleMapChange(string mapName)
+
+    public override void HandleMapChange(string mapName)
     {
         if (_inputManager == null)
         {
@@ -58,15 +57,23 @@ public class CameraDrag : MonoBehaviour
             return;
         }
         
-        if (mapName != actionMapName)
+        bool enterActionMap = mapName == actionMapName && !string.IsNullOrEmpty(actionMapName);
+
+        if (enterActionMap)
         {
-            _inputManager.PopActionMap();
-            isDragging = false;
+            if (_inputManager.IsCurrentActionMap(actionMapName))
+                return;
+            
+            if (_inputManager.IsCurrentActionMap(_inputManager.DefaultActionMap))
+                _inputManager.SwitchActionMap(actionMapName);
         }
         else
         {
-            Debug.Log($"OnMapChange : {mapName}");
-            _inputManager.SwitchActionMap(mapName, true);
+            if (!_inputManager.IsCurrentActionMap(actionMapName))
+                return;
+            
+            _inputManager.PopActionMap();
+            isDragging = false;
         }
         
         if (dragHoldAction != null)
@@ -77,21 +84,25 @@ public class CameraDrag : MonoBehaviour
     {
         if (isDragging) return;
         
-        Debug.Log("OnDragStarted");
+        HandleMapChange(actionMapName);
+        
         isDragging = true;
-
     }
 
     private void OnDragCanceled(InputAction.CallbackContext _)
     {
-        isDragging = false;
+        if (isDragging) 
+            HandleMapChange(_inputManager.DefaultActionMap);
         
-        HandleMapChange(_inputManager.DefaultActionMap);
+        isDragging = false;
     }
     
     private void LateUpdate()
     {
         if (!isDragging || dragDeltaAction == null) return;
+        
+        if (!_inputManager.IsOverlayActive(actionMapName))
+            return;
         
         Vector2 mouseDelta = dragDeltaAction.action.ReadValue<Vector2>();
         if (mouseDelta == Vector2.zero)

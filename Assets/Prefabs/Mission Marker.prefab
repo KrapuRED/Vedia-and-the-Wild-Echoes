@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5472204470548877805}
   - component: {fileID: 6203982679927592515}
   - component: {fileID: 6275474599365084240}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Mission Marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,9 +28,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7406426722344530363}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.212, y: 4, z: -0.104}
-  m_LocalScale: {x: 0.05, y: 0.1, z: 0.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f8c7bde052d6f314292678267bf6463e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -128,3 +128,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissionMarker
   markerState: 0
   maxTilted: 45
+  markerPassiveMaterial: {fileID: 2100000, guid: f8c7bde052d6f314292678267bf6463e, type: 2}
+  markerActiveMaterial: {fileID: 2100000, guid: 88369b2686353214abdd1d4e23c5bfdb, type: 2}
+  isFlagged: 0

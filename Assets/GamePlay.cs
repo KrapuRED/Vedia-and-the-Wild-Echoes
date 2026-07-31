@@ -107,7 +107,7 @@ public partial class @GamePlay: IInputActionCollection2, IDisposable
                     ""id"": ""9efdbbe9-0dcf-48a0-9785-6c28d3c47095"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -146,7 +146,7 @@ public partial class @GamePlay: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""71fd805a-2ddb-4df3-aee2-a708cadb26dd"",
-                    ""path"": """",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -179,6 +179,54 @@ public partial class @GamePlay: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Drag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""FlaggingController"",
+            ""id"": ""1aaa74c0-29f0-47cf-900c-135594bb3834"",
+            ""actions"": [
+                {
+                    ""name"": ""ClickFlag"",
+                    ""type"": ""Button"",
+                    ""id"": ""501212da-0693-44d7-b43d-4e50bd2d6e04"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DraggingFlag"",
+                    ""type"": ""Value"",
+                    ""id"": ""22025c80-a6d1-4729-92ac-e158a1ae4703"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""ca2bb3bd-ca61-4669-ae70-2e9ccea440c5"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DraggingFlag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eeebe2d1-db0f-4e94-a45f-546ee67a4d93"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ClickFlag"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -256,12 +304,17 @@ public partial class @GamePlay: IInputActionCollection2, IDisposable
         // CameraContoller
         m_CameraContoller = asset.FindActionMap("CameraContoller", throwIfNotFound: true);
         m_CameraContoller_Drag = m_CameraContoller.FindAction("Drag", throwIfNotFound: true);
+        // FlaggingController
+        m_FlaggingController = asset.FindActionMap("FlaggingController", throwIfNotFound: true);
+        m_FlaggingController_ClickFlag = m_FlaggingController.FindAction("ClickFlag", throwIfNotFound: true);
+        m_FlaggingController_DraggingFlag = m_FlaggingController.FindAction("DraggingFlag", throwIfNotFound: true);
     }
 
     ~@GamePlay()
     {
         UnityEngine.Debug.Assert(!m_Gameplay.enabled, "This will cause a leak and performance issues, GamePlay.Gameplay.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_CameraContoller.enabled, "This will cause a leak and performance issues, GamePlay.CameraContoller.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_FlaggingController.enabled, "This will cause a leak and performance issues, GamePlay.FlaggingController.Disable() has not been called.");
     }
 
     /// <summary>
@@ -547,6 +600,113 @@ public partial class @GamePlay: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="CameraContollerActions" /> instance referencing this action map.
     /// </summary>
     public CameraContollerActions @CameraContoller => new CameraContollerActions(this);
+
+    // FlaggingController
+    private readonly InputActionMap m_FlaggingController;
+    private List<IFlaggingControllerActions> m_FlaggingControllerActionsCallbackInterfaces = new List<IFlaggingControllerActions>();
+    private readonly InputAction m_FlaggingController_ClickFlag;
+    private readonly InputAction m_FlaggingController_DraggingFlag;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "FlaggingController".
+    /// </summary>
+    public struct FlaggingControllerActions
+    {
+        private @GamePlay m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public FlaggingControllerActions(@GamePlay wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "FlaggingController/ClickFlag".
+        /// </summary>
+        public InputAction @ClickFlag => m_Wrapper.m_FlaggingController_ClickFlag;
+        /// <summary>
+        /// Provides access to the underlying input action "FlaggingController/DraggingFlag".
+        /// </summary>
+        public InputAction @DraggingFlag => m_Wrapper.m_FlaggingController_DraggingFlag;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_FlaggingController; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="FlaggingControllerActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(FlaggingControllerActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="FlaggingControllerActions" />
+        public void AddCallbacks(IFlaggingControllerActions instance)
+        {
+            if (instance == null || m_Wrapper.m_FlaggingControllerActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_FlaggingControllerActionsCallbackInterfaces.Add(instance);
+            @ClickFlag.started += instance.OnClickFlag;
+            @ClickFlag.performed += instance.OnClickFlag;
+            @ClickFlag.canceled += instance.OnClickFlag;
+            @DraggingFlag.started += instance.OnDraggingFlag;
+            @DraggingFlag.performed += instance.OnDraggingFlag;
+            @DraggingFlag.canceled += instance.OnDraggingFlag;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="FlaggingControllerActions" />
+        private void UnregisterCallbacks(IFlaggingControllerActions instance)
+        {
+            @ClickFlag.started -= instance.OnClickFlag;
+            @ClickFlag.performed -= instance.OnClickFlag;
+            @ClickFlag.canceled -= instance.OnClickFlag;
+            @DraggingFlag.started -= instance.OnDraggingFlag;
+            @DraggingFlag.performed -= instance.OnDraggingFlag;
+            @DraggingFlag.canceled -= instance.OnDraggingFlag;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="FlaggingControllerActions.UnregisterCallbacks(IFlaggingControllerActions)" />.
+        /// </summary>
+        /// <seealso cref="FlaggingControllerActions.UnregisterCallbacks(IFlaggingControllerActions)" />
+        public void RemoveCallbacks(IFlaggingControllerActions instance)
+        {
+            if (m_Wrapper.m_FlaggingControllerActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="FlaggingControllerActions.AddCallbacks(IFlaggingControllerActions)" />
+        /// <seealso cref="FlaggingControllerActions.RemoveCallbacks(IFlaggingControllerActions)" />
+        /// <seealso cref="FlaggingControllerActions.UnregisterCallbacks(IFlaggingControllerActions)" />
+        public void SetCallbacks(IFlaggingControllerActions instance)
+        {
+            foreach (var item in m_Wrapper.m_FlaggingControllerActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_FlaggingControllerActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="FlaggingControllerActions" /> instance referencing this action map.
+    /// </summary>
+    public FlaggingControllerActions @FlaggingController => new FlaggingControllerActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -655,5 +815,27 @@ public partial class @GamePlay: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDrag(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "FlaggingController" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="FlaggingControllerActions.AddCallbacks(IFlaggingControllerActions)" />
+    /// <seealso cref="FlaggingControllerActions.RemoveCallbacks(IFlaggingControllerActions)" />
+    public interface IFlaggingControllerActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "ClickFlag" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnClickFlag(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DraggingFlag" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDraggingFlag(InputAction.CallbackContext context);
     }
 }

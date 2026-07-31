@@ -21,7 +21,7 @@
                     "id": "9efdbbe9-0dcf-48a0-9785-6c28d3c47095",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -60,7 +60,7 @@
                 {
                     "name": "",
                     "id": "71fd805a-2ddb-4df3-aee2-a708cadb26dd",
-                    "path": "",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -93,6 +93,54 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Drag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "FlaggingController",
+            "id": "1aaa74c0-29f0-47cf-900c-135594bb3834",
+            "actions": [
+                {
+                    "name": "ClickFlag",
+                    "type": "Button",
+                    "id": "501212da-0693-44d7-b43d-4e50bd2d6e04",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DraggingFlag",
+                    "type": "Value",
+                    "id": "22025c80-a6d1-4729-92ac-e158a1ae4703",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ca2bb3bd-ca61-4669-ae70-2e9ccea440c5",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DraggingFlag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eeebe2d1-db0f-4e94-a45f-546ee67a4d93",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ClickFlag",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

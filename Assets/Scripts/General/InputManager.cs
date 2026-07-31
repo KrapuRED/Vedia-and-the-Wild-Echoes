@@ -17,7 +17,7 @@ public class InputManager : MonoBehaviour
     public event Action<string> OnActionMapChanged;
 
     [SerializeField] private InputActionMap _currentMap;
-    private readonly Stack<string> _mapHistory = new();
+    private readonly Stack<string> _overlayStack = new();
     
     private Coroutine _switchMapCoroutine;
     
@@ -38,8 +38,15 @@ public class InputManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
     }
 
-    private void Start() => SwitchActionMap(defaultActionMap, false);
+    private void Start() => SwitchActionMap(defaultActionMap);
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PopActionMap();
+
+    }
+    
     public InputActionMap GetActionMap(string actionMap)
     {
         if (gamePlayInput == null)
@@ -55,53 +62,82 @@ public class InputManager : MonoBehaviour
         return map;
     }
 
-    public void SwitchActionMap(string mapName, bool remember = false)
+    public void SwitchActionMap(string mapName)
     {
         if (_switchMapCoroutine != null)
             StopCoroutine(_switchMapCoroutine);
 
-        _switchMapCoroutine = StartCoroutine(DeferredSwitchActionMap(mapName, remember));
+        _switchMapCoroutine = StartCoroutine(DeferredSwitchActionMap(mapName));
     }
 
     public void PopActionMap()
     {
-        SwitchActionMap(_mapHistory.Count > 0 ? _mapHistory.Pop() : defaultActionMap);
-    }
-    
-    private void ExecuteSwitchActionMap(string mapName, bool remember)
-    {
-        var targetMap = GetActionMap(mapName);
-        if (targetMap == null)
-            return;
-
-        // Jika map target sudah aktif, abaikan
-        if (_currentMap != null && _currentMap.name == mapName && _currentMap.enabled)
-            return;
-
-        
-        if (_currentMap != null)
+        if (_switchMapCoroutine != null)
         {
-            if (remember)
+            StopCoroutine(_switchMapCoroutine);
+            _switchMapCoroutine = null;
+        }
+
+        if (_overlayStack.Count <= 1)
+        {
+            if (_overlayStack.Count == 1)
             {
-                _mapHistory.Push(_currentMap.name);
+                string lastMap =  _overlayStack.Pop();
+                if (lastMap != currentMapName)
+                    GetActionMap(lastMap)?.Disable();
             }
-            _currentMap.Disable();
+            
+            ExecuteSwitchActionMapDirect(currentMapName);
+            return;
         }
         
-        _currentMap = targetMap;
-        
-        _currentMap.Enable();
+        string removed = _overlayStack.Pop();
+        GetActionMap(removed)?.Disable();
 
-        currentMapName = _currentMap.name;
+        string next = _overlayStack.Count > 0 ? _overlayStack.Peek() : defaultActionMap;
+        GetActionMap(next)?.Enable();
+        currentMapName = next;
+        OnActionMapChanged?.Invoke(next);
+    }
+
+    private void ExecuteSwitchActionMapDirect(string mapName)
+    {
+        var map = GetActionMap(mapName);
+        if (map == null) return;
+        
+        if (_overlayStack.Count > 0 && _overlayStack.Peek() == mapName) return;
+        
+        map.Enable();
+        _overlayStack.Push(mapName);
+        currentMapName = mapName;
         OnActionMapChanged?.Invoke(mapName);
     }
     
-    private IEnumerator DeferredSwitchActionMap(string mapName, bool remember)
+    private void ExecuteSwitchActionMap(string mapName)
+    {
+        var map = GetActionMap(mapName);
+        if (map == null)
+            return;
+
+        if (_overlayStack.Contains(mapName))
+        {
+            Debug.LogWarning($"[{nameof(InputManager)}] '{mapName}' is already active in the overlay stack.");
+            return;
+        }
+
+        map.Enable();
+        _overlayStack.Push(mapName);
+        currentMapName = mapName;
+        OnActionMapChanged?.Invoke(mapName);
+    }
+    
+    private IEnumerator DeferredSwitchActionMap(string mapName)
     {
         yield return null;
 
-        ExecuteSwitchActionMap(mapName, remember);
+        ExecuteSwitchActionMap(mapName);
     }
     
-    public bool IsMapActive(string mapName) =>  _currentMap != null && _currentMap.name == mapName;
+    public bool IsCurrentActionMap(string mapName) => currentMapName == mapName;
+    public bool IsOverlayActive(string mapName) => _overlayStack.Contains(mapName);
 }

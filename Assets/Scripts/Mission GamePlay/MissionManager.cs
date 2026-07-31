@@ -50,7 +50,7 @@ public class MissionManager : MonoBehaviour
     
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !_isMissionMarkerActive)
         {
             _isMissionMarkerActive = true;
             StartMission();
@@ -141,6 +141,7 @@ public class MissionManager : MonoBehaviour
         foreach (var markerData  in toDemote)
         {
             markerData.missionMarkerState = MissionMarkerState.Passive; 
+            markerData.missionMarkerData.UpdateState(markerData.missionMarkerState);
             Debug.Log($"{markerData.missionMarkerName} State {markerData.missionMarkerState}");
             AssignPassiveMisionMarker(markerData);
         }
@@ -156,23 +157,26 @@ public class MissionManager : MonoBehaviour
             Debug.LogError($"{nameof(areaMission)} is null in {gameObject.name}");
             return;
         }
-        
-        var availableMarkers = missionMarkers.Where(
-            m => m != null && !_assignedMarkers.Contains(m)).ToList();
-        
-        int randomIndex = Random.Range(0, availableMarkers.Count);   // <- use the filtered list
-        var selectedMission = availableMarkers[randomIndex];
-        
-        SelectedMissionMarkerData markerData = new SelectedMissionMarkerData
+
+        for (int i = 0; i < missionMarkers.Count; i++)
         {
-            missionMarkerName = selectedMission.name,
-            missionMarkerData = selectedMission,
-            activeTimer = GetRandomPassiveMarkerTimer()
-        };
+            var availableMarkers = missionMarkers.Where(
+                m => m != null && !_assignedMarkers.Contains(m)).ToList();
         
-        //cannot have same missionMarkerData
-        missionMarkerPassive.Add(markerData);
-        _assignedMarkers.Add(selectedMission); 
+            int randomIndex = Random.Range(0, availableMarkers.Count);   // <- use the filtered list
+            var selectedMission = availableMarkers[randomIndex];
+        
+            SelectedMissionMarkerData markerData = new SelectedMissionMarkerData
+            {
+                missionMarkerName = selectedMission.name,
+                missionMarkerData = selectedMission,
+                activeTimer = GetRandomPassiveMarkerTimer()
+            };
+        
+            //cannot have same missionMarkerData
+            missionMarkerPassive.Add(markerData);
+            _assignedMarkers.Add(selectedMission); 
+        }
     }
     
     private void AssignPassiveMisionMarker(SelectedMissionMarkerData markerData)

@@ -8,15 +8,18 @@ public enum MissionMarkerState
    Active
 }
 
-public class MissionMarker : MonoBehaviour
+public class MissionMarker : MonoBehaviour, IInteractable
 {
    [SerializeField] private MissionMarkerState markerState ;
    [SerializeField] private float maxTilted; 
    [SerializeField] private Material markerPassiveMaterial;
    [SerializeField] private Material markerActiveMaterial;
+   [SerializeField] private bool isFlagged;
    
    private MeshRenderer _meshRenderer;
    private Camera _camera;
+   
+   public bool IsFlagged => isFlagged;
 
    private void Awake()
    {
@@ -31,6 +34,8 @@ public class MissionMarker : MonoBehaviour
 
    public void UpdateState(MissionMarkerState markerState)
    {
+      Debug.Log($"[{gameObject.name} - {nameof(MissionMarker)}] Success change state: {markerState}");
+      
       if (_meshRenderer == null)
       {
          Debug.LogError($"[{gameObject.name} - {nameof(MissionMarker)}] MeshRenderer not assigned");
@@ -39,6 +44,16 @@ public class MissionMarker : MonoBehaviour
       
       this.markerState = markerState;
       
-      Debug.Log($"[{gameObject.name} - {nameof(MissionMarker)}] Success change state: {markerState}");
+      _meshRenderer.material = markerState switch
+      {
+         MissionMarkerState.Passive => markerPassiveMaterial,
+         MissionMarkerState.Active => markerActiveMaterial,
+         _ => markerPassiveMaterial
+      };
+   }
+
+   public void OnIntrect()
+   {
+      Debug.Log($"[{gameObject.name} - {nameof(MissionMarker)}] OnIntrect");
    }
 }
