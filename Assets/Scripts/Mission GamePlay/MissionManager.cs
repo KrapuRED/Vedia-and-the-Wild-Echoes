@@ -1,14 +1,14 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Pool;
 using Random = UnityEngine.Random;
 
-public class MissionMarkerData
+[Serializable]
+public class SelectedMissionMarkerData
 {
     public string missionMarkerName;
+    public MissionMarkerState missionMarkerState;
     public MissionMarker missionMarkerData;
     public float activeTimer;
     public float currentTimer;
@@ -20,11 +20,21 @@ public class MissionManager : MonoBehaviour
 
     [Header("Mission Configuration")]
     [SerializeField] private int maxMissions;
-    [SerializeField] private List<MissionMarkerData> areaMissionSelected =  new();
+    [SerializeField] private List<SelectedMissionMarkerData> missionMarkerPassive =  new();
+    [SerializeField] private List<SelectedMissionMarkerData> missionMarkerActive =  new();
     
+    [Header("Mission Marker Timer Configuration")]
+    [SerializeField] private float minPassiveMarkerTimer;
+    [SerializeField] private float maxPassiveMarkerTimer;
+    [SerializeField] private float minActiveMarkerTimer;
+    [SerializeField] private float maxActiveMarkerTimer;
+
     [Header("Area Spawning Mission")] 
     [SerializeField] private Transform areaMission;
     [SerializeField] private List<MissionMarker> missionMarkers = new();
+    
+    private bool _isMissionMarkerActive;
+    private readonly HashSet<MissionMarker> _assignedMarkers = new();
     
     private void Awake()
     {
@@ -37,29 +47,107 @@ public class MissionManager : MonoBehaviour
 
         missionMarkers = areaMission.GetComponentsInChildren<MissionMarker>().ToList();
     }
-
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _isMissionMarkerActive = true;
             StartMission();
+        }
+ 
+        if (!_isMissionMarkerActive)
+            return;
+            
+        UpdatePassiveMissionMarker();
+        UpdateActiveMissionMarker();
+    }
 
-        foreach (var missionMarker in areaMissionSelected)
+    private void UpdatePassiveMissionMarker()
+    {
+        if (missionMarkerPassive.Count <= 0)
+        {
+            Debug.LogWarning($"[{gameObject.name} - UpdatePassiveMissionMarker] List in Mission Marker Passive is NULL or EMPTY!");
+            return;
+        }
+        
+        if (missionMarkerActive.Count >= maxMissions)
+            return; 
+        
+        List<SelectedMissionMarkerData> toPromote = null;
+        
+        foreach (var missionMarker in missionMarkerPassive)
+        {
+            if (missionMarker == null)
+                continue;
+            
+            if (missionMarker.missionMarkerState ==  MissionMarkerState.Active)
+                continue;
+            
+            missionMarker.currentTimer += Time.deltaTime;
+            
+            if (missionMarker.currentTimer >= missionMarker.activeTimer)
+            {
+                if (missionMarkerActive.Count + (toPromote?.Count ?? 0) >= maxMissions)
+                    break;
+
+                toPromote ??= new List<SelectedMissionMarkerData>();
+                toPromote.Add(missionMarker);
+            }
+        }
+        
+        if (toPromote == null)
+            return;
+        
+        foreach (var markerData  in toPromote)
+        {
+            markerData.missionMarkerState = MissionMarkerState.Active;
+            markerData.missionMarkerData.UpdateState(markerData.missionMarkerState); 
+            Debug.Log($"{markerData.missionMarkerName} State {markerData.missionMarkerState}");
+            AssignActiveMissionMarker(markerData);
+        }
+    }
+    
+    private void UpdateActiveMissionMarker()
+    {
+        if (missionMarkerActive.Count <= 0)
+        {
+            Debug.LogWarning($"[{gameObject.name} - UpdateActiveMissionMarker] List in Mission Marker Active is NULL or EMPTY!");
+            return;
+        }
+        
+        List<SelectedMissionMarkerData> toDemote = null;
+        
+        foreach (var missionMarker in missionMarkerActive)
         {
             if (missionMarker == null)
                 continue;
 
+            if (missionMarker.missionMarkerState ==  MissionMarkerState.Passive)
+                continue;
+            
+            missionMarker.currentTimer += Time.deltaTime;
+            
             if (missionMarker.currentTimer >= missionMarker.activeTimer)
             {
-                missionMarker.missionMarkerData.UpdateState(MissionMarkerState.Active);
-                Debug.Log($"{missionMarker.missionMarkerName} {missionMarker.activeTimer}");
-            }
-            else
-            {
-                missionMarker.currentTimer += Time.deltaTime;
+                toDemote ??= new List<SelectedMissionMarkerData>();
+                toDemote.Add(missionMarker);
             }
         }
+        
+        if (toDemote == null)
+            return;
+        
+        foreach (var markerData  in toDemote)
+        {
+            markerData.missionMarkerState = MissionMarkerState.Passive; 
+            Debug.Log($"{markerData.missionMarkerName} State {markerData.missionMarkerState}");
+            AssignPassiveMisionMarker(markerData);
+        }
     }
-    
+
+    private float GetRandomPassiveMarkerTimer() => Random.Range(minPassiveMarkerTimer, maxPassiveMarkerTimer);
+    private float GetRandomActiveMarkerTimer() => Random.Range(minActiveMarkerTimer, maxActiveMarkerTimer);
 
     public void StartMission()
     {
@@ -69,17 +157,56 @@ public class MissionManager : MonoBehaviour
             return;
         }
         
-        int randomIndex = Random.Range(0, missionMarkers.Count);
+        var availableMarkers = missionMarkers.Where(
+            m => m != null && !_assignedMarkers.Contains(m)).ToList();
         
-        var selectedMission = missionMarkers[randomIndex];
-        MissionMarkerData markerData = new MissionMarkerData
+        int randomIndex = Random.Range(0, availableMarkers.Count);   // <- use the filtered list
+        var selectedMission = availableMarkers[randomIndex];
+        
+        SelectedMissionMarkerData markerData = new SelectedMissionMarkerData
         {
             missionMarkerName = selectedMission.name,
             missionMarkerData = selectedMission,
-            activeTimer = 0,
-            
+            activeTimer = GetRandomPassiveMarkerTimer()
         };
         
-        areaMissionSelected.Add(markerData);
+        //cannot have same missionMarkerData
+        missionMarkerPassive.Add(markerData);
+        _assignedMarkers.Add(selectedMission); 
+    }
+    
+    private void AssignPassiveMisionMarker(SelectedMissionMarkerData markerData)
+    {
+        if (markerData == null)
+        {
+            Debug.LogError($"{nameof(areaMission)} is null in {gameObject.name}");
+            return;
+        }
+        
+        missionMarkerActive.Remove(markerData);
+
+        markerData.currentTimer = 0;
+        markerData.activeTimer = GetRandomPassiveMarkerTimer();
+        
+        missionMarkerPassive.Add(markerData);
+        Debug.Log($"{gameObject.name} Successfully Assigned to Passive Mission Marker {markerData.missionMarkerName}");
+
+    }
+    
+    private void AssignActiveMissionMarker(SelectedMissionMarkerData markerData)
+    {
+        if (markerData == null)
+        {
+            Debug.LogError($"{nameof(areaMission)} is null in {gameObject.name}");
+            return;
+        }
+        
+        missionMarkerPassive.Remove(markerData);
+
+        markerData.currentTimer = 0;
+        markerData.activeTimer = GetRandomActiveMarkerTimer();
+        
+        missionMarkerActive.Add(markerData);
+        Debug.Log($"{gameObject.name} Successfully Assigned to Active Mission Marker {markerData.missionMarkerName}");
     }
 }

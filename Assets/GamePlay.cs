@@ -109,6 +109,15 @@ public partial class @GamePlay: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ClickPoint"",
+                    ""type"": ""Button"",
+                    ""id"": ""18830719-b16b-46ba-b615-4f6160faaaff"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -131,6 +140,17 @@ public partial class @GamePlay: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DragHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71fd805a-2ddb-4df3-aee2-a708cadb26dd"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClickPoint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -232,6 +252,7 @@ public partial class @GamePlay: IInputActionCollection2, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         m_Gameplay_DragHold = m_Gameplay.FindAction("DragHold", throwIfNotFound: true);
+        m_Gameplay_ClickPoint = m_Gameplay.FindAction("ClickPoint", throwIfNotFound: true);
         // CameraContoller
         m_CameraContoller = asset.FindActionMap("CameraContoller", throwIfNotFound: true);
         m_CameraContoller_Drag = m_CameraContoller.FindAction("Drag", throwIfNotFound: true);
@@ -318,6 +339,7 @@ public partial class @GamePlay: IInputActionCollection2, IDisposable
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_Pause;
     private readonly InputAction m_Gameplay_DragHold;
+    private readonly InputAction m_Gameplay_ClickPoint;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -337,6 +359,10 @@ public partial class @GamePlay: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Gameplay/DragHold".
         /// </summary>
         public InputAction @DragHold => m_Wrapper.m_Gameplay_DragHold;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/ClickPoint".
+        /// </summary>
+        public InputAction @ClickPoint => m_Wrapper.m_Gameplay_ClickPoint;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -369,6 +395,9 @@ public partial class @GamePlay: IInputActionCollection2, IDisposable
             @DragHold.started += instance.OnDragHold;
             @DragHold.performed += instance.OnDragHold;
             @DragHold.canceled += instance.OnDragHold;
+            @ClickPoint.started += instance.OnClickPoint;
+            @ClickPoint.performed += instance.OnClickPoint;
+            @ClickPoint.canceled += instance.OnClickPoint;
         }
 
         /// <summary>
@@ -386,6 +415,9 @@ public partial class @GamePlay: IInputActionCollection2, IDisposable
             @DragHold.started -= instance.OnDragHold;
             @DragHold.performed -= instance.OnDragHold;
             @DragHold.canceled -= instance.OnDragHold;
+            @ClickPoint.started -= instance.OnClickPoint;
+            @ClickPoint.performed -= instance.OnClickPoint;
+            @ClickPoint.canceled -= instance.OnClickPoint;
         }
 
         /// <summary>
@@ -601,6 +633,13 @@ public partial class @GamePlay: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDragHold(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ClickPoint" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnClickPoint(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "CameraContoller" which allows adding and removing callbacks.
