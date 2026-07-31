@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f8c7bde052d6f314292678267bf6463e, type: 2}
+  - {fileID: 2100000, guid: 56df7fa81b9a5444584a4ba927848309, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -128,6 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissionMarker
   markerState: 0
   maxTilted: 45
-  markerPassiveMaterial: {fileID: 2100000, guid: f8c7bde052d6f314292678267bf6463e, type: 2}
+  markerPassiveMaterial: {fileID: 2100000, guid: 56df7fa81b9a5444584a4ba927848309, type: 2}
   markerActiveMaterial: {fileID: 2100000, guid: 88369b2686353214abdd1d4e23c5bfdb, type: 2}
   isFlagged: 0
+  targetMap: FlaggingController

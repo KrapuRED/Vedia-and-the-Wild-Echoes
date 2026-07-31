@@ -8,12 +8,14 @@ public class InteractSelector : MonoBehaviour
     [SerializeField] private InputActionReference pointerPosition;
     [SerializeField] private LayerMask interactLayerMask;
     
-    [SerializeField] private Camera _camera;
+    private Camera _camera;
     private Vector2 _screenPosition;
+    private InputManager _inputManager;
     
     private void Awake()
     {
         _camera = Camera.main;
+        _inputManager = InputManager.Instance;
     }
 
     #region Event System
@@ -43,7 +45,9 @@ public class InteractSelector : MonoBehaviour
     
     private void Update()
     {
-        // Selalu ter-update tanpa peduli Action Map mana yang sedang aktif
+        if (!_inputManager.IsCurrentActionMap(_inputManager.DefaultActionMap))
+            return;
+            
         if (Pointer.current != null)
         {
             _screenPosition = Pointer.current.position.ReadValue();
@@ -52,8 +56,6 @@ public class InteractSelector : MonoBehaviour
     
     private void OnClickMissionMarker()
     {
-        Debug.Log($"[{gameObject.name}] OnClickMissionMarker");
-
         CheckRaycast();
     }
 
@@ -66,7 +68,6 @@ public class InteractSelector : MonoBehaviour
         }
         
         Ray ray = _camera.ScreenPointToRay(_screenPosition);
-        Debug.Log($"{_screenPosition} Raycast Hit: {ray.origin} - {ray.direction}");
         Debug.DrawRay(ray.origin, ray.direction * 500f, Color.red, 2f);
         
         if (Physics.Raycast(ray, out var hit, 500f, interactLayerMask))

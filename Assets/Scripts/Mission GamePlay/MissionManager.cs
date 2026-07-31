@@ -142,7 +142,9 @@ public class MissionManager : MonoBehaviour
         {
             markerData.missionMarkerState = MissionMarkerState.Passive; 
             markerData.missionMarkerData.UpdateState(markerData.missionMarkerState);
+            
             Debug.Log($"{markerData.missionMarkerName} State {markerData.missionMarkerState}");
+            GameEvents.OnHideRecordingPanel.Invoke();
             AssignPassiveMisionMarker(markerData);
         }
     }

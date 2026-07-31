@@ -5,7 +5,8 @@ using UnityEngine;
 public enum MissionMarkerState
 {
    Passive, 
-   Active
+   Active,
+   Flagged
 }
 
 public class MissionMarker : MonoBehaviour, IInteractable
@@ -22,7 +23,8 @@ public class MissionMarker : MonoBehaviour, IInteractable
    private Camera _camera;
    
    public bool IsFlagged => isFlagged;
-
+   public MissionMarkerState MarkerState => markerState;
+   
    private void Awake()
    {
       _camera  = Camera.main;
@@ -56,8 +58,12 @@ public class MissionMarker : MonoBehaviour, IInteractable
 
    public void OnIntrect()
    {
+      if (isFlagged)
+         return;
       
       InputManager.Instance.SwitchActionMap(targetMap);
+      
+      GameEvents.OnShowRecordingPanel.Invoke(this);
       Debug.Log($"[{gameObject.name} - {nameof(MissionMarker)}] OnIntrect");
    }
 }
