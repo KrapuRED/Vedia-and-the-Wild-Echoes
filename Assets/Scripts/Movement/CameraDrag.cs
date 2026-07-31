@@ -80,29 +80,13 @@ public class CameraDrag : CursorController
             dragHoldAction.action.Enable();
     }
     
-    private void OnDragStarted(InputAction.CallbackContext _)
-    {
-        if (isDragging) return;
-        
-        HandleMapChange(actionMapName);
-        
-        isDragging = true;
-    }
+    private void OnDragStarted(InputAction.CallbackContext _) => isDragging = true;
 
-    private void OnDragCanceled(InputAction.CallbackContext _)
-    {
-        if (isDragging) 
-            HandleMapChange(_inputManager.DefaultActionMap);
-        
-        isDragging = false;
-    }
+    private void OnDragCanceled(InputAction.CallbackContext _) =>  isDragging = false;
     
     private void LateUpdate()
     {
         if (!isDragging || dragDeltaAction == null) return;
-        
-        if (!_inputManager.IsOverlayActive(actionMapName))
-            return;
         
         Vector2 mouseDelta = dragDeltaAction.action.ReadValue<Vector2>();
         if (mouseDelta == Vector2.zero)

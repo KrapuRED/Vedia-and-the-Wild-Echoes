@@ -16,6 +16,8 @@ public class MissionMarker : MonoBehaviour, IInteractable
    [SerializeField] private Material markerActiveMaterial;
    [SerializeField] private bool isFlagged;
    
+   [SerializeField] private string targetMap = "FlaggingController";
+   
    private MeshRenderer _meshRenderer;
    private Camera _camera;
    
@@ -54,6 +56,8 @@ public class MissionMarker : MonoBehaviour, IInteractable
 
    public void OnIntrect()
    {
+      
+      InputManager.Instance.SwitchActionMap(targetMap);
       Debug.Log($"[{gameObject.name} - {nameof(MissionMarker)}] OnIntrect");
    }
 }

@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance {get; private set; }
 
     [Header("Settings")]
+    [SerializeField] private bool isCursorConfined;
     [SerializeField] private InputActionAsset gamePlayInput;
     [SerializeField] private string defaultActionMap;
 
@@ -33,9 +34,10 @@ public class InputManager : MonoBehaviour
             Destroy(gameObject);
         }
         
-        gamePlayInput.FindActionMap("Global")?.Enable();
+        gamePlayInput.FindActionMap(defaultActionMap)?.Enable();
         
-        Cursor.lockState = CursorLockMode.Confined;
+        if (isCursorConfined)
+            Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void Start() => SwitchActionMap(defaultActionMap);
@@ -111,6 +113,8 @@ public class InputManager : MonoBehaviour
         _overlayStack.Push(mapName);
         currentMapName = mapName;
         OnActionMapChanged?.Invoke(mapName);
+        
+        Debug.Log($"[{gameObject.name}] Switched ActionMap to {mapName}");
     }
     
     private void ExecuteSwitchActionMap(string mapName)
@@ -125,6 +129,9 @@ public class InputManager : MonoBehaviour
             return;
         }
 
+        if (_overlayStack.Count > 0)
+            GetActionMap(_overlayStack.Peek())?.Disable();
+        
         map.Enable();
         _overlayStack.Push(mapName);
         currentMapName = mapName;

@@ -1,0 +1,86 @@
+using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class InteractSelector : MonoBehaviour
+{
+    [SerializeField] private InputActionReference clickPoint;
+    [SerializeField] private InputActionReference pointerPosition;
+    [SerializeField] private LayerMask interactLayerMask;
+    
+    [SerializeField] private Camera _camera;
+    private Vector2 _screenPosition;
+    
+    private void Awake()
+    {
+        _camera = Camera.main;
+    }
+
+    #region Event System
+    private void OnEnable()
+    {
+        if (clickPoint != null)
+        {
+            clickPoint.action.performed += OnClickMissionMarkerCallback;
+            clickPoint.action.Enable();
+        }
+    }
+
+    private void OnDisable() => OnRemoveListener();
+    private void OnDestroy() => OnRemoveListener();
+
+    private void OnRemoveListener()
+    {
+        if (clickPoint != null)
+        {
+            clickPoint.action.performed -= OnClickMissionMarkerCallback;
+        }
+    }
+    
+    private void OnClickMissionMarkerCallback(InputAction.CallbackContext _) => OnClickMissionMarker();
+
+    #endregion
+    
+    private void Update()
+    {
+        // Selalu ter-update tanpa peduli Action Map mana yang sedang aktif
+        if (Pointer.current != null)
+        {
+            _screenPosition = Pointer.current.position.ReadValue();
+        }
+    }
+    
+    private void OnClickMissionMarker()
+    {
+        Debug.Log($"[{gameObject.name}] OnClickMissionMarker");
+
+        CheckRaycast();
+    }
+
+    private void CheckRaycast()
+    {
+        if (_camera == null)
+        {
+            Debug.LogError("Camera reference is missing!");
+            return;
+        }
+        
+        Ray ray = _camera.ScreenPointToRay(_screenPosition);
+        Debug.Log($"{_screenPosition} Raycast Hit: {ray.origin} - {ray.direction}");
+        Debug.DrawRay(ray.origin, ray.direction * 500f, Color.red, 2f);
+        
+        if (Physics.Raycast(ray, out var hit, 500f, interactLayerMask))
+        {
+            Debug.Log($"Raycast Hit: {hit.collider.name}");
+        
+            if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
+            {
+                interactable.OnIntrect();
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"[{gameObject.name} - {nameof(InteractSelector)}] Raycast Failed");
+        }
+    }
+}

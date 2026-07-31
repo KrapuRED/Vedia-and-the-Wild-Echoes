@@ -3122,7 +3122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1705863303
 Transform:
   m_ObjectHideFlags: 0
@@ -3145,16 +3145,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705863302}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67a4011c875d1f443a2954555405a93b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlaggingCursorController
-  interactLayerMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  actionMapName: FlaggingController
-  clickPoint: {fileID: 2632438968924636070, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   clickFlagPoint: {fileID: 9032173493644271324, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   dragFlagPoint: {fileID: 6128980235671301375, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1 &1735922277
@@ -3251,6 +3246,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 22025c80-a6d1-4729-92ac-e158a1ae4703
     m_ActionName: 'FlaggingController/DraggingFlag[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 70c16b0e-6d92-497f-af8b-0eb2e79ce1ba
+    m_ActionName: Gameplay/PointerPosition
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: 
@@ -3268,6 +3267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ba9f6f1c00b8b42a1a8adb2e8fc9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
+  isCursorConfined: 0
   gamePlayInput: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   defaultActionMap: Gameplay
   currentMapName: 
@@ -3532,6 +3532,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1735922278}
+  - {fileID: 2002851260}
   - {fileID: 1705863303}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3814,6 +3815,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1979442635}
   m_CullTransparentMesh: 1
+--- !u!1 &2002851259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2002851260}
+  - component: {fileID: 2002851261}
+  m_Layer: 0
+  m_Name: Game Play - Interact Selector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2002851260
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002851259}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1906539174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2002851261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002851259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10475620a08a2ed4b988c81062a31b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractSelector
+  clickPoint: {fileID: 2632438968924636070, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  pointerPosition: {fileID: -3456201639632958719, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  interactLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  _camera: {fileID: 0}
 --- !u!1 &2045808115
 GameObject:
   m_ObjectHideFlags: 0
