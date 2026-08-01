@@ -27,7 +27,7 @@ public class RecordingPanelUITransition : UITransition
     private void OnRemoveListener()
     {
         GameEvents.OnShowRecordingPanel.RemoveListener(PlayAnimation);
-        GameEvents.OnHideRecordingPanel.AddListener(HideTransition);
+        GameEvents.OnHideRecordingPanel.RemoveListener(HideTransition);
         
     }
     #endregion
@@ -59,8 +59,6 @@ public class RecordingPanelUITransition : UITransition
             _mainCanvasGroup.blocksRaycasts = true;
             _mainCanvasGroup.interactable = true;
         });
-        
-        Debug.Log($"[{gameObject.name} - {nameof(RecordingPanelUITransition)}] Show Transition");
     }
 
     public override void HideTransition()
@@ -78,16 +76,14 @@ public class RecordingPanelUITransition : UITransition
         }
         
         _tween = _mainCanvasGroup.DOFade(0, 0.3f);
-        
-        Debug.Log($"[{gameObject.name} - {nameof(RecordingPanelUITransition)}] Hide Transition");
-
         _tween.OnComplete(() =>
         {
-            recordingPanelUI.EmptRecordngPanelUI();
-            
-            InputManager.Instance.PopActionMap();
             _mainCanvasGroup.blocksRaycasts = false;
             _mainCanvasGroup.interactable = false;
+            
+            recordingPanelUI.EmptyRecordngPanelUI();
+            InputManager.Instance.PopActionMap();
+            
         });
     }
 }

@@ -1,14 +1,23 @@
- using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class FlaggingCursorController : MonoBehaviour
 {
-    [Header("Cursor Converter Configuration")]
+    [SerializeField] private string actionMap = "FlaggingController";
+    [Header("Cursor Flagging Configuration")]
+    [SerializeField] private Canvas canvas;                       // your root canvas
+    [SerializeField] private RectTransform dragLayer;
     [SerializeField] private InputActionReference clickFlagPoint;
     [SerializeField] private InputActionReference dragFlagPoint;
-    
     private FlagCard _selectedFlagCard;
+    
+    private Vector2 _grabOffset;
+    private RectTransform _draggedRect;
+    private Transform _originalParent;
+    private int _originalSiblingIndex;
+    private bool _isDragging;
     
     private InputManager _inputManager;
     private Camera _camera;
@@ -23,19 +32,9 @@ public class FlaggingCursorController : MonoBehaviour
 
     private void OnEnable()
     {
-        
-        /*if (clickFlagPoint != null)
-        {
-            clickFlagPoint.action.performed += OnClickFlagCard;
-            clickFlagPoint.action.Enable();
-        }
-
-        if (dragFlagPoint != null)
-        {
-            dragFlagPoint.action.performed += OnDragFlagCard;
-            dragFlagPoint.action.canceled += OnDropFlagCard;
-            dragFlagPoint.action.Enable();
-        }*/
+        clickFlagPoint.action.started += OnClickFlagCard;
+        clickFlagPoint.action.canceled += OnDropFlagCard;
+        clickFlagPoint.action.Enable();
     }
 
     private void OnDisable() => OnRemoveListener();
@@ -43,22 +42,78 @@ public class FlaggingCursorController : MonoBehaviour
 
     private void OnRemoveListener()
     {
-
+        clickFlagPoint.action.started -= OnClickFlagCard;
+        clickFlagPoint.action.canceled -= OnDropFlagCard;
     }
     #endregion
-    
-    /*public void OnClickFlagCard(InputAction.CallbackContext _)
+
+    private void Update()
     {
+        if (!_inputManager.IsCurrentActionMap(actionMap))
+            return;
         
+        if (!_isDragging || _draggedRect == null) return;
+        
+        Vector2 screenPos = Pointer.current.position.ReadValue();
+        
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            dragLayer, screenPos,
+            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : _camera,
+            out Vector2 localPoint);
+
+        _draggedRect.anchoredPosition = localPoint +  _grabOffset;
+    }
+
+    private void OnClickFlagCard(InputAction.CallbackContext _)
+    {
+        if (!_inputManager.IsCurrentActionMap(actionMap))
+            return;
+        
+        Vector2 screenPos = Pointer.current.position.ReadValue();
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            dragLayer, screenPos,
+            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : _camera,
+            out Vector2 localPoint);
+        
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current) {position = screenPos};
+        var results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, results);
+
+        foreach (var result in results)
+        {
+            if (result.gameObject.TryGetComponent(out FlagCard card))
+            {
+                Debug.Log($"[{gameObject.name} - OnClickFlagCard] Find {result.gameObject.name}");
+                _selectedFlagCard = card;
+                _draggedRect = card.GetComponent<RectTransform>();
+                
+                _originalParent = _draggedRect.parent;
+                _originalSiblingIndex = _draggedRect.GetSiblingIndex();
+                _draggedRect.SetParent(dragLayer, worldPositionStays: true);
+                _draggedRect.SetAsLastSibling();
+                
+                _grabOffset = _draggedRect.anchoredPosition - localPoint;
+                _isDragging = true;
+                break;
+            }
+        }
     }
     
-    public void OnDragFlagCard(InputAction.CallbackContext _)
+    private void OnDropFlagCard(InputAction.CallbackContext _)
     {
+        if (!_inputManager.IsCurrentActionMap(actionMap))
+            return;
         
+        if (_selectedFlagCard != null)
+        {
+            // TODO: check for a valid drop target here (raycast again),
+            // otherwise snap back to where it came from:
+            _draggedRect.SetParent(_originalParent, worldPositionStays: true);
+            _draggedRect.SetSiblingIndex(_originalSiblingIndex);
+        }
+
+        _isDragging = false;
+        _selectedFlagCard = null;
+        _draggedRect = null;
     }
-    
-    public void OnDropFlagCard(InputAction.CallbackContext _)
-    {
-        
-    }*/
 }

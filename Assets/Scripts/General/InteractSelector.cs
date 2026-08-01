@@ -79,9 +79,5 @@ public class InteractSelector : MonoBehaviour
                 interactable.OnIntrect();
             }
         }
-        else
-        {
-            Debug.LogWarning($"[{gameObject.name} - {nameof(InteractSelector)}] Raycast Failed");
-        }
     }
 }

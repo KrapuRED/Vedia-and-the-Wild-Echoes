@@ -25,10 +25,10 @@ public class RecordngPanelUI : MonoBehaviour
         
     }
 
-    public void EmptRecordngPanelUI()
+    public void EmptyRecordngPanelUI()
     {
         statuRecord.text = string.Empty;
-        soundRecodingIcon.sprite = null;
-        soundFlagIcon.sprite = null;
+        /*soundRecodingIcon.sprite = null;
+        soundFlagIcon.sprite = null;*/
     }
 }
