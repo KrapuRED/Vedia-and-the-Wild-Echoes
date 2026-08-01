@@ -16,10 +16,12 @@ public class SelectedMissionMarkerData
 
 public class MissionManager : MonoBehaviour
 {
-    public  static MissionManager Instance { get; private set; }
-
+    public static MissionManager Instance { get; private set; }
+    
     [Header("Mission Configuration")]
     [SerializeField] private int maxMissions;
+    [SerializeField] private List<RecordingDataSO> passiveRecordingsList = new();
+    [SerializeField] private List<RecordingDataSO> activeRecordingsList = new();
     [SerializeField] private List<SelectedMissionMarkerData> missionMarkerPassive =  new();
     [SerializeField] private List<SelectedMissionMarkerData> missionMarkerActive =  new();
     
@@ -63,6 +65,18 @@ public class MissionManager : MonoBehaviour
         UpdateActiveMissionMarker();
     }
 
+    private RecordingDataSO GetActiveRecordingData()
+    {
+        int randomIndex = Random.Range(0, activeRecordingsList.Count);
+        return activeRecordingsList[randomIndex];
+    }
+    
+    private RecordingDataSO GetPassiveRecordingData()
+    {
+        int randomIndex = Random.Range(0, passiveRecordingsList.Count);
+        return passiveRecordingsList[randomIndex];
+    }
+
     private void UpdatePassiveMissionMarker()
     {
         if (missionMarkerPassive.Count <= 0)
@@ -101,8 +115,6 @@ public class MissionManager : MonoBehaviour
         
         foreach (var markerData  in toPromote)
         {
-            markerData.missionMarkerState = MissionMarkerState.Active;
-            markerData.missionMarkerData.UpdateState(markerData.missionMarkerState); 
             Debug.Log($"{markerData.missionMarkerName} State {markerData.missionMarkerState}");
             AssignActiveMissionMarker(markerData);
         }
@@ -140,12 +152,9 @@ public class MissionManager : MonoBehaviour
         
         foreach (var markerData  in toDemote)
         {
-            markerData.missionMarkerState = MissionMarkerState.Passive; 
-            markerData.missionMarkerData.UpdateState(markerData.missionMarkerState);
-            
             Debug.Log($"{markerData.missionMarkerName} State {markerData.missionMarkerState}");
             GameEvents.OnHideRecordingPanel.Invoke();
-            AssignPassiveMisionMarker(markerData);
+            AssignPassiveMissionMarker(markerData);
         }
     }
 
@@ -172,25 +181,26 @@ public class MissionManager : MonoBehaviour
             {
                 missionMarkerName = selectedMission.name,
                 missionMarkerData = selectedMission,
-                activeTimer = GetRandomPassiveMarkerTimer()
             };
         
             //cannot have same missionMarkerData
-            missionMarkerPassive.Add(markerData);
+            AssignPassiveMissionMarker(markerData);
             _assignedMarkers.Add(selectedMission); 
         }
     }
     
-    private void AssignPassiveMisionMarker(SelectedMissionMarkerData markerData)
+    private void AssignPassiveMissionMarker(SelectedMissionMarkerData markerData)
     {
         if (markerData == null)
         {
             Debug.LogError($"{nameof(areaMission)} is null in {gameObject.name}");
             return;
         }
-        
         missionMarkerActive.Remove(markerData);
 
+        markerData.missionMarkerState = MissionMarkerState.Passive; 
+        markerData.missionMarkerData.UpdateState(markerData.missionMarkerState, GetPassiveRecordingData());
+        
         markerData.currentTimer = 0;
         markerData.activeTimer = GetRandomPassiveMarkerTimer();
         
@@ -209,6 +219,9 @@ public class MissionManager : MonoBehaviour
         
         missionMarkerPassive.Remove(markerData);
 
+        markerData.missionMarkerState = MissionMarkerState.Active; 
+        markerData.missionMarkerData.UpdateState(markerData.missionMarkerState, GetActiveRecordingData());
+        
         markerData.currentTimer = 0;
         markerData.activeTimer = GetRandomActiveMarkerTimer();
         

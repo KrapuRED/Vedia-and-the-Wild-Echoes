@@ -6,6 +6,9 @@ using UnityEngine.EventSystems;
 public class FlaggingCursorController : MonoBehaviour
 {
     [SerializeField] private string actionMap = "FlaggingController";
+
+    [SerializeField] private LayerMask dropLayerMask; // Image that have this can drop
+    
     [Header("Cursor Flagging Configuration")]
     [SerializeField] private Canvas canvas;                       // your root canvas
     [SerializeField] private RectTransform dragLayer;
@@ -60,20 +63,29 @@ public class FlaggingCursorController : MonoBehaviour
             dragLayer, screenPos,
             canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : _camera,
             out Vector2 localPoint);
-
+        
         _draggedRect.anchoredPosition = localPoint +  _grabOffset;
+        
+        // if inside drop Layer, and went drop change RecordPanelUI
     }
-
+    
+    private Vector2 GetLocalPos(Vector2 screenPos)
+    {
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            dragLayer, screenPos,
+            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : _camera,
+            out Vector2 localPoint);
+        
+        return localPoint;
+    }
+    
     private void OnClickFlagCard(InputAction.CallbackContext _)
     {
         if (!_inputManager.IsCurrentActionMap(actionMap))
             return;
         
-        Vector2 screenPos = Pointer.current.position.ReadValue();
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            dragLayer, screenPos,
-            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : _camera,
-            out Vector2 localPoint);
+        Vector2 screenPos =  Pointer.current.position.ReadValue();
+        Vector2 localPoint = GetLocalPos(screenPos);
         
         PointerEventData pointerEventData = new PointerEventData(EventSystem.current) {position = screenPos};
         var results = new List<RaycastResult>();
@@ -83,7 +95,6 @@ public class FlaggingCursorController : MonoBehaviour
         {
             if (result.gameObject.TryGetComponent(out FlagCard card))
             {
-                Debug.Log($"[{gameObject.name} - OnClickFlagCard] Find {result.gameObject.name}");
                 _selectedFlagCard = card;
                 _draggedRect = card.GetComponent<RectTransform>();
                 
@@ -112,6 +123,21 @@ public class FlaggingCursorController : MonoBehaviour
             _draggedRect.SetSiblingIndex(_originalSiblingIndex);
         }
 
+        Vector2 screenPos =  Pointer.current.position.ReadValue();
+        
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current) {position = screenPos};
+        var results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, results);
+        
+        foreach (var result in results)
+        {
+            if (result.gameObject.TryGetComponent(out Recording recording))
+            {
+                recording.DropFlagCard(_selectedFlagCard);
+                break;
+            }
+        }
+        
         _isDragging = false;
         _selectedFlagCard = null;
         _draggedRect = null;

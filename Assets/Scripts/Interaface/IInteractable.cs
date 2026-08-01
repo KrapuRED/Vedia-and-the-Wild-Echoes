@@ -1,6 +1,6 @@
 public interface IInteractable
 {
-    public void OnIntrect()
+    public void OnInteract()
     {
         
     }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [System.Serializable]
@@ -11,7 +10,10 @@ public enum MissionMarkerState
 
 public class MissionMarker : MonoBehaviour, IInteractable
 {
-   [SerializeField] private MissionMarkerState markerState ;
+   [SerializeField] private MissionMarkerState missionMarkerState ;
+   [SerializeField] private RecordingDataSO  missionRecordingData;
+   
+   [Header("Rotation Config")]
    [SerializeField] private float maxTilted; 
    [SerializeField] private Material markerPassiveMaterial;
    [SerializeField] private Material markerActiveMaterial;
@@ -21,9 +23,11 @@ public class MissionMarker : MonoBehaviour, IInteractable
    
    private MeshRenderer _meshRenderer;
    private Camera _camera;
+   private bool _isMarkerSelected;
    
    public bool IsFlagged => isFlagged;
-   public MissionMarkerState MarkerState => markerState;
+   public MissionMarkerState MissionMarkerState => missionMarkerState;
+   public RecordingDataSO MissionRecordingData => missionRecordingData;
    
    private void Awake()
    {
@@ -36,17 +40,16 @@ public class MissionMarker : MonoBehaviour, IInteractable
       transform.rotation = Quaternion.LookRotation(transform.position - _camera.transform.position);
    }
 
-   public void UpdateState(MissionMarkerState markerState)
+   public void UpdateState(MissionMarkerState markerState, RecordingDataSO recordingData)
    {
-      Debug.Log($"[{gameObject.name} - {nameof(MissionMarker)}] Success change state: {markerState}");
-      
       if (_meshRenderer == null)
       {
          Debug.LogError($"[{gameObject.name} - {nameof(MissionMarker)}] MeshRenderer not assigned");
          return;
       }
       
-      this.markerState = markerState;
+      this.missionMarkerState = markerState;
+      missionRecordingData = recordingData;
       
       _meshRenderer.material = markerState switch
       {
@@ -56,14 +59,14 @@ public class MissionMarker : MonoBehaviour, IInteractable
       };
    }
 
-   public void OnIntrect()
+   public void OnInteract()
    {
       if (isFlagged)
          return;
-      
+
       InputManager.Instance.SwitchActionMap(targetMap);
       
       GameEvents.OnShowRecordingPanel.Invoke(this);
-      Debug.Log($"[{gameObject.name} - {nameof(MissionMarker)}] OnIntrect");
+      Debug.Log($"[{gameObject.name} - {nameof(MissionMarker)}] On interact");
    }
 }

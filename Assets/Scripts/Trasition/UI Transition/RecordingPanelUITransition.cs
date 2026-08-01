@@ -4,8 +4,9 @@ using System;
 
 public class RecordingPanelUITransition : UITransition
 {
-    [SerializeField] private RecordngPanelUI recordingPanelUI;
-    
+    [SerializeField] private Recording recording;
+
+    private bool _isOpen;
     private CanvasGroup _mainCanvasGroup;
     private Tween _tween;
 
@@ -34,9 +35,16 @@ public class RecordingPanelUITransition : UITransition
 
     private void PlayAnimation(MissionMarker missionMarker)
     {
-        recordingPanelUI.UpdateStatuRecord(missionMarker);
+        if (recording == null)
+        {
+            Debug.LogError($"[{this.name}] Recording is NULL");
+            return;
+        }
         
-        ShowTransition();
+        recording.UpdateRecording(missionMarker);
+        
+        if (!_isOpen)
+            ShowTransition();
     }
     
     public override void ShowTransition()
@@ -52,6 +60,7 @@ public class RecordingPanelUITransition : UITransition
             _tween = null;
         }
         
+        _isOpen = true;
         _tween = _mainCanvasGroup.DOFade(1, 0.3f);
         
         _tween.OnComplete(() =>
@@ -78,12 +87,12 @@ public class RecordingPanelUITransition : UITransition
         _tween = _mainCanvasGroup.DOFade(0, 0.3f);
         _tween.OnComplete(() =>
         {
+            _isOpen  = false;
             _mainCanvasGroup.blocksRaycasts = false;
             _mainCanvasGroup.interactable = false;
             
-            recordingPanelUI.EmptyRecordngPanelUI();
+            recording.ResetRecording();
             InputManager.Instance.PopActionMap();
-            
         });
     }
 }

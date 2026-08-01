@@ -76,7 +76,7 @@ public class InteractSelector : MonoBehaviour
         
             if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
             {
-                interactable.OnIntrect();
+                interactable.OnInteract();
             }
         }
     }
