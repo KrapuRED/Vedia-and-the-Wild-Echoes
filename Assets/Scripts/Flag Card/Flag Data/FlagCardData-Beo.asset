@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FlagCardDataSO
   flagCardName: Beo
   flagCardSprite: {fileID: 0}
-  recordingData: {fileID: 11400000, guid: 4c396eb933d60624b8bcb7c8c6df14ee, type: 2}
+  recordingData: {fileID: 11400000, guid: 912af685b1302bd49b4014693fabc02c, type: 2}
+  forestMonitorType: 0

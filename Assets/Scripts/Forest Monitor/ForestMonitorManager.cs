@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -8,10 +9,21 @@ public enum ForestMonitorType
     Threat
 }
 
+[Serializable]
+public class ForestHealthEvaluation
+{
+    public string ForestEvaluationName;
+    [MinMaxRange(0f, 100f)] 
+    public RangedFloat EvaluationRange;
+    public string ForestEvaluationDescription;
+} 
+
 public class ForestMonitorManager : MonoBehaviour
 {
     public static ForestMonitorManager Instance {get; private set; }
 
+    [SerializeField] private List<ForestHealthEvaluation> forestHealthEvaluations = new();
+    
     [Header("Forest Monitor Indicator")]
     [SerializeField] private ForestMonitorUI biodiversityIndicator;
     [SerializeField] private ForestMonitorUI threatIndicator;
@@ -120,5 +132,14 @@ public class ForestMonitorManager : MonoBehaviour
                 Debug.Log($"There no ForestMonitorType {forestMonitorType.ToString()}!");
                 break;
         }
+    }
+    
+    public void ReportForestMonitor()
+    {
+        var forestEval = forestHealthEvaluations.Find(eval => 
+            currForestSustainability >= eval.EvaluationRange.min && 
+            currForestSustainability <= eval.EvaluationRange.max);
+        
+        Debug.Log($"Game is done this the eval : {forestEval.ForestEvaluationDescription}");
     }
 }

@@ -6833,6 +6833,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f5786a2ed71cd41ac34728ec4b4cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ForestMonitorManager
+  forestHealthEvaluations:
+  - ForestEvaluationName: THIS ONLY TEST
+    EvaluationRange:
+      min: 0
+      max: 40
+    ForestEvaluationDescription: THANY YOU TO TRY THIS
   biodiversityIndicator: {fileID: 399098524}
   threatIndicator: {fileID: 97499820}
   forestSustainabilityIndicator: {fileID: 603159237}

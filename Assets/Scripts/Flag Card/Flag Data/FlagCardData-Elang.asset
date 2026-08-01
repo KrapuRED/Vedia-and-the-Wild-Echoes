@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FlagCardDataSO
   flagCardName: Elang
   flagCardSprite: {fileID: 0}
-  recordingData: {fileID: 11400000, guid: 4c396eb933d60624b8bcb7c8c6df14ee, type: 2}
+  recordingData: {fileID: 11400000, guid: 6ead2549453fbc442b297bc3264e4374, type: 2}
+  forestMonitorType: 0
