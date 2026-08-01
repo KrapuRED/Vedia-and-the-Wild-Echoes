@@ -21,6 +21,8 @@ public class TaskManager : MonoBehaviour
     [SerializeField] private Transform containerContentTask;
     [SerializeField] private List<TaskDataSO> contentTasks = new();
     [SerializeField] private List<TaskData> activeTasks = new();
+
+    private bool _isAllTaskCompleted;
     
     private void Awake()
     {
@@ -93,10 +95,28 @@ public class TaskManager : MonoBehaviour
         return  activeTasks.Find(x => x.taskName == taskName);
     }
 
+    private void CheckAllTaskCompleted()
+    {
+        bool isCompleted = true;
+        foreach (var activeTask in activeTasks)
+        {
+            if (!activeTask.isCompleted)
+            {
+                isCompleted = false;
+            }
+        }
+
+        _isAllTaskCompleted = isCompleted;
+        if (isCompleted)
+            ForestMonitorManager.Instance.ReportForestMonitor();
+    }
+    
     public void OnUpdateTask(MissionMarker missionData)
     {
-        var taskData = missionData.MissionRecordingData;
+        if (_isAllTaskCompleted)
+            return;
         
+        var taskData = missionData.MissionRecordingData;
         if (taskData == null)
         {
             Debug.LogError($"[{this.name} - OnUpdateTask] Task data is null!");
@@ -111,13 +131,13 @@ public class TaskManager : MonoBehaviour
         }
         
         task.currentTask++;
-
+        task.taskUI.UpdateTaskUI(task);
+        
         if (task.currentTask >= task.flagAppearanceTask)
         {
             task.isCompleted = true;
+            CheckAllTaskCompleted();
             return;
         }
-        
-        task.taskUI.UpdateTaskUI(task);
     }
 }

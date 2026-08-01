@@ -59,6 +59,12 @@ public class MissionMarkerIndicatorManager : MonoBehaviour
             MissionMarker marker = kvp.Key;
             RectTransform indicator = kvp.Value;
             
+            if (marker.MissionMarkerState != MissionMarkerState.Active)
+            {
+                indicator.gameObject.SetActive(false);
+                continue;
+            }
+            
             bool onScreen = ScreenIndicatorUtility.IsOnCamera(_camera, marker.transform.position, out Vector3 viewportPos);
             indicator.gameObject.SetActive(!onScreen);
             if (onScreen) continue;

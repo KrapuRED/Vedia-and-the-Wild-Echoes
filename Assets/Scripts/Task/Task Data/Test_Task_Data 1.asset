@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TaskDataSO
   taskName: Burung Elang
   taskIcon: {fileID: 0}
-  flagAppearance: 5
+  flagAppearance: 1
   difficulty: 0

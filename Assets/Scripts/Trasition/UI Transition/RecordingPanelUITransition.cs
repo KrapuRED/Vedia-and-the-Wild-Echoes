@@ -95,4 +95,5 @@ public class RecordingPanelUITransition : UITransition
             InputManager.Instance.PopActionMap();
         });
     }
+    
 }
