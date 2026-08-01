@@ -126,8 +126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b062b6776fa1448a4fc33bf50a1901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MissionMarker
-  markerState: 0
+  missionMarkerState: 0
+  missionRecordingData: {fileID: 0}
   maxTilted: 45
+  markerFlaggedMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   markerPassiveMaterial: {fileID: 2100000, guid: 56df7fa81b9a5444584a4ba927848309, type: 2}
   markerActiveMaterial: {fileID: 2100000, guid: 88369b2686353214abdd1d4e23c5bfdb, type: 2}
   isFlagged: 0

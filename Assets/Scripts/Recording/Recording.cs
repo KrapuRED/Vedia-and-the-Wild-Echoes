@@ -39,6 +39,7 @@ public class Recording : MonoBehaviour
         if (selectedFlagCard.RecordingData.recordingName == currentMission.MissionRecordingData.recordingName)
         {
             Debug.Log($"[{gameObject.name}] Successfully checked recording");
+            GameEvents.OnFlaggedMissionMarker.Invoke(currentMission);
         }
         else
         {

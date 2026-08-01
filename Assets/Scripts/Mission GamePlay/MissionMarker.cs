@@ -15,6 +15,7 @@ public class MissionMarker : MonoBehaviour, IInteractable
    
    [Header("Rotation Config")]
    [SerializeField] private float maxTilted; 
+   [SerializeField] private Material markerFlaggedMaterial;
    [SerializeField] private Material markerPassiveMaterial;
    [SerializeField] private Material markerActiveMaterial;
    [SerializeField] private bool isFlagged;
@@ -34,6 +35,24 @@ public class MissionMarker : MonoBehaviour, IInteractable
       _camera  = Camera.main;
       _meshRenderer = GetComponent<MeshRenderer>();
    }
+   
+   #region Event
+
+   private void OnEnable()
+   {
+      GameEvents.OnFlaggedMissionMarker.AddListener(FlaggeMissionMarker);
+   }
+
+   private void OnDisable() => OnRemoveListeners();
+
+   private void OnDestroy() =>  OnRemoveListeners();
+
+   private void OnRemoveListeners()
+   {
+      GameEvents.OnFlaggedMissionMarker.RemoveListener(FlaggeMissionMarker);
+   }
+    
+   #endregion
 
    private void LateUpdate()
    {
@@ -68,5 +87,14 @@ public class MissionMarker : MonoBehaviour, IInteractable
       
       GameEvents.OnShowRecordingPanel.Invoke(this);
       Debug.Log($"[{gameObject.name} - {nameof(MissionMarker)}] On interact");
+   }
+   
+   private void FlaggeMissionMarker(MissionMarker missionMarkerData)
+   {
+      if (this !=  missionMarkerData)
+         return;
+      
+      isFlagged = true;
+      _meshRenderer.material = markerFlaggedMaterial;
    }
 }

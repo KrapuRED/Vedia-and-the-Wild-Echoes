@@ -1,13 +1,15 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class InteractSelector : MonoBehaviour
 {
     [SerializeField] private InputActionReference clickPoint;
     [SerializeField] private InputActionReference pointerPosition;
     [SerializeField] private LayerMask interactLayerMask;
-    
+
+    private bool _isPointerOverUI;
     private Camera _camera;
     private Vector2 _screenPosition;
     private InputManager _inputManager;
@@ -48,6 +50,8 @@ public class InteractSelector : MonoBehaviour
         if (!_inputManager.IsCurrentActionMap(_inputManager.DefaultActionMap))
             return;
             
+        _isPointerOverUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+        
         if (Pointer.current != null)
         {
             _screenPosition = Pointer.current.position.ReadValue();
@@ -56,6 +60,9 @@ public class InteractSelector : MonoBehaviour
     
     private void OnClickMissionMarker()
     {
+        if (_isPointerOverUI)
+            return;
+        
         CheckRaycast();
     }
 

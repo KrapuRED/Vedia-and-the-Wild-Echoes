@@ -49,6 +49,24 @@ public class MissionManager : MonoBehaviour
 
         missionMarkers = areaMission.GetComponentsInChildren<MissionMarker>().ToList();
     }
+
+    #region Event
+
+    private void OnEnable()
+    {
+        GameEvents.OnFlaggedMissionMarker.AddListener(RemoveMissionMarker);
+    }
+
+    private void OnDisable() => OnRemoveListeners();
+
+    private void OnDestroy() =>  OnRemoveListeners();
+
+    private void OnRemoveListeners()
+    {
+        GameEvents.OnFlaggedMissionMarker.RemoveListener(RemoveMissionMarker);
+    }
+    
+    #endregion
     
     private void Update()
     {
@@ -227,5 +245,35 @@ public class MissionManager : MonoBehaviour
         
         missionMarkerActive.Add(markerData);
         Debug.Log($"{gameObject.name} Successfully Assigned to Active Mission Marker {markerData.missionMarkerName}");
+    }
+
+    private SelectedMissionMarkerData FindSelectedMissionMarker(MissionMarker markerData)
+    {
+        foreach (var selectedMissionMarker in missionMarkerActive)
+        {
+            if (selectedMissionMarker.missionMarkerData == markerData)
+                return selectedMissionMarker;
+        }
+        
+        foreach (var selectedMissionMarker in missionMarkerPassive)
+        {
+            if (selectedMissionMarker.missionMarkerData == markerData)
+                return selectedMissionMarker;
+        }
+        
+        return null;
+    }
+    
+    private void RemoveMissionMarker(MissionMarker markerData)
+    {
+        var missionMarker =  FindSelectedMissionMarker(markerData);
+        
+        if (missionMarkerPassive.Contains(missionMarker))
+            missionMarkerPassive.Remove(missionMarker);
+        
+        if (missionMarkerActive.Contains(missionMarker))
+            missionMarkerActive.Remove(missionMarker);
+        
+        _assignedMarkers.Remove(markerData);
     }
 }
