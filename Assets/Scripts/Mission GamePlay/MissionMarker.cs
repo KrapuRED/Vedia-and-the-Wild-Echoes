@@ -41,9 +41,15 @@ public class MissionMarker : MonoBehaviour, IInteractable
    private void OnEnable()
    {
       GameEvents.OnFlaggedMissionMarker.AddListener(FlaggeMissionMarker);
+      GameEvents.OnMissionMarkerRegistered.Invoke(this);
    }
 
-   private void OnDisable() => OnRemoveListeners();
+   private void OnDisable()
+   {
+      OnRemoveListeners();
+      GameEvents.OnMissionMarkerUnregistered.Invoke(this);
+      
+   }
 
    private void OnDestroy() =>  OnRemoveListeners();
 
@@ -97,4 +103,6 @@ public class MissionMarker : MonoBehaviour, IInteractable
       isFlagged = true;
       _meshRenderer.material = markerFlaggedMaterial;
    }
+   
+   //if out side of camera show indicator went active
 }

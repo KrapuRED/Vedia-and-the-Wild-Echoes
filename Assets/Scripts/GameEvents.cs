@@ -94,10 +94,12 @@ public class CustomEvents<T1, T2, T3, T4>
 }
 #endregion
 
-public class GameEvents : MonoBehaviour
+public static class GameEvents
 {
     public static readonly CustomEvents<MissionMarker> OnShowRecordingPanel = new();
     public static readonly CustomEvents OnHideRecordingPanel = new();
     
     public static readonly CustomEvents<MissionMarker> OnFlaggedMissionMarker = new();
+    public static readonly CustomEvents<MissionMarker> OnMissionMarkerRegistered = new();
+    public static readonly CustomEvents<MissionMarker> OnMissionMarkerUnregistered = new();
 }
