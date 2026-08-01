@@ -1,11 +1,16 @@
+using System.Collections;
 using UnityEngine;
 
 public class Recording : MonoBehaviour
 {
+    [SerializeField] private RecordingPanelUITransition recordingPanelUITransition;
     [SerializeField] private RecordingPanelUI recordingPanelUI;
     [SerializeField] private MissionMarker currentMission;
     [SerializeField] private FlagCard selectedFlagCard;
 
+    [Header("Delay Configuration")]
+    [SerializeField] private float delay;
+    
     public void UpdateRecording(MissionMarker missionMarker)
     {
         if (missionMarker == null || recordingPanelUI == null)
@@ -25,6 +30,8 @@ public class Recording : MonoBehaviour
         
         selectedFlagCard = flagCard;
         recordingPanelUI.UpdateSoundRecodingIcon(flagCard.RecordingData);
+
+        CheckMission();
     }
 
     public void ResetRecording()
@@ -34,16 +41,31 @@ public class Recording : MonoBehaviour
         selectedFlagCard = null;
     }
     
-    public void CheckMission()
+    private void CheckMission()
     {
-        if (selectedFlagCard.RecordingData.recordingName == currentMission.MissionRecordingData.recordingName)
+        bool isCorrrect = selectedFlagCard.RecordingData.recordingName ==
+                          currentMission.MissionRecordingData.recordingName;
+        
+        if (isCorrrect)
         {
             Debug.Log($"[{gameObject.name}] Successfully checked recording");
             GameEvents.OnFlaggedMissionMarker.Invoke(currentMission);
+            recordingPanelUI.ShowCorrectRecording();
         }
         else
         {
             Debug.Log($"[{gameObject.name}] Failed checking recording");
+            recordingPanelUI.ShowIncorrectRecording();
         }
+        
+        ForestMonitorManager.Instance.UpdateIndicator(selectedFlagCard.ForestMonitorType, isCorrrect);
+        StartCoroutine(OnDelayCoroutine());
+    }
+    
+    private IEnumerator OnDelayCoroutine()
+    {
+        
+        yield return new WaitForSeconds(delay);
+        recordingPanelUITransition.HideTransition();
     }
 }

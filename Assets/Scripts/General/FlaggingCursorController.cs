@@ -96,6 +96,7 @@ public class FlaggingCursorController : MonoBehaviour
             if (result.gameObject.TryGetComponent(out FlagCard card))
             {
                 _selectedFlagCard = card;
+                _selectedFlagCard.HideFlagCardName();
                 _draggedRect = card.GetComponent<RectTransform>();
                 
                 _originalParent = _draggedRect.parent;
@@ -137,6 +138,10 @@ public class FlaggingCursorController : MonoBehaviour
                 break;
             }
         }
+
+        if (_selectedFlagCard != null)
+            _selectedFlagCard.ShowFlagCardName();
+            
         
         _isDragging = false;
         _selectedFlagCard = null;

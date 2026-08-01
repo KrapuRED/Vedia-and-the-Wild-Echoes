@@ -101,6 +101,7 @@ public class MissionMarker : MonoBehaviour, IInteractable
          return;
       
       isFlagged = true;
+      missionMarkerState = MissionMarkerState.Flagged;
       _meshRenderer.material = markerFlaggedMaterial;
    }
    
