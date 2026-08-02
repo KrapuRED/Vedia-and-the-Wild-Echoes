@@ -102,4 +102,6 @@ public static class GameEvents
     public static readonly CustomEvents<MissionMarker> OnFlaggedMissionMarker = new();
     public static readonly CustomEvents<MissionMarker> OnMissionMarkerRegistered = new();
     public static readonly CustomEvents<MissionMarker> OnMissionMarkerUnregistered = new();
+    
+    public static readonly CustomEvents OnAllTaskDone = new();
 }

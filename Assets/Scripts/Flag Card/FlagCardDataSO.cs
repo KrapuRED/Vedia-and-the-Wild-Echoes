@@ -6,5 +6,4 @@ public class FlagCardDataSO : ScriptableObject
     public string flagCardName;
     public Sprite flagCardSprite;
     public RecordingDataSO recordingData;
-    public ForestMonitorType forestMonitorType;
 }

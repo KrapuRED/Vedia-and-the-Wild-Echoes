@@ -9,7 +9,6 @@ public class FlagCard : MonoBehaviour
     [SerializeField] private TMP_Text flagCardName;
     [SerializeField] private Image flagCardImage;
     
-    public ForestMonitorType ForestMonitorType => flagCardData.forestMonitorType;
     public RecordingDataSO RecordingData => flagCardData.recordingData;
 
     private void Start() => InitFlagCard();

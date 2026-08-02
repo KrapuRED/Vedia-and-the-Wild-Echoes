@@ -24,6 +24,8 @@ public class ForestMonitorManager : MonoBehaviour
 
     [SerializeField] private List<ForestHealthEvaluation> forestHealthEvaluations = new();
     
+    [SerializeField] private ForestEvaluationImpactUI forestEvaluationImpactUI;
+    
     [Header("Forest Monitor Indicator")]
     [SerializeField] private ForestMonitorUI biodiversityIndicator;
     [SerializeField] private ForestMonitorUI threatIndicator;
@@ -140,6 +142,6 @@ public class ForestMonitorManager : MonoBehaviour
             currForestSustainability >= eval.EvaluationRange.min && 
             currForestSustainability <= eval.EvaluationRange.max);
         
-        Debug.Log($"Game is done this the eval : {forestEval.ForestEvaluationDescription}");
+        forestEvaluationImpactUI.ForestEvaluation(currBiodiversityIndicator, currThreatIndicator, currForestSustainability, maxIndicator, forestEval);
     }
 }

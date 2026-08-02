@@ -16,6 +16,8 @@ public class TaskManager : MonoBehaviour
 {
     public static TaskManager Instance {get; private set;}
 
+    [SerializeField] private GameObject buttonEvaluationImpact;
+    
     [Header("Task Configration")] 
     [SerializeField] private TaskUI taskUIPrefab;
     [SerializeField] private Transform containerContentTask;
@@ -107,8 +109,12 @@ public class TaskManager : MonoBehaviour
         }
 
         _isAllTaskCompleted = isCompleted;
+        
         if (isCompleted)
-            ForestMonitorManager.Instance.ReportForestMonitor();
+        {
+            buttonEvaluationImpact.SetActive(true);
+            GameEvents.OnAllTaskDone.Invoke();
+        }
     }
     
     public void OnUpdateTask(MissionMarker missionData)

@@ -7,4 +7,5 @@ public class RecordingDataSO : ScriptableObject
     public Sprite recordingSprite;
     public Material recordingMaterial;
     public string recordingClip;
+    public ForestMonitorType forestMonitorType;
 }

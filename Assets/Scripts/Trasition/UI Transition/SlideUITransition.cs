@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class TaskMonitorTransition : UITransition
+public class SlideUITransition : UITransition
 {
     [Header("MainMenu UI Transition Configuration")]
     [SerializeField] private float transitionDuration = 0.5f;
