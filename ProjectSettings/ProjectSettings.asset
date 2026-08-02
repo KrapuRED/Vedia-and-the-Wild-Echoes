@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: KrapuRED Studio
   productName: Vedia and the Wild Echoes
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -865,8 +865,8 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Vedia and the Wild Echoes
-  metroPackageVersion: 
+  metroPackageName: VediaandtheWildEchoes
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -874,7 +874,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: Vedia and the Wild Echoes
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: Vedia and the Wild Echoes
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
