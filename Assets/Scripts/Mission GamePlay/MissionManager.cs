@@ -56,6 +56,7 @@ public class MissionManager : MonoBehaviour
     {
         GameEvents.OnFlaggedMissionMarker.AddListener(RemoveMissionMarker);
         GameEvents.OnAllTaskDone.RemoveListener(ClearAllMissionMarkers);
+        GameEvents.OnTutorialStepCompleted.AddListener(StartMission);
     }
 
     private void OnDisable() => OnRemoveListeners();
@@ -66,18 +67,14 @@ public class MissionManager : MonoBehaviour
     {
         GameEvents.OnFlaggedMissionMarker.RemoveListener(RemoveMissionMarker);
         GameEvents.OnAllTaskDone.RemoveListener(ClearAllMissionMarkers);
+        GameEvents.OnTutorialStepCompleted.RemoveListener(StartMission);
+        
     }
     
     #endregion
     
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !_isMissionMarkerActive)
-        {
-            _isMissionMarkerActive = true;
-            StartMission();
-        }
- 
         if (!_isMissionMarkerActive)
             return;
             
@@ -194,7 +191,7 @@ public class MissionManager : MonoBehaviour
             Debug.LogError($"{nameof(areaMission)} is null in {gameObject.name}");
             return;
         }
-
+        
         for (int i = 0; i < missionMarkers.Count; i++)
         {
             var availableMarkers = missionMarkers.Where(
@@ -213,6 +210,8 @@ public class MissionManager : MonoBehaviour
             AssignPassiveMissionMarker(markerData);
             _assignedMarkers.Add(selectedMission); 
         }
+
+        _isMissionMarkerActive = true;
     }
     
     private void AssignPassiveMissionMarker(SelectedMissionMarkerData markerData)
