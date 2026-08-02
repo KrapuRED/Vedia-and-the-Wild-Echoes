@@ -55,6 +55,7 @@ public class MissionManager : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.OnFlaggedMissionMarker.AddListener(RemoveMissionMarker);
+        GameEvents.OnAllTaskDone.RemoveListener(ClearAllMissionMarkers);
     }
 
     private void OnDisable() => OnRemoveListeners();
@@ -64,6 +65,7 @@ public class MissionManager : MonoBehaviour
     private void OnRemoveListeners()
     {
         GameEvents.OnFlaggedMissionMarker.RemoveListener(RemoveMissionMarker);
+        GameEvents.OnAllTaskDone.RemoveListener(ClearAllMissionMarkers);
     }
     
     #endregion
@@ -83,6 +85,14 @@ public class MissionManager : MonoBehaviour
         UpdateActiveMissionMarker();
     }
 
+    private void ClearAllMissionMarkers()
+    {
+        missionMarkerActive.Clear();
+        missionMarkerPassive.Clear();
+        
+        _isMissionMarkerActive = false;
+    }
+    
     private RecordingDataSO GetActiveRecordingData()
     {
         int randomIndex = Random.Range(0, activeRecordingsList.Count);
@@ -133,7 +143,6 @@ public class MissionManager : MonoBehaviour
         
         foreach (var markerData  in toPromote)
         {
-            Debug.Log($"{markerData.missionMarkerName} State {markerData.missionMarkerState}");
             AssignActiveMissionMarker(markerData);
         }
     }
@@ -170,7 +179,6 @@ public class MissionManager : MonoBehaviour
         
         foreach (var markerData  in toDemote)
         {
-            Debug.Log($"{markerData.missionMarkerName} State {markerData.missionMarkerState}");
             GameEvents.OnHideRecordingPanel.Invoke();
             AssignPassiveMissionMarker(markerData);
         }
@@ -223,8 +231,6 @@ public class MissionManager : MonoBehaviour
         markerData.activeTimer = GetRandomPassiveMarkerTimer();
         
         missionMarkerPassive.Add(markerData);
-        Debug.Log($"{gameObject.name} Successfully Assigned to Passive Mission Marker {markerData.missionMarkerName}");
-
     }
     
     private void AssignActiveMissionMarker(SelectedMissionMarkerData markerData)
@@ -244,7 +250,6 @@ public class MissionManager : MonoBehaviour
         markerData.activeTimer = GetRandomActiveMarkerTimer();
         
         missionMarkerActive.Add(markerData);
-        Debug.Log($"{gameObject.name} Successfully Assigned to Active Mission Marker {markerData.missionMarkerName}");
     }
 
     private SelectedMissionMarkerData FindSelectedMissionMarker(MissionMarker markerData)

@@ -58,7 +58,7 @@ public class Recording : MonoBehaviour
             recordingPanelUI.ShowIncorrectRecording();
         }
         
-        ForestMonitorManager.Instance.UpdateIndicator(selectedFlagCard.ForestMonitorType, isCorrrect);
+        ForestMonitorManager.Instance.UpdateIndicator(currentMission.ForestMonitorType, isCorrrect);
         StartCoroutine(OnDelayCoroutine());
     }
     

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MissionMarkerIndicatorManager : MonoBehaviour
 {
-    public static MissionMarkerIndicatorManager instance {get; private set; }
+    public static MissionMarkerIndicatorManager Instance {get; private set; }
     
     [SerializeField] private RectTransform canvasRect;
     [SerializeField] private RectTransform indicatorPrefab;
@@ -13,7 +13,17 @@ public class MissionMarkerIndicatorManager : MonoBehaviour
     private Camera _camera;
     private readonly Dictionary<MissionMarker, RectTransform> _indicators  = new();
 
-    private void Awake() => _camera = Camera.main;
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+        {
+            Destroy(gameObject);
+        }
+        
+        _camera = Camera.main;
+    }
     
     #region Event
 
@@ -29,8 +39,8 @@ public class MissionMarkerIndicatorManager : MonoBehaviour
 
     private void OnRemoveListeners()
     {
-        GameEvents.OnMissionMarkerRegistered.AddListener(RegisterIndicator);
-        GameEvents.OnMissionMarkerUnregistered.AddListener(UnregisterIndicator);
+        GameEvents.OnMissionMarkerRegistered.RemoveListener(RegisterIndicator);
+        GameEvents.OnMissionMarkerUnregistered.RemoveListener(UnregisterIndicator);
     }
     
     #endregion
@@ -45,7 +55,10 @@ public class MissionMarkerIndicatorManager : MonoBehaviour
     private void UnregisterIndicator(MissionMarker marker)
     {
         if (!_indicators.TryGetValue(marker, out var indicator)) return;
-        Destroy(indicator.gameObject);
+        
+        if (indicator != null)
+            Destroy(indicator.gameObject);
+        
         _indicators.Remove(marker);
     }
 

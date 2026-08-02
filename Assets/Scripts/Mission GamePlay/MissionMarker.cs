@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [System.Serializable]
@@ -29,19 +30,19 @@ public class MissionMarker : MonoBehaviour, IInteractable
    public bool IsFlagged => isFlagged;
    public MissionMarkerState MissionMarkerState => missionMarkerState;
    public RecordingDataSO MissionRecordingData => missionRecordingData;
+   public ForestMonitorType ForestMonitorType => missionRecordingData.forestMonitorType;
    
    private void Awake()
    {
       _camera  = Camera.main;
       _meshRenderer = GetComponent<MeshRenderer>();
    }
-   
-   #region Event
 
+   #region Event
    private void OnEnable()
    {
-      GameEvents.OnFlaggedMissionMarker.AddListener(FlaggeMissionMarker);
       GameEvents.OnMissionMarkerRegistered.Invoke(this);
+      GameEvents.OnFlaggedMissionMarker.AddListener(FlaggeMissionMarker);
    }
 
    private void OnDisable()
