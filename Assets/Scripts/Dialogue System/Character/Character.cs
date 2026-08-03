@@ -14,7 +14,7 @@ public class Character : MonoBehaviour
 {
    [Header("Character Configuration")]
    [SerializeField] private CharacterDataSO characterData;
-   [SerializeField] private PositionCharacter positionCharacter;
+   [SerializeField] private bool isFullHide;
    
    [Header("Show/Hide Character")]
    [SerializeField] private float fadeDuration;

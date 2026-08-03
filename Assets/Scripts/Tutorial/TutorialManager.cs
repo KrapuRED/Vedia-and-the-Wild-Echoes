@@ -18,6 +18,7 @@ public class TutorialManager : MonoBehaviour
     [Tooltip("Empty RectTransform that sits ABOVE the overlay in the same canvas. Targets get reparented here while highlighted.")]
     [SerializeField] private RectTransform highlightLayer;
     
+    private readonly Dictionary<TutorialDialoguePosition, RectTransform> _positionDialogue = new(); 
     private readonly Dictionary<string, RectTransform> _highlightTargets = new();
     
     private Dictionary<string, RectTransform> _currentTargets    = new();
@@ -45,6 +46,8 @@ public class TutorialManager : MonoBehaviour
     {
         GameEvents.OnRegisterHighlightTarget.AddListener(RegisterTutorialHighlightTarget);
         GameEvents.OnUnregisterHighlightTarget.AddListener(UnregisterTutorialHighlightTarget);
+        GameEvents.OnRegisterDialoguePosition.AddListener(RegisterTutorialPosition);
+        GameEvents.OnUnregisterDialoguePosition.AddListener(UnregisterTutorialPosition);
     }
 
     private void OnDisable() => OnRemoveListeners();
@@ -55,6 +58,8 @@ public class TutorialManager : MonoBehaviour
     {
         GameEvents.OnUnregisterHighlightTarget.RemoveListener(UnregisterTutorialHighlightTarget);
         GameEvents.OnUnregisterHighlightTarget.RemoveListener(UnregisterTutorialHighlightTarget);
+        GameEvents.OnRegisterDialoguePosition.RemoveListener(RegisterTutorialPosition);
+        GameEvents.OnUnregisterDialoguePosition.RemoveListener(UnregisterTutorialPosition);
     }
     
     #endregion
@@ -95,13 +100,38 @@ public class TutorialManager : MonoBehaviour
  
         _highlightTargets.Remove(highlightID);
     }
+
+    private void RegisterTutorialPosition(TutorialDialoguePosition tutorialDialoguePosition, RectTransform targetPosition)
+    {
+        if (tutorialDialoguePosition == null)
+            return;
+        
+        Debug.Log($"[{this.name} - RegisterTutorialPosition] RegisterTutorialPosition to {targetPosition.name}]");
+        _positionDialogue[tutorialDialoguePosition] = targetPosition;
+    }
+    
+    private void UnregisterTutorialPosition(TutorialDialoguePosition tutorialDialoguePosition)
+    {
+        if (tutorialDialoguePosition == null)
+            return;
+        
+        Debug.Log($"[{this.name} - UnregisterTutorialPosition] UnregisterTutorialPosition]");
+        _positionDialogue.Remove(tutorialDialoguePosition);
+    }
     
     #endregion
 
     #region Tutorial flow
 
-    private Transform SwitchPosition()
+    private RectTransform SwitchPosition(TutorialDataSO tutorialData)
     {
+        Debug.Log("SwitchPosition get called");
+
+        if (_positionDialogue.TryGetValue(tutorialData.tutorialDialoguePosition, out var targetPosition))
+        {
+            return  targetPosition;
+        }
+            
         return null;
     }
     
@@ -169,6 +199,8 @@ public class TutorialManager : MonoBehaviour
     {
         RestoreCurrentTarget();
         
+        var position = SwitchPosition(tutorailData);
+        
         bool hasAnyHighlight = false;
 
         if (tutorailData.highLightIDs != null)
@@ -183,7 +215,7 @@ public class TutorialManager : MonoBehaviour
             }
         }
         
-        tutorialDialogueUI.UpdateTutorialDialogueUI(tutorailData);
+        tutorialDialogueUI.UpdateTutorialDialogueUI(tutorailData, position);
         
         SetOverlay(hasAnyHighlight);
         GameEvents.OnTutorialStepChanged?.Invoke(tutorailData);

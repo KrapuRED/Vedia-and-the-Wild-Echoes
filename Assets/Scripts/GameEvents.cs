@@ -108,5 +108,8 @@ public static class GameEvents
     public static readonly CustomEvents<TutorialDataSO> OnTutorialStepChanged = new();
     public static readonly CustomEvents OnTutorialStepCompleted = new();
     
+    public static readonly CustomEvents<TutorialDialoguePosition, RectTransform> OnRegisterDialoguePosition= new();
+    public static readonly CustomEvents<TutorialDialoguePosition> OnUnregisterDialoguePosition= new();
+    
     public static readonly CustomEvents OnAllTaskDone = new();
 }
