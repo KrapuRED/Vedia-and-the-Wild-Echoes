@@ -16,5 +16,5 @@ MonoBehaviour:
   highLightIDs:
   - Flag
   - ForestMonitor
+  dialogueData: {fileID: 11400000, guid: cc919235b4170ab4dadc94ff37ca2ad5, type: 2}
   tutorialDialoguePosition: 0
-  tutorialDialogue: 

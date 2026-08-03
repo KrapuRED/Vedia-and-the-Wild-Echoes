@@ -17,6 +17,6 @@ public class TutorialDataSO : ScriptableObject
 {
     public string tutorialName;
     public List<string> highLightIDs;
+    public DialogueDataSO dialogueData;
     public TutorialDialoguePosition tutorialDialoguePosition;
-    public string tutorialDialogue;
 }

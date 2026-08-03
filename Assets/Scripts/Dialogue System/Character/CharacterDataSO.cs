@@ -4,5 +4,6 @@ using UnityEngine;
 public class CharacterDataSO : ScriptableObject
 {
     public string characterName;
+    public Sprite characterIcon;
     public Character characterPrefab;
 }

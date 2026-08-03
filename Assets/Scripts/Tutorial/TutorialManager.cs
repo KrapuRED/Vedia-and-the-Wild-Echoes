@@ -6,6 +6,7 @@ public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance {get; private set;}
     
+    [SerializeField] private TutorialDialogueUI tutorialDialogueUI;
     [SerializeField] private List<TutorialDataSO> listTutorialDataSO = new();
     [SerializeField] private bool isTutorialActive;
     
@@ -119,7 +120,7 @@ public class TutorialManager : MonoBehaviour
         isTutorialActive = true;
         panelTutorial.SetActive(isTutorialActive);
         
-        ShowCurrentStep();
+        ShowCurrentStep(listTutorialDataSO[_currentTutorialIndex]);
     }
 
     public void ContinueTutorial()
@@ -127,15 +128,27 @@ public class TutorialManager : MonoBehaviour
         if (!isTutorialActive)
             return;
  
-        _currentTutorialIndex++;
- 
-        if (_currentTutorialIndex >= listTutorialDataSO.Count)
+        var tutorailData = listTutorialDataSO[_currentTutorialIndex];
+        int dialogueCount = tutorailData.dialogueData.dialogueData.Count;
+
+        bool dialogueExhausted = tutorialDialogueUI.CurrDialogueIndex + 1 >= dialogueCount;
+        
+        if (dialogueExhausted)
         {
-            StopTutorial();
-            return;
+            Debug.Log($"[{this.name} - ContinueTutorial] Dialogue finished!");
+            _currentTutorialIndex++;
+            tutorialDialogueUI.ResetTutorialDialogueUI();
+            
+            if (_currentTutorialIndex >= listTutorialDataSO.Count)
+            {
+                StopTutorial();
+                return;
+            }
+            
+            tutorailData = listTutorialDataSO[_currentTutorialIndex];
         }
- 
-        ShowCurrentStep();
+        
+        ShowCurrentStep(tutorailData);
     }
 
     public void StopTutorial()
@@ -152,10 +165,8 @@ public class TutorialManager : MonoBehaviour
 
     #endregion
     
-    private void ShowCurrentStep()
+    private void ShowCurrentStep(TutorialDataSO tutorailData)
     {
-        var tutorailData = listTutorialDataSO[_currentTutorialIndex];
-
         RestoreCurrentTarget();
         
         bool hasAnyHighlight = false;
@@ -171,6 +182,8 @@ public class TutorialManager : MonoBehaviour
                 hasAnyHighlight = true;
             }
         }
+        
+        tutorialDialogueUI.UpdateTutorialDialogueUI(tutorailData);
         
         SetOverlay(hasAnyHighlight);
         GameEvents.OnTutorialStepChanged?.Invoke(tutorailData);

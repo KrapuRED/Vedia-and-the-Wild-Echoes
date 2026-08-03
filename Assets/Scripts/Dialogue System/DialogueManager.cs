@@ -163,6 +163,6 @@ public class DialogueManager : MonoBehaviour
     
     public void EndDialogue()
     {
-        Debug.Log($"[{gameObject.name} - EndDialogue] {dialogueDataSO.dialogueName} is done");
+        Debug.Log($"[{gameObject.name} - EndDialogue] {dialogueDataSO.DialogueName} is done");
     }
 }

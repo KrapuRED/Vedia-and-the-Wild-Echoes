@@ -15,5 +15,5 @@ MonoBehaviour:
   tutorialName: 
   highLightIDs:
   - TaskMonitor
+  dialogueData: {fileID: 11400000, guid: 7eff81d672a3d9a48a3b4691e4c40cbe, type: 2}
   tutorialDialoguePosition: 0
-  tutorialDialogue: 
