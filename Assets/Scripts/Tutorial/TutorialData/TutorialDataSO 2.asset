@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: TutorialDataSO 2
   m_EditorClassIdentifier: Assembly-CSharp::TutorialDataSO
   tutorialName: 
-  highLightID: TaskMonitor
+  highLightIDs:
+  - TaskMonitor
+  tutorialDialoguePosition: 0
   tutorialDialogue: 

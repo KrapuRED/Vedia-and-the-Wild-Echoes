@@ -19,9 +19,9 @@ public class TutorialManager : MonoBehaviour
     
     private readonly Dictionary<string, RectTransform> _highlightTargets = new();
     
-    private RectTransform _currentTarget;
-    private Transform _originalParentTarget;
-    private int _originalSiblingTargetIndex;
+    private Dictionary<string, RectTransform> _currentTargets    = new();
+    private Dictionary<string, Transform> _originalParentTargets = new();
+    private Dictionary<string, int> _originalSiblingTargetIndexs = new();
     
     private bool _isTutorialDone;
     private int _currentTutorialIndex;
@@ -43,6 +43,7 @@ public class TutorialManager : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.OnRegisterHighlightTarget.AddListener(RegisterTutorialHighlightTarget);
+        GameEvents.OnUnregisterHighlightTarget.AddListener(UnregisterTutorialHighlightTarget);
     }
 
     private void OnDisable() => OnRemoveListeners();
@@ -51,6 +52,7 @@ public class TutorialManager : MonoBehaviour
 
     private void OnRemoveListeners()
     {
+        GameEvents.OnUnregisterHighlightTarget.RemoveListener(UnregisterTutorialHighlightTarget);
         GameEvents.OnUnregisterHighlightTarget.RemoveListener(UnregisterTutorialHighlightTarget);
     }
     
@@ -77,6 +79,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (string.IsNullOrEmpty(highlightID)) 
             return;
+        
         _highlightTargets[highlightID] = targetHighlight;
     }
 
@@ -85,13 +88,10 @@ public class TutorialManager : MonoBehaviour
         if (string.IsNullOrEmpty(highlightID))
             return;
 
-        if (_currentTarget != null &&
-            _highlightTargets.TryGetValue(highlightID, out var registed) &&
-            registed == _currentTarget)
-        {
-            _currentTarget = null;
-        }
-        
+        _currentTargets.Remove(highlightID);
+        _originalParentTargets.Remove(highlightID);
+        _originalSiblingTargetIndexs.Remove(highlightID);
+ 
         _highlightTargets.Remove(highlightID);
     }
     
@@ -136,8 +136,6 @@ public class TutorialManager : MonoBehaviour
         }
  
         ShowCurrentStep();
-        
-        GameEvents.OnTutorialStepChanged?.Invoke(listTutorialDataSO[_currentTutorialIndex]);
     }
 
     public void StopTutorial()
@@ -157,38 +155,43 @@ public class TutorialManager : MonoBehaviour
     private void ShowCurrentStep()
     {
         var tutorailData = listTutorialDataSO[_currentTutorialIndex];
+
+        RestoreCurrentTarget();
         
-        if (string.IsNullOrEmpty(tutorailData.highLightID))
-            ClearHighlight();
-        else
+        bool hasAnyHighlight = false;
+
+        if (tutorailData.highLightIDs != null)
         {
-            ShowHighlighting(tutorailData.highLightID);
+            foreach (var highLightID in tutorailData.highLightIDs)
+            {
+                if (string.IsNullOrEmpty(highLightID))
+                    continue;
+                
+                AddHighlighting(highLightID);
+                hasAnyHighlight = true;
+            }
         }
         
+        SetOverlay(hasAnyHighlight);
         GameEvents.OnTutorialStepChanged?.Invoke(tutorailData);
     }
     
     #region Highlighting
 
-    private void ShowHighlighting(string highlightID)
+    private void AddHighlighting(string highlightID)
     {
-        RestoreCurrentTarget();
-
         if (!_highlightTargets.TryGetValue(highlightID, out var target) || target == null)
         {
             Debug.LogWarning($"[TutorialManager] No registered highlight target for id '{highlightID}'.");
-            SetOverlay(false);
             return;
         }
+
+        _currentTargets[highlightID] = target;
+        _originalParentTargets[highlightID] = target.parent;
+        _originalSiblingTargetIndexs[highlightID] = target.GetSiblingIndex();
         
-        _currentTarget = target;
-        _originalParentTarget = target.transform.parent;
-        _originalSiblingTargetIndex = target.GetSiblingIndex();
-        
-        target.SetParent(highlightLayer, worldPositionStays: true);
+        target.SetParent(highlightLayer, worldPositionStays:true);
         target.SetAsLastSibling();
-        
-        SetOverlay(true);
     }
 
     private void ClearHighlight()
@@ -199,16 +202,28 @@ public class TutorialManager : MonoBehaviour
 
     private void RestoreCurrentTarget()
     {
-        if (_currentTarget == null)
+        if (_currentTargets == null)
             return;
 
-        if (_originalParentTarget != null)
+        foreach (var currentTarget in _currentTargets)
         {
-            _currentTarget.SetParent(_originalParentTarget, worldPositionStays:true);
-            _currentTarget.SetSiblingIndex(_originalSiblingTargetIndex);
+            var data = currentTarget.Key;
+            var target = currentTarget.Value;
+
+            if (target == null)
+                continue;
+
+            if (_originalParentTargets.TryGetValue(data, out var originalParent) &&
+                _originalSiblingTargetIndexs.TryGetValue(data, out var originalIndex))
+            {
+                target.SetParent(originalParent);
+                target.SetSiblingIndex(originalIndex);
+            }
         }
         
-        _currentTarget = null;
+        _currentTargets.Clear();
+        _originalParentTargets.Clear();
+        _originalSiblingTargetIndexs.Clear();
     }
 
     private void SetOverlay(bool isShow)

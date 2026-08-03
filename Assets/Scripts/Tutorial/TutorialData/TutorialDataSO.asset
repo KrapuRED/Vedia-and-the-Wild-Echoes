@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: TutorialDataSO
   m_EditorClassIdentifier: Assembly-CSharp::TutorialDataSO
   tutorialName: 
-  highLightID: ForestMonitor
+  highLightIDs:
+  - Flag
+  tutorialDialoguePosition: 0
   tutorialDialogue: 
