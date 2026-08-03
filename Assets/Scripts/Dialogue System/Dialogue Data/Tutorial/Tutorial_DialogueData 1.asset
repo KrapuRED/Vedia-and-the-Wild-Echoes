@@ -16,13 +16,4 @@ MonoBehaviour:
   dialogueData:
   - characterName: ANNA
     characterData: {fileID: 0}
-    dialogueLines: This Bla Bla
-  - characterName: ANNA
-    characterData: {fileID: 0}
-    dialogueLines: This Bla Bla Bla Bla
-  - characterName: ANNA
-    characterData: {fileID: 0}
-    dialogueLines: This Bla Bla Bla Bla Bla Bla
-  - characterName: ANNA
-    characterData: {fileID: 0}
-    dialogueLines: This Bla Bla Bla Bla Bla Bla Bla Bla
+    dialogueLines: Drag the flag

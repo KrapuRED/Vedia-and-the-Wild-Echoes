@@ -15,6 +15,7 @@ public class FlaggingCursorController : MonoBehaviour
     [SerializeField] private InputActionReference clickFlagPoint;
     [SerializeField] private InputActionReference dragFlagPoint;
     private FlagCard _selectedFlagCard;
+    private bool _isPlaySound;
     
     private Vector2 _grabOffset;
     private RectTransform _draggedRect;
@@ -56,6 +57,12 @@ public class FlaggingCursorController : MonoBehaviour
             return;
         
         if (!_isDragging || _draggedRect == null) return;
+
+        if (!_isPlaySound)
+        { 
+            SoundEffectManager.Instance.PlaySoundEffect("flag_pick_up");
+            _isPlaySound = true;
+        }
         
         Vector2 screenPos = Pointer.current.position.ReadValue();
         
@@ -65,8 +72,6 @@ public class FlaggingCursorController : MonoBehaviour
             out Vector2 localPoint);
         
         _draggedRect.anchoredPosition = localPoint +  _grabOffset;
-        
-        // if inside drop Layer, and went drop change RecordPanelUI
     }
     
     private Vector2 GetLocalPos(Vector2 screenPos)
@@ -79,7 +84,7 @@ public class FlaggingCursorController : MonoBehaviour
         return localPoint;
     }
     
-    private void OnClickFlagCard(InputAction.CallbackContext _)
+    private void OnClickFlagCard(InputAction.CallbackContext ctx)
     {
         if (!_inputManager.IsCurrentActionMap(actionMap))
             return;
@@ -95,12 +100,14 @@ public class FlaggingCursorController : MonoBehaviour
         {
             if (result.gameObject.TryGetComponent(out FlagCard card))
             {
+                
                 _selectedFlagCard = card;
                 _selectedFlagCard.HideFlagCardName();
                 _draggedRect = card.GetComponent<RectTransform>();
                 
                 _originalParent = _draggedRect.parent;
                 _originalSiblingIndex = _draggedRect.GetSiblingIndex();
+
                 _draggedRect.SetParent(dragLayer, worldPositionStays: true);
                 _draggedRect.SetAsLastSibling();
                 
@@ -146,5 +153,6 @@ public class FlaggingCursorController : MonoBehaviour
         _isDragging = false;
         _selectedFlagCard = null;
         _draggedRect = null;
+        _isPlaySound = false;
     }
 }

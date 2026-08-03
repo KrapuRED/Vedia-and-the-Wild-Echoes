@@ -102,10 +102,10 @@ public static class GameEvents
     public static readonly CustomEvents<MissionMarker> OnFlaggedMissionMarker = new();
     public static readonly CustomEvents<MissionMarker> OnMissionMarkerRegistered = new();
     public static readonly CustomEvents<MissionMarker> OnMissionMarkerUnregistered = new();
-
+    public static readonly CustomEvents<MissionMarkerState, RecordingDataSO> OnMissionTutorial = new();
+    
     public static readonly CustomEvents<string, RectTransform> OnRegisterHighlightTarget = new();
     public static readonly CustomEvents<string> OnUnregisterHighlightTarget = new();
-    public static readonly CustomEvents<TutorialDataSO> OnTutorialStepChanged = new();
     public static readonly CustomEvents OnTutorialStepCompleted = new();
     
     public static readonly CustomEvents<TutorialDialoguePosition, RectTransform> OnRegisterDialoguePosition= new();

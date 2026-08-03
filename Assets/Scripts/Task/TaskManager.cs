@@ -113,6 +113,7 @@ public class TaskManager : MonoBehaviour
         if (isCompleted)
         {
             buttonEvaluationImpact.SetActive(true);
+            SoundEffectManager.Instance.PlaySoundEffect("evaluate_button_pop_up");
             GameEvents.OnAllTaskDone.Invoke();
         }
     }

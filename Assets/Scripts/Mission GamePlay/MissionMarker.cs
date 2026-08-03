@@ -9,10 +9,22 @@ public enum MissionMarkerState
    Flagged
 }
 
+[System.Serializable]
+public enum MissionMarkerLocation
+{
+   Unkown,
+   Bird,
+   Forest,
+   Rain,
+   River
+}
+
 public class MissionMarker : MonoBehaviour, IInteractable
 {
+   [SerializeField] private MissionMarkerLocation missionMarkerLocation;
    [SerializeField] private MissionMarkerState missionMarkerState ;
    [SerializeField] private RecordingDataSO  missionRecordingData;
+   [SerializeField] private bool isSelectedTutorial;
    
    [Header("Rotation Config")]
    [SerializeField] private float maxTilted; 
@@ -26,11 +38,13 @@ public class MissionMarker : MonoBehaviour, IInteractable
    private MeshRenderer _meshRenderer;
    private Camera _camera;
    private bool _isMarkerSelected;
+   private string _soundEffectName;
    
    public bool IsFlagged => isFlagged;
    public MissionMarkerState MissionMarkerState => missionMarkerState;
    public RecordingDataSO MissionRecordingData => missionRecordingData;
    public ForestMonitorType ForestMonitorType => missionRecordingData.forestMonitorType;
+   public string SoundEffectName => _soundEffectName;
    
    private void Awake()
    {
@@ -43,6 +57,7 @@ public class MissionMarker : MonoBehaviour, IInteractable
    {
       GameEvents.OnMissionMarkerRegistered.Invoke(this);
       GameEvents.OnFlaggedMissionMarker.AddListener(FlaggeMissionMarker);
+      GameEvents.OnMissionTutorial.AddListener(UpdateState);
    }
 
    private void OnDisable()
@@ -57,6 +72,7 @@ public class MissionMarker : MonoBehaviour, IInteractable
    private void OnRemoveListeners()
    {
       GameEvents.OnFlaggedMissionMarker.RemoveListener(FlaggeMissionMarker);
+      GameEvents.OnMissionTutorial.RemoveListener(UpdateState);
    }
     
    #endregion
@@ -66,6 +82,16 @@ public class MissionMarker : MonoBehaviour, IInteractable
       transform.rotation = Quaternion.LookRotation(transform.position - _camera.transform.position);
    }
 
+   private void BuildSoundEffectName()
+   {
+      string state = missionMarkerState == MissionMarkerState.Active ? "pam_active" : "passive";
+      string recording = MissionRecordingData.recordingClip;
+      string location = missionMarkerLocation.ToString().ToLower();
+      
+      _soundEffectName = $"{state}_{recording}_{location}";
+      Debug.Log($"[{this.name}] sound effect {_soundEffectName}");
+   }
+   
    public void UpdateState(MissionMarkerState markerState, RecordingDataSO recordingData)
    {
       if (_meshRenderer == null)
@@ -76,6 +102,7 @@ public class MissionMarker : MonoBehaviour, IInteractable
       
       this.missionMarkerState = markerState;
       missionRecordingData = recordingData;
+      BuildSoundEffectName();
       
       _meshRenderer.material = markerState switch
       {
@@ -91,9 +118,14 @@ public class MissionMarker : MonoBehaviour, IInteractable
          return;
 
       InputManager.Instance.SwitchActionMap(targetMap);
+
+      if (TutorialManager.Instance != null && TutorialManager.Instance.IsTutorialActive)
+      {
+         Debug.Log("On Tutorial Mission Completed");
+         TutorialManager.Instance.OnMissionCompleted();
+      }
       
       GameEvents.OnShowRecordingPanel.Invoke(this);
-      Debug.Log($"[{gameObject.name} - {nameof(MissionMarker)}] On interact");
    }
    
    private void FlaggeMissionMarker(MissionMarker missionMarkerData)
@@ -105,6 +137,4 @@ public class MissionMarker : MonoBehaviour, IInteractable
       missionMarkerState = MissionMarkerState.Flagged;
       _meshRenderer.material = markerFlaggedMaterial;
    }
-   
-   //if out side of camera show indicator went active
 }

@@ -6,9 +6,12 @@ public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance {get; private set;}
     
+    [SerializeField] private GameObject buttonContinueTutorial;
     [SerializeField] private TutorialDialogueUI tutorialDialogueUI;
     [SerializeField] private List<TutorialDataSO> listTutorialDataSO = new();
+    [SerializeField] private RecordingDataSO recordingDataSO;
     [SerializeField] private bool isTutorialActive;
+    [SerializeField] private bool isMissionTutorialComplete;
     
     [Header("Highlight Overlay")]
     [SerializeField] private  GameObject panelTutorial;
@@ -27,6 +30,9 @@ public class TutorialManager : MonoBehaviour
     
     private bool _isTutorialDone;
     private int _currentTutorialIndex;
+    private int _currentTutorialDialogueIndex;
+    
+    public bool IsTutorialActive => isTutorialActive;
     
     private void Awake()
     {
@@ -72,10 +78,6 @@ public class TutorialManager : MonoBehaviour
             {
                 StartTutorial();
             }
-            else
-            {
-                ContinueTutorial();
-            }
         }
     }
 
@@ -86,6 +88,7 @@ public class TutorialManager : MonoBehaviour
         if (string.IsNullOrEmpty(highlightID)) 
             return;
         
+        Debug.Log("Succes Register HighlightTarget");
         _highlightTargets[highlightID] = targetHighlight;
     }
 
@@ -103,19 +106,11 @@ public class TutorialManager : MonoBehaviour
 
     private void RegisterTutorialPosition(TutorialDialoguePosition tutorialDialoguePosition, RectTransform targetPosition)
     {
-        if (tutorialDialoguePosition == null)
-            return;
-        
-        Debug.Log($"[{this.name} - RegisterTutorialPosition] RegisterTutorialPosition to {targetPosition.name}]");
         _positionDialogue[tutorialDialoguePosition] = targetPosition;
     }
     
     private void UnregisterTutorialPosition(TutorialDialoguePosition tutorialDialoguePosition)
     {
-        if (tutorialDialoguePosition == null)
-            return;
-        
-        Debug.Log($"[{this.name} - UnregisterTutorialPosition] UnregisterTutorialPosition]");
         _positionDialogue.Remove(tutorialDialoguePosition);
     }
     
@@ -125,13 +120,10 @@ public class TutorialManager : MonoBehaviour
 
     private RectTransform SwitchPosition(TutorialDataSO tutorialData)
     {
-        Debug.Log("SwitchPosition get called");
-
         if (_positionDialogue.TryGetValue(tutorialData.tutorialDialoguePosition, out var targetPosition))
-        {
-            return  targetPosition;
-        }
-            
+            return targetPosition;
+
+        Debug.LogWarning($"[{name} - SwitchPosition] No registered position for '{tutorialData.tutorialDialoguePosition}' (step: {tutorialData.name}).");
         return null;
     }
     
@@ -147,6 +139,7 @@ public class TutorialManager : MonoBehaviour
         }
         
         _currentTutorialIndex = 0;
+        _currentTutorialDialogueIndex = 0;
         isTutorialActive = true;
         panelTutorial.SetActive(isTutorialActive);
         
@@ -155,21 +148,21 @@ public class TutorialManager : MonoBehaviour
 
     public void ContinueTutorial()
     {
-        if (!isTutorialActive)
-            return;
- 
-        var tutorailData = listTutorialDataSO[_currentTutorialIndex];
-        int dialogueCount = tutorailData.dialogueData.dialogueData.Count;
+        var tutorailData    = listTutorialDataSO[_currentTutorialIndex];
+        int dialogueCount   = tutorailData.tutorialDialogueDatas.Count;
 
-        bool dialogueExhausted = tutorialDialogueUI.CurrDialogueIndex + 1 >= dialogueCount;
+        bool dialogueExhausted = _currentTutorialDialogueIndex + 1 >= dialogueCount;
+        
+        buttonContinueTutorial.SetActive(!isMissionTutorialComplete);
         
         if (dialogueExhausted)
         {
             Debug.Log($"[{this.name} - ContinueTutorial] Dialogue finished!");
+
+            _currentTutorialDialogueIndex = 0;
             _currentTutorialIndex++;
-            tutorialDialogueUI.ResetTutorialDialogueUI();
             
-            if (_currentTutorialIndex >= listTutorialDataSO.Count)
+            if (_currentTutorialIndex >= listTutorialDataSO.Count && isMissionTutorialComplete)
             {
                 StopTutorial();
                 return;
@@ -177,18 +170,23 @@ public class TutorialManager : MonoBehaviour
             
             tutorailData = listTutorialDataSO[_currentTutorialIndex];
         }
+        else
+        {
+            _currentTutorialDialogueIndex++;
+        }
         
         ShowCurrentStep(tutorailData);
     }
 
     public void StopTutorial()
     {
+        ClearHighlight();
+        
         isTutorialActive = false;
         _isTutorialDone = true;
         isTutorialActive = false;
         panelTutorial.SetActive(isTutorialActive);
         
-        ClearHighlight();
         GameEvents.OnTutorialStepCompleted.Invoke();
         Debug.Log($"[{this.name} - StopTutorial] Tutorial finished!");
     }
@@ -200,12 +198,13 @@ public class TutorialManager : MonoBehaviour
         RestoreCurrentTarget();
         
         var position = SwitchPosition(tutorailData);
+        var currentDialogueData = tutorailData.tutorialDialogueDatas[_currentTutorialDialogueIndex];
         
         bool hasAnyHighlight = false;
 
-        if (tutorailData.highLightIDs != null)
+        if (tutorailData.tutorialDialogueDatas[_currentTutorialDialogueIndex].listHighligthId != null)
         {
-            foreach (var highLightID in tutorailData.highLightIDs)
+            foreach (var highLightID in tutorailData.tutorialDialogueDatas[_currentTutorialDialogueIndex].listHighligthId)
             {
                 if (string.IsNullOrEmpty(highLightID))
                     continue;
@@ -215,10 +214,37 @@ public class TutorialManager : MonoBehaviour
             }
         }
         
-        tutorialDialogueUI.UpdateTutorialDialogueUI(tutorailData, position);
-        
+        tutorialDialogueUI.UpdateTutorialDialogueUI(tutorailData, position, _currentTutorialDialogueIndex);
         SetOverlay(hasAnyHighlight);
-        GameEvents.OnTutorialStepChanged?.Invoke(tutorailData);
+
+        bool isNextStepMission = CheckNextIsMissionTutorial(tutorailData);
+        
+        if (currentDialogueData.tutorialMission != TutorialMissionType.None || isNextStepMission)
+        {
+            GameEvents.OnMissionTutorial.Invoke(MissionMarkerState.Active, recordingDataSO);
+        }
+        
+        if (currentDialogueData.tutorialMission != TutorialMissionType.None)
+        {
+            buttonContinueTutorial.SetActive(false);
+            isMissionTutorialComplete = false;
+        }
+        else
+        {
+            buttonContinueTutorial.SetActive(true);
+            isMissionTutorialComplete = true;
+        }
+        
+    }
+
+    private bool CheckNextIsMissionTutorial(TutorialDataSO tutorialData)
+    {
+        int nextIndex = _currentTutorialDialogueIndex + 1;
+        if (nextIndex < tutorialData.tutorialDialogueDatas.Count)
+        {
+            return tutorialData.tutorialDialogueDatas[nextIndex].tutorialMission != TutorialMissionType.None;
+        }
+        return false;
     }
     
     #region Highlighting
@@ -279,4 +305,15 @@ public class TutorialManager : MonoBehaviour
     }
     
     #endregion
+
+    public void OnMissionCompleted()
+    {
+        if (!isTutorialActive)
+            return;
+        
+        Debug.Log($"[{this.name} - OnMissionCompleted] Mission Tutorial finished!");
+        
+        isMissionTutorialComplete = true;
+        ContinueTutorial(); 
+    }
 }

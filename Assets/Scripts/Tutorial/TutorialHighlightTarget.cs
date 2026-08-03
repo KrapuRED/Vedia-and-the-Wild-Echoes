@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TutorialHighlightTarget : MonoBehaviour
@@ -10,12 +11,12 @@ public class TutorialHighlightTarget : MonoBehaviour
     {
         _rectTransform = GetComponent<RectTransform>();
     }
- 
-    private void OnEnable()
+
+    private void Start()
     {
-       GameEvents.OnRegisterHighlightTarget.Invoke(highlightID, _rectTransform);
+        GameEvents.OnRegisterHighlightTarget.Invoke(highlightID, _rectTransform);
     }
- 
+
     private void OnDisable()
     {
        GameEvents.OnUnregisterHighlightTarget.Invoke(highlightID);

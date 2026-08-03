@@ -13,7 +13,21 @@ MonoBehaviour:
   m_Name: TutorialDataSO 2
   m_EditorClassIdentifier: Assembly-CSharp::TutorialDataSO
   tutorialName: 
-  highLightIDs:
-  - TaskMonitor
-  dialogueData: {fileID: 11400000, guid: 7eff81d672a3d9a48a3b4691e4c40cbe, type: 2}
-  tutorialDialoguePosition: 4
+  tutorialDialogueDatas:
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: Excellent work.
+    listHighligthId: []
+    tutorialMission: 0
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: Correct classifications improve our monitoring records
+      and help protect the forest.
+    listHighligthId: []
+    tutorialMission: 0
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: You're ready. Continue monitoring the remaining Device.
+    listHighligthId: []
+    tutorialMission: 0
+  tutorialDialoguePosition: 0

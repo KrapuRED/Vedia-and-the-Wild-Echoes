@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 580160103953088005}
   - component: {fileID: 1918260856408805054}
   m_Layer: 5
-  m_Name: Indicator
+  m_Name: Mission Marker Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2778f2a0eadf0ff408bfe7a801c18a3f, type: 3}
   m_Name: Test_Task_Data 1
   m_EditorClassIdentifier: Assembly-CSharp::TaskDataSO
-  taskName: Burung Elang
+  taskName: Greate Racket-tailed Drongo
   taskIcon: {fileID: 0}
   flagAppearance: 1
-  difficulty: 0
+  clueRecordings:
+  - {fileID: 11400000, guid: 71e3d551792b16f4eb75ab1f4fcec2a8, type: 2}

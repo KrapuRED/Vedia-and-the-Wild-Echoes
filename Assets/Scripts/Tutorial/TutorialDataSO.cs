@@ -12,11 +12,27 @@ public enum TutorialDialoguePosition
     RightUp,
 }
 
+public enum TutorialMissionType
+{
+    None,
+    ClickIcon,
+    DragFlag
+}
+
+[System.Serializable]
+public class TutorialDialogueData
+{
+    public string characterName;
+    public Sprite characterSprite;
+    [TextArea(10,10)]public string tutorialDialogueLine;
+    public List<string> listHighligthId = new();
+    public TutorialMissionType tutorialMission;
+}
+
 [CreateAssetMenu(fileName = "TutorialDataSO", menuName = "Tutorial DataSO/TutorialDataSO")]
 public class TutorialDataSO : ScriptableObject
 {
     public string tutorialName;
-    public List<string> highLightIDs;
-    public DialogueDataSO dialogueData;
+    public List<TutorialDialogueData> tutorialDialogueDatas = new();
     public TutorialDialoguePosition tutorialDialoguePosition;
 }

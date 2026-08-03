@@ -21,6 +21,7 @@ public class Recording : MonoBehaviour
         
         currentMission = missionMarker;
         recordingPanelUI.UpdateStatusRecord(currentMission.MissionMarkerState, currentMission.MissionRecordingData);
+        SoundEffectManager.Instance.PlaySoundEffectLoop(currentMission.SoundEffectName);
     }
     
     public void DropFlagCard(FlagCard flagCard)
@@ -43,29 +44,48 @@ public class Recording : MonoBehaviour
     
     private void CheckMission()
     {
-        bool isCorrrect = selectedFlagCard.RecordingData.recordingName ==
-                          currentMission.MissionRecordingData.recordingName;
+        bool isCorrrect = selectedFlagCard.RecordingData.forestMonitorType ==
+                          currentMission.MissionRecordingData.forestMonitorType;
         
         if (isCorrrect)
         {
-            Debug.Log($"[{gameObject.name}] Successfully checked recording");
-            GameEvents.OnFlaggedMissionMarker.Invoke(currentMission);
             recordingPanelUI.ShowCorrectRecording();
+            
+            SoundEffectManager.Instance.PlaySoundEffect("recording_correct");
+            SoundEffectManager.Instance.StopSoundEffectLoop(currentMission.SoundEffectName);
+            
+            GameEvents.OnFlaggedMissionMarker.Invoke(currentMission);
         }
         else
         {
-            Debug.Log($"[{gameObject.name}] Failed checking recording");
+            SoundEffectManager.Instance.PlaySoundEffect("recording_incorrect");
             recordingPanelUI.ShowIncorrectRecording();
         }
         
+        StartCoroutine(OnDelayCoroutine(isCorrrect));
+        
         ForestMonitorManager.Instance.UpdateIndicator(currentMission.ForestMonitorType, isCorrrect);
-        StartCoroutine(OnDelayCoroutine());
+    }
+
+    private void OnTutorialMissionMarker(bool isCorrect)
+    {
+        if (!isCorrect)
+            return;
+
+        TutorialManager.Instance.OnMissionCompleted();
+        recordingPanelUITransition.HideTransition();
     }
     
-    private IEnumerator OnDelayCoroutine()
+    private IEnumerator OnDelayCoroutine(bool isCorrrect)
     {
-        
         yield return new WaitForSeconds(delay);
+        
+        if (TutorialManager.Instance.IsTutorialActive)
+        {
+            recordingPanelUI.IncorrectRecording();
+            OnTutorialMissionMarker(isCorrrect);
+            yield break;
+        }        
         recordingPanelUITransition.HideTransition();
     }
 }

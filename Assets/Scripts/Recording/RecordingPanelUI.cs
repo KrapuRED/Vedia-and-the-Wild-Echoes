@@ -46,6 +46,13 @@ public class RecordingPanelUI : MonoBehaviour
         SetImageAlpha(soundRecodingIcon, 1f);
     }
 
+    public void IncorrectRecording()
+    {
+        SetImageAlpha(soundFlagIcon, 0f);
+        correctImage.SetActive(false);
+        inCorrectImage.SetActive(false);
+    }
+    
     public void EmptyRecordingPanelUI()
     {
         statusRecord.text = string.Empty;

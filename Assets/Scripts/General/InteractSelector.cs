@@ -49,8 +49,6 @@ public class InteractSelector : MonoBehaviour
     {
         if (!_inputManager.IsCurrentActionMap(_inputManager.DefaultActionMap))
             return;
-            
-        _isPointerOverUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
         
         if (Pointer.current != null)
         {
@@ -60,9 +58,7 @@ public class InteractSelector : MonoBehaviour
     
     private void OnClickMissionMarker()
     {
-        if (_isPointerOverUI)
-            return;
-        
+
         CheckRaycast();
     }
 

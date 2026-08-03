@@ -1,25 +1,30 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Febucci.UI;
+using Febucci.UI.Core;
 
 public class TutorialDialogueUI : MonoBehaviour
 {
+    public TypewriterCore typewriter;
+    TextAnimatorSettings settings;
+    
     [Tooltip("The panel that should actually move to each step's target position. Defaults to this object's own RectTransform if left empty.")]
     [SerializeField] private RectTransform dialogueRootRect;
     
     [SerializeField] private Image characterIcon;
     [SerializeField] private TMP_Text characterNameText;
     [SerializeField] private TMP_Text dialogueText;
-    
-    private int _currDialogueIndex = -1;
-    
-    public int CurrDialogueIndex => _currDialogueIndex;
-    
-    public void UpdateTutorialDialogueUI(TutorialDataSO tutorialData, RectTransform positionDialogue)
+
+    private void Awake()
     {
-        _currDialogueIndex++;
-        
-        if ( _currDialogueIndex >= tutorialData.dialogueData.dialogueData.Count)
+        settings = TextAnimatorSettings.Instance;
+    }
+
+    public void UpdateTutorialDialogueUI(TutorialDataSO tutorialData, RectTransform positionDialogue, int currDialogueIndex)
+    {
+        if ( currDialogueIndex >= tutorialData.tutorialDialogueDatas.Count)
         {
             return;
         }
@@ -32,15 +37,24 @@ public class TutorialDialogueUI : MonoBehaviour
             SetFlipped(onRightSide);
         }
         
-        var dialogueData = tutorialData.dialogueData.dialogueData[_currDialogueIndex];
+        var tutorialDialogueData = tutorialData.tutorialDialogueDatas[currDialogueIndex];
         
-
-        characterNameText.text  = dialogueData.characterName;
-        dialogueText.text = dialogueData.dialogueLines;
-        
-        Debug.Log($"{dialogueData.characterName} : {dialogueData.dialogueLines}");
+        characterNameText.text  = tutorialDialogueData.characterName;
+        BuildDialogueText(tutorialDialogueData.tutorialDialogueLine);
     }
 
+    private string AddEffect<T>(TextAnimatorSettings.Category<T> category, string tag) where T: ScriptableObject
+    {
+        return $"{category.openingSymbol}{tag}{category.closingSymbol}{tag}{category.openingSymbol}/{category.closingSymbol}, ";
+    }
+    
+    private void BuildDialogueText(string line)
+    {
+        string builtText = line;
+        
+        typewriter.ShowText(builtText);
+    }
+    
     private void SetFlipped(bool isFlipped)
     {
         float scaleX = isFlipped ? -1f : 1f;
@@ -61,10 +75,5 @@ public class TutorialDialogueUI : MonoBehaviour
         var scale = rect.localScale;
         scale.x = scaleX;
         rect.localScale = scale;
-    }
-    
-    public void ResetTutorialDialogueUI()
-    {
-        _currDialogueIndex = -1;
     }
 }

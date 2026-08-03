@@ -12,8 +12,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bed9661326f77c4c8582962c4420e24, type: 3}
   m_Name: TutorialDataSO 1
   m_EditorClassIdentifier: Assembly-CSharp::TutorialDataSO
-  tutorialName: 
-  highLightIDs:
-  - ForestMonitor
-  dialogueData: {fileID: 11400000, guid: 342954d933fe1244d92b50aa72d08300, type: 2}
+  tutorialName: PAM Device
+  tutorialDialogueDatas:
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: Each <color=red> marker on the map </color>represents a
+      PAM device placed throughout the forest.
+    listHighligthId: []
+    tutorialMission: 0
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: A <color=red> yellow marker </color> means the device is
+      recording the forest's normal soundscape. You can listen to these recordings
+      at any time.
+    listHighligthId: []
+    tutorialMission: 0
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: If a device detects an irregular soundscape, it will send
+      an alert and the marker will <color=red> turn red </color>.
+    listHighligthId: []
+    tutorialMission: 0
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: Look, one of the stations has detected an irregular soundscape.
+    listHighligthId: []
+    tutorialMission: 0
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: Click the red marker.
+    listHighligthId: []
+    tutorialMission: 1
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: <color=red> Listen </color> carefully to the recording.
+    listHighligthId: []
+    tutorialMission: 0
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: That's the sound of a <color=red> chainsaw</color>.
+    listHighligthId: []
+    tutorialMission: 0
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: It could indicate illegal logging. We need to report it
+      before the recording window expires.
+    listHighligthId: []
+    tutorialMission: 0
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: At the bottom of the screen is the <color=red> Flag Panel
+      </color>.
+    listHighligthId: []
+    tutorialMission: 0
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: <color=red>Drag the correct </color> flag onto the recording
+      to classify what you've heard.
+    listHighligthId: []
+    tutorialMission: 2
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: Excellent work.
+    listHighligthId: []
+    tutorialMission: 0
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: Correct classifications improve our monitoring records
+      and help protect the forest.
+    listHighligthId: []
+    tutorialMission: 0
+  - characterName: Dr.Kirana
+    characterSprite: {fileID: 0}
+    tutorialDialogueLine: You're ready. Continue monitoring the remaining Device.
+    listHighligthId: []
+    tutorialMission: 0
   tutorialDialoguePosition: 1

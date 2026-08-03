@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4754029167438662505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6450300199061538766}
+  - component: {fileID: 1686197716583161381}
+  m_Layer: 0
+  m_Name: Manager - Forest Monitor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6450300199061538766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4754029167438662505}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1686197716583161381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4754029167438662505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f5786a2ed71cd41ac34728ec4b4cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ForestMonitorManager
+  forestHealthEvaluations:
+  - ForestEvaluationName: THIS ONLY TEST
+    EvaluationRange:
+      min: 0
+      max: 40
+    ForestEvaluationDescription: THANY YOU TO TRY THIS
+  forestEvaluationImpactUI: {fileID: 0}
+  biodiversityIndicator: {fileID: 0}
+  threatIndicator: {fileID: 0}
+  forestSustainabilityIndicator: {fileID: 0}
+  minIndicator: 0
+  maxIndicator: 100
+  currBiodiversityIndicator: 0
+  gainBiodiversityIndicator: 12
+  reduceBiodiversityIndicator: 2
+  startBiodiversityIndicator: 10
+  currThreatIndicator: 0
+  gainThreatIndicator: 2
+  reduceBiodiversityIndicatorByThreat: 2
+  reduceThreatIndicator: 12
+  startThreatIndicator: 90
+  currForestSustainability: 0
+  startForestSustainability: 0
