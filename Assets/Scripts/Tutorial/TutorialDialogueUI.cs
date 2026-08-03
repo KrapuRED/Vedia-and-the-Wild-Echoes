@@ -7,7 +7,7 @@ public class TutorialDialogueUI : MonoBehaviour
     [Tooltip("The panel that should actually move to each step's target position. Defaults to this object's own RectTransform if left empty.")]
     [SerializeField] private RectTransform dialogueRootRect;
     
-    [SerializeField] private RawImage characterIcon;
+    [SerializeField] private Image characterIcon;
     [SerializeField] private TMP_Text characterNameText;
     [SerializeField] private TMP_Text dialogueText;
     
