@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2778f2a0eadf0ff408bfe7a801c18a3f, type: 3}
   m_Name: Test_Task_Data 1
   m_EditorClassIdentifier: Assembly-CSharp::TaskDataSO
-  taskName: Greate Racket-tailed Drongo
+  taskName: Greater Racket-tailed Drongo
   taskIcon: {fileID: 21300000, guid: 11e9066e419dae34da741e71073b4244, type: 3}
   flagAppearance: 1
   clueRecordings:

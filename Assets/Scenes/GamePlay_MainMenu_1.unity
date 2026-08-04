@@ -4775,6 +4775,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1865161137}
+        m_TargetAssemblyTypeName: ForestMonitorManager, Assembly-CSharp
+        m_MethodName: ReportForestMonitor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1756465210}
         m_TargetAssemblyTypeName: CrossFadeUITransition, Assembly-CSharp
         m_MethodName: ShowTransition
@@ -5136,6 +5148,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ccc5b5e61a7ff34ea0ed73ea07659ca, type: 3}
+--- !u!114 &1865161137 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1686197716583161381, guid: 2b7133ebb82f46543b8157580ca7a6e8, type: 3}
+  m_PrefabInstance: {fileID: 1721992648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f5786a2ed71cd41ac34728ec4b4cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ForestMonitorManager
 --- !u!114 &1884777193 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4349763572172988177, guid: cadc61e824f530a47a71d9c569bd6c16, type: 3}
@@ -5467,28 +5490,28 @@ PrefabInstance:
       objectReference: {fileID: 27710781}
     - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
       propertyPath: activeRecordingsList.Array.size
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
       propertyPath: 'activeRecordingsList.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: df36745d39389524eb8eb9b65d950c42, type: 2}
+      objectReference: {fileID: 11400000, guid: 316f2767b3b56aa4192681196a9cfa71, type: 2}
     - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
       propertyPath: 'activeRecordingsList.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: be6d491d401e04748a205abb6b7e18fe, type: 2}
+      objectReference: {fileID: 11400000, guid: f84b7bd5744e0284988f47364a1cdebb, type: 2}
     - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
       propertyPath: 'activeRecordingsList.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: bfa21cf59b72dd7429757a4f08887edb, type: 2}
+      objectReference: {fileID: 11400000, guid: df36745d39389524eb8eb9b65d950c42, type: 2}
     - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
       propertyPath: 'activeRecordingsList.Array.data[3]'
       value: 
-      objectReference: {fileID: 11400000, guid: bfa21cf59b72dd7429757a4f08887edb, type: 2}
+      objectReference: {fileID: 11400000, guid: be6d491d401e04748a205abb6b7e18fe, type: 2}
     - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
       propertyPath: 'activeRecordingsList.Array.data[4]'
       value: 
-      objectReference: {fileID: 11400000, guid: 316f2767b3b56aa4192681196a9cfa71, type: 2}
+      objectReference: {fileID: 11400000, guid: bfa21cf59b72dd7429757a4f08887edb, type: 2}
     - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
       propertyPath: 'activeRecordingsList.Array.data[5]'
       value: 

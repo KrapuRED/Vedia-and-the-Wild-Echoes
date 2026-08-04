@@ -67,7 +67,7 @@ public class RecordingPanelUITransition : UITransition
         {
             _mainCanvasGroup.blocksRaycasts = true;
             _mainCanvasGroup.interactable = true;
-            MusicManager.Instance.DecreaseMusicVolume(.5f);
+            MusicManager.Instance.DecreaseMusicVolume(.8f);
         });
     }
 
