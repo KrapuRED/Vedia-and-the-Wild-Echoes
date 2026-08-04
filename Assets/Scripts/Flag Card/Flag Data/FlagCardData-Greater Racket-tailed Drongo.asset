@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: FlagCardData-Greater Racket-tailed Drongo
   m_EditorClassIdentifier: Assembly-CSharp::FlagCardDataSO
   flagCardName: Greater Racket-tailed Drongo
-  flagCardSprite: {fileID: 0}
+  flagCardSprite: {fileID: 21300000, guid: abd4b9a0b45499343a1e11bab5e6d8a2, type: 3}
   recordingData: {fileID: 11400000, guid: 316f2767b3b56aa4192681196a9cfa71, type: 2}
