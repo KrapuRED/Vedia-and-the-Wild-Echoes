@@ -200,6 +200,9 @@ public class MissionManager : MonoBehaviour
             int randomIndex = Random.Range(0, availableMarkers.Count);   // <- use the filtered list
             var selectedMission = availableMarkers[randomIndex];
         
+            if (selectedMission.MissionMarkerState == MissionMarkerState.Flagged)
+                continue;
+            
             SelectedMissionMarkerData markerData = new SelectedMissionMarkerData
             {
                 missionMarkerName = selectedMission.name,

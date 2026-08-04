@@ -6,7 +6,8 @@ public class MusicManager : MonoBehaviour
     public static MusicManager Instance { get; private set; }
 
     [SerializeField] private MusicLibrary musicLibrary;
-
+    [SerializeField] private float musicVolume;
+    
     [Header("Music Audio Source Settings")]
     [SerializeField] private AudioSource musicSource;
     
@@ -19,6 +20,15 @@ public class MusicManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
+
+    private void SetMusicVolume(float volume)
+    {
+        musicVolume = Mathf.Clamp01(volume);
+        musicSource.volume = musicVolume;
+    }
+    
+    public void IncreaseMusicVolume(float increasAmount) => SetMusicVolume(musicVolume + increasAmount);
+    public void DecreaseMusicVolume(float amountDecrease) =>   SetMusicVolume(musicVolume - amountDecrease);
     
     public void PlayMusic(string trackName, float fadeDuration = 0.5f)
     {
@@ -26,13 +36,14 @@ public class MusicManager : MonoBehaviour
     }
 
     IEnumerator AnimateMusicCrossFade(AudioClip audioClip, float duration)
-    {
+    { 
+        float startVolume = musicSource.volume;
         float percent = 0f;
 
         while (percent < 1f)
         {
-            percent += Time.deltaTime * 1 / duration;
-            musicSource.volume = Mathf.Lerp(1f, 0, percent);
+            percent += Time.deltaTime / duration;
+            musicSource.volume = Mathf.Lerp(startVolume, 0f, percent);
             yield return null;
         }
 
@@ -42,9 +53,11 @@ public class MusicManager : MonoBehaviour
         percent = 0f;
         while (percent < 1f)
         {
-            percent += Time.deltaTime * 1 / duration;
-            musicSource.volume = Mathf.Lerp(0, 1f, percent);
+            percent += Time.deltaTime / duration;
+            musicSource.volume = Mathf.Lerp(0f, musicVolume, percent);
             yield return null;
         }
+
+        musicSource.volume = musicVolume; 
     }
 }

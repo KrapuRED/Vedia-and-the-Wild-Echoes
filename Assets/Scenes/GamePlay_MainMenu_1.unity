@@ -150,6 +150,7 @@ Transform:
   m_Children:
   - {fileID: 815900667}
   - {fileID: 329194416}
+  - {fileID: 847688233}
   m_Father: {fileID: 1753069602}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &45707413 stripped
@@ -1047,6 +1048,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3689857161700239943, guid: bb4b78f0bb6a56648a62d7deb019e024, type: 3}
+      propertyPath: m_Name
+      value: Flag Card - Greater Racket-tailed Drongo
+      objectReference: {fileID: 0}
     - target: {fileID: 4554562460280952693, guid: bb4b78f0bb6a56648a62d7deb019e024, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1126,6 +1131,10 @@ PrefabInstance:
     - target: {fileID: 4554562460280952693, guid: bb4b78f0bb6a56648a62d7deb019e024, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128920427360789476, guid: bb4b78f0bb6a56648a62d7deb019e024, type: 3}
+      propertyPath: m_Name
+      value: Flag Card - Bellied Prinia
       objectReference: {fileID: 0}
     - target: {fileID: 6178187681918235998, guid: bb4b78f0bb6a56648a62d7deb019e024, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2661,6 +2670,11 @@ Transform:
   - {fileID: 621617102}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &847688233 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6801356790175788543, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+  m_PrefabInstance: {fileID: 2054133674}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &851415246 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0ccc5b5e61a7ff34ea0ed73ea07659ca, type: 3}
@@ -5390,11 +5404,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3233918039017384895, guid: 03269568b240d7342bc1150b904773fa, type: 3}
       propertyPath: soundEffectList.Array.data[5].groupID
-      value: passive__river
+      value: passive_river
       objectReference: {fileID: 0}
     - target: {fileID: 3233918039017384895, guid: 03269568b240d7342bc1150b904773fa, type: 3}
       propertyPath: soundEffectList.Array.data[6].groupID
-      value: passive__forest
+      value: passive_forest
       objectReference: {fileID: 0}
     - target: {fileID: 3233918039017384895, guid: 03269568b240d7342bc1150b904773fa, type: 3}
       propertyPath: soundEffectList.Array.data[7].groupID
@@ -5960,6 +5974,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: === DDOL - Game Manager ===
       objectReference: {fileID: 0}
+    - target: {fileID: 4609060229194695935, guid: 03269568b240d7342bc1150b904773fa, type: 3}
+      propertyPath: musicVolume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4669840936986670481, guid: 03269568b240d7342bc1150b904773fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1355.5477
@@ -6122,11 +6140,120 @@ PrefabInstance:
       propertyPath: areaMission
       value: 
       objectReference: {fileID: 27710781}
+    - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
+      propertyPath: activeRecordingsList.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
+      propertyPath: 'activeRecordingsList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: df36745d39389524eb8eb9b65d950c42, type: 2}
+    - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
+      propertyPath: 'activeRecordingsList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: be6d491d401e04748a205abb6b7e18fe, type: 2}
+    - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
+      propertyPath: 'activeRecordingsList.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bfa21cf59b72dd7429757a4f08887edb, type: 2}
+    - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
+      propertyPath: 'activeRecordingsList.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bfa21cf59b72dd7429757a4f08887edb, type: 2}
+    - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
+      propertyPath: 'activeRecordingsList.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 316f2767b3b56aa4192681196a9cfa71, type: 2}
+    - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
+      propertyPath: 'activeRecordingsList.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f84b7bd5744e0284988f47364a1cdebb, type: 2}
+    - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
+      propertyPath: 'activeRecordingsList.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 41c522c3598628345b65a83adb61a2b7, type: 2}
+    - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
+      propertyPath: 'passiveRecordingsList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 316f2767b3b56aa4192681196a9cfa71, type: 2}
+    - target: {fileID: 8568483994823274286, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
+      propertyPath: 'passiveRecordingsList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f84b7bd5744e0284988f47364a1cdebb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5a825d480bca1b4d8f5f234b2c47616, type: 3}
+--- !u!1001 &2054133674
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 27710781}
+    m_Modifications:
+    - target: {fileID: 6275474599365084240, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+      propertyPath: isSelectedTutorial
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275474599365084240, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+      propertyPath: missionRecordingData
+      value: 
+      objectReference: {fileID: 11400000, guid: f84b7bd5744e0284988f47364a1cdebb, type: 2}
+    - target: {fileID: 6275474599365084240, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+      propertyPath: missionMarkerLocation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801356790175788543, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801356790175788543, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.503
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801356790175788543, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -32.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801356790175788543, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801356790175788543, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801356790175788543, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801356790175788543, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801356790175788543, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801356790175788543, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801356790175788543, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406426722344530363, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
+      propertyPath: m_Name
+      value: Mission Marker (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 687f3023a0d09394ba664a6335c7e5a2, type: 3}
 --- !u!1 &2056900065
 GameObject:
   m_ObjectHideFlags: 0
