@@ -42,7 +42,10 @@ Material:
     - _Base_Scale: 0.52
     - _Base_Speed: 1
     - _Base_Strength: 1.28
-    - _Emission_Strength: 0.85
+    - _Emission_Strength: 1
+    - _Fade_Depth: 1
+    - _Fresnel_Opacity: 1.2
+    - _Fresnel_Power: 8.22
     - _Noise_Edge_1: 0.13
     - _Noise_Edge_2: 1
     - _Noise_Height: 0.5
