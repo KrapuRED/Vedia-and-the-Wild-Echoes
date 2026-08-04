@@ -78,10 +78,12 @@ public class SoundEffectManager : MonoBehaviour
 
    public void StopAllSoundEFfectLoop()
    {
+      Debug.Log("StopAllSoundEFfectLoop");
       foreach (var source in _loopSources.Values)
       {
-         source.Stop();
-         Destroy(source.gameObject);
+         if (source != null)
+            source.Stop();
       }
+      _loopSources.Clear();
    }
 }

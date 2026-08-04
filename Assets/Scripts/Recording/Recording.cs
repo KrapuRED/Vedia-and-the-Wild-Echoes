@@ -50,10 +50,7 @@ public class Recording : MonoBehaviour
         if (isCorrrect)
         {
             recordingPanelUI.ShowCorrectRecording();
-            
             SoundEffectManager.Instance.PlaySoundEffect("recording_correct");
-            SoundEffectManager.Instance.StopSoundEffectLoop(currentMission.SoundEffectName);
-            
             GameEvents.OnFlaggedMissionMarker.Invoke(currentMission);
         }
         else

@@ -148,7 +148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 173dd4f2b0add1b438d1e059357891dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MusicLibrary
-  trackList: []
+  trackList:
+  - Name: MainGame
+    Clip: {fileID: 8300000, guid: f8bae7a62940d55438bfc5324b0afa74, type: 3}
+  - Name: MainMenu
+    Clip: {fileID: 8300000, guid: 654943af5800c014ea97c7e33231bdbb, type: 3}
 --- !u!114 &4609060229194695935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3764754882090497608}
   - component: {fileID: 6382477413925235394}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Higlight Layer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3629042342702018240}
   - component: {fileID: 1046915362669370954}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Position - Right Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,7 +304,7 @@ GameObject:
   - component: {fileID: 1306669139222301834}
   - component: {fileID: 7659025444893745805}
   - component: {fileID: 1978626492784478839}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Dialogue Box - Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,11 +325,12 @@ RectTransform:
   m_Children:
   - {fileID: 4816332256602095028}
   - {fileID: 8374822559126184371}
+  - {fileID: 5278387344230772643}
   m_Father: {fileID: 8949027679899169318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 595, y: -270}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 600, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7659025444893745805
@@ -410,13 +415,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a201dcd7d37633468f2a492f44d8a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialManager
+  buttonContinueTutorial: {fileID: 6714249944519163253}
   tutorialDialogueUI: {fileID: 1863795897544205225}
   listTutorialDataSO:
   - {fileID: 11400000, guid: 148768d29eddf8c4fb1e93495cd01fb5, type: 2}
   - {fileID: 11400000, guid: b9a59c8d4a7479d47ab80497778ef67c, type: 2}
-  - {fileID: 11400000, guid: 56bd9a563aee2784d9df1e3be7b9bceb, type: 2}
-  - {fileID: 11400000, guid: af4c1e573c70b9f49a41936c7cee7f45, type: 2}
+  - {fileID: 11400000, guid: 786cb2ac1b86a47488fb6778da151d66, type: 2}
+  recordingDataSO: {fileID: 11400000, guid: be6d491d401e04748a205abb6b7e18fe, type: 2}
   isTutorialActive: 0
+  isMissionTutorialComplete: 0
   panelTutorial: {fileID: 8978803134118969393}
   overlayCanvasGroup: {fileID: 6814039471882242129}
   highlightLayer: {fileID: 3764754882090497608}
@@ -431,7 +438,7 @@ GameObject:
   - component: {fileID: 71244049384261339}
   - component: {fileID: 6446231957208385507}
   - component: {fileID: 6149940062984283017}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: == Panel - Tutorial Content ==
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,7 +562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2236241549231129248}
   - component: {fileID: 785964595981390146}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Position - Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,7 +612,7 @@ GameObject:
   - component: {fileID: 8949027679899169318}
   - component: {fileID: 1863795897544205225}
   - component: {fileID: 2175315578930013212}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Tutorial - Dialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -645,6 +652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed268a61ac478184b83514d8c3a591be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialDialogueUI
+  typewriter: {fileID: 5009725140788913066}
   dialogueRootRect: {fileID: 8949027679899169318}
   characterIcon: {fileID: 1846023022443124995}
   characterNameText: {fileID: 2757833035836124073}
@@ -722,7 +730,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -851,7 +859,133 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ac2d25451c90340be4f03a2ac1f59a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectLibrary
-  soundEffectList: []
+  soundEffectList:
+  - groupID: clue_Greater Racket-tailed Drongo
+    clips:
+    - {fileID: 8300000, guid: bd459912b69bc3e47b7e5ddba4d057d6, type: 3}
+  - groupID: clue_Bellied Prinia
+    clips:
+    - {fileID: 8300000, guid: bd459912b69bc3e47b7e5ddba4d057d6, type: 3}
+  - groupID: clue_mining
+    clips:
+    - {fileID: 8300000, guid: c8cacba14d38910498532b2d6f1a2b77, type: 3}
+  - groupID: clue_login
+    clips:
+    - {fileID: 8300000, guid: dd7e55f343a96e349888b68d39e34ab0, type: 3}
+  - groupID: clue_hunting
+    clips:
+    - {fileID: 8300000, guid: dcbe4d2e28270004aaed393928898e76, type: 3}
+  - groupID: passive_rain
+    clips:
+    - {fileID: 8300000, guid: 3fb20a2ddb1a60d42aede96bb8d671e3, type: 3}
+    - {fileID: 8300000, guid: d5ad8291ff87c1943a6f5d77ec376d34, type: 3}
+  - groupID: passive_river
+    clips:
+    - {fileID: 8300000, guid: bccf22f3261c35a408d278999df09168, type: 3}
+    - {fileID: 8300000, guid: bfcab4edca452104f892b82d948d481c, type: 3}
+  - groupID: passive_forest
+    clips:
+    - {fileID: 8300000, guid: b15a7fc8199d11d4e9842fd70993c5fb, type: 3}
+    - {fileID: 8300000, guid: 557ce81752a5c274e98aedd90611994a, type: 3}
+  - groupID: passive_bird
+    clips:
+    - {fileID: 8300000, guid: d9115c8c9202b874dab577d6b284cfbb, type: 3}
+  - groupID: pam_active_Bellied Prinia_bird
+    clips:
+    - {fileID: 8300000, guid: 1989a06dea09fe04fb6fd5695c94e390, type: 3}
+  - groupID: pam_active_Bellied Prinia_forest
+    clips:
+    - {fileID: 8300000, guid: 5684579c6de72aa43aa670cf2f3224d8, type: 3}
+    - {fileID: 8300000, guid: 7b28f15c331e93b4a82c2636661fc3f8, type: 3}
+  - groupID: pam_active_Bellied Prinia_rain
+    clips:
+    - {fileID: 8300000, guid: abe5e151ae1fa8040981ce47e0ab4267, type: 3}
+    - {fileID: 8300000, guid: d77f3404f3ec8654e90ae99fc8c5797c, type: 3}
+  - groupID: pam_active_Bellied Prinia_river
+    clips:
+    - {fileID: 8300000, guid: b78e22355ac4f3942b06ffcfc2630b87, type: 3}
+    - {fileID: 8300000, guid: baa8b2a1f2718d94b94eff573d4bc0e6, type: 3}
+  - groupID: pam_active_Greater Racket-tailed Drongo_Bird
+    clips:
+    - {fileID: 8300000, guid: b78e22355ac4f3942b06ffcfc2630b87, type: 3}
+  - groupID: pam_active_Greater Racket-tailed Drongo_forest
+    clips:
+    - {fileID: 8300000, guid: f910d6dd325143d46aa16a91cb89a253, type: 3}
+    - {fileID: 8300000, guid: 159a0f95e6bdbe345bcbd6b9e8ec2d44, type: 3}
+  - groupID: pam_active_Greater Racket-tailed Drongo_rain
+    clips:
+    - {fileID: 8300000, guid: b9dd48873bebdae4b83d7058ff989c82, type: 3}
+    - {fileID: 8300000, guid: 6005dd7b2b6783e4094e828fe87d821f, type: 3}
+  - groupID: pam_active_Greater Racket-tailed Drongo_river
+    clips:
+    - {fileID: 8300000, guid: e24d65b65560ca84da75205c0fbbdfd8, type: 3}
+    - {fileID: 8300000, guid: ad4fcbca0e90ca641a6b0474c2f4f4c5, type: 3}
+  - groupID: pam_active_mining_bird
+    clips:
+    - {fileID: 8300000, guid: 2f5c29d93b0436e479ea2bdc26081515, type: 3}
+  - groupID: pam_active_mining_forest
+    clips:
+    - {fileID: 8300000, guid: d4132dcfbbc048e4d8597f785dc13ef2, type: 3}
+    - {fileID: 8300000, guid: 759e3ec5c45d6a84b8f41b3587082a5b, type: 3}
+  - groupID: pam_active_mining_rain
+    clips:
+    - {fileID: 8300000, guid: 1250f8ea10848504cb999a26bee1e377, type: 3}
+    - {fileID: 8300000, guid: 7cacd9b290fb720419933d47056c8c82, type: 3}
+  - groupID: pam_active_mining_river
+    clips:
+    - {fileID: 8300000, guid: 34fb54fea9f2c3a42a032a994e3356e2, type: 3}
+    - {fileID: 8300000, guid: 138096494c6208e4594b42d30af711ed, type: 3}
+  - groupID: pam_active_login_bird
+    clips:
+    - {fileID: 8300000, guid: 821ccf40944456243a81eda0da673ff0, type: 3}
+  - groupID: pam_active_login_forest
+    clips:
+    - {fileID: 8300000, guid: d93ae52f959d97c499a685198a9afb13, type: 3}
+    - {fileID: 8300000, guid: 1687d7bc1bd86d54b8fb38b67c473d00, type: 3}
+  - groupID: pam_active_login_rain
+    clips:
+    - {fileID: 8300000, guid: d7d350d9f880c7c468d2100dd711f982, type: 3}
+    - {fileID: 8300000, guid: 20cbd3ae84ccfa34e9a31d1994a49cd3, type: 3}
+  - groupID: pam_active_login_River
+    clips:
+    - {fileID: 8300000, guid: 33b699119dfa8fa448aff8a468f89e13, type: 3}
+    - {fileID: 8300000, guid: 04b32ed53a3cc704b84628bdb365e531, type: 3}
+  - groupID: pam_active_hunting_bird
+    clips:
+    - {fileID: 8300000, guid: 0703dfd0aa3d3c1478bae6dbb7edf370, type: 3}
+  - groupID: pam_active_hunting_orest
+    clips:
+    - {fileID: 8300000, guid: a7b2ccf64b892684eb7bf50edbf61846, type: 3}
+    - {fileID: 8300000, guid: 1b3e3cd9db3947d46aed231fcfd354fa, type: 3}
+  - groupID: pam_active_hunting_rain
+    clips:
+    - {fileID: 8300000, guid: 08fb60c73fcec8243a5ce77f03633854, type: 3}
+    - {fileID: 8300000, guid: 65fa868f3eff1674482bc3ce3c114b8f, type: 3}
+  - groupID: pam_active_hunting_River
+    clips:
+    - {fileID: 8300000, guid: c39a3da3e7b715345b5a83a9bac2cd3d, type: 3}
+    - {fileID: 8300000, guid: 152942110ff09ea4e8a90ce1f65feda5, type: 3}
+  - groupID: bleep
+    clips:
+    - {fileID: 8300000, guid: 8d2b09d01566c2d4e9bfdc2e015a7a68, type: 3}
+  - groupID: recording_correct
+    clips:
+    - {fileID: 8300000, guid: 3c688555f2975c044867d347a5fe0657, type: 3}
+  - groupID: recording_incorrect
+    clips:
+    - {fileID: 8300000, guid: e4dd008668fae244393e1b4d2baa90aa, type: 3}
+  - groupID: evaluate_button_pop_up
+    clips:
+    - {fileID: 8300000, guid: bee4c9dab3dcee14ebf2c562bbf680c4, type: 3}
+  - groupID: flag_pick_up
+    clips:
+    - {fileID: 8300000, guid: 69eb055f9068dcd41b91a53149320fe5, type: 3}
+  - groupID: general_button
+    clips:
+    - {fileID: 8300000, guid: 40d8e6dbf367d2848a91879e0de0c150, type: 3}
+  - groupID: task_complete
+    clips:
+    - {fileID: 8300000, guid: d4c08441122eba048989c790d6830a5b, type: 3}
 --- !u!114 &5639402848197381757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -878,7 +1012,9 @@ GameObject:
   - component: {fileID: 8374822559126184371}
   - component: {fileID: 2266103304176635576}
   - component: {fileID: 6560555084573838780}
-  m_Layer: 5
+  - component: {fileID: 34430702496760948}
+  - component: {fileID: 5009725140788913066}
+  m_Layer: 0
   m_Name: Dialogue Box - Tutorial Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -942,7 +1078,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -968,6 +1104,219 @@ MonoBehaviour:
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &34430702496760948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5307316777957510184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ace8ced0e81c847968cdca0aeda757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Febucci.TextAnimator.TMP.Runtime::Febucci.UI.TextAnimator_TMP
+  typewriterStartsAutomatically: 0
+  animationLoop: 0
+  timeScale: 0
+  _text: 
+  useDynamicScaling: 1
+  referenceFontSize: 10
+  isResettingTimeOnNewText: 1
+  useDefaultDatabases: 1
+  databaseBehaviors: {fileID: 0}
+  databaseAppearances: {fileID: 0}
+  useDefaultStyleSheet: 1
+  styleSheet: {fileID: 0}
+  databaseActions: {fileID: 0}
+  defaultAppearancesTags:
+  - size
+  defaultDisappearancesTags:
+  - fade
+  defaultBehaviorsTags: []
+  defaultTagsMode: 0
+--- !u!114 &5009725140788913066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5307316777957510184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a6945b90dcd0c4b81619c0d8b5c283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Febucci.TextAnimator.Runtime::Febucci.UI.TypewriterByCharacter
+  useTypeWriter: 1
+  startTypewriterMode: 3
+  hideAppearancesOnSkip: 0
+  hideDisappearancesOnSkip: 0
+  triggerEventsOnSkip: 0
+  resetTypingSpeedAtStartup: 1
+  disappearanceOrientation: 0
+  triggerShowedAfterEffectsEnd: 0
+  triggerDisappearedAfterEffectsEnd: 0
+  onTextShowed:
+    m_PersistentCalls:
+      m_Calls: []
+  onTypewriterStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onTextDisappeared:
+    m_PersistentCalls:
+      m_Calls: []
+  onCharacterVisible:
+    m_PersistentCalls:
+      m_Calls: []
+  onMessage:
+    m_PersistentCalls:
+      m_Calls: []
+  waitForNormalChars: 0.03
+  waitLong: 0.6
+  waitMiddle: 0.2
+  avoidMultiplePunctuationWait: 0
+  waitForNewLines: 1
+  waitForLastCharacter: 1
+  useTypewriterWaitForDisappearances: 1
+  disappearanceWaitTime: 0.015
+  disappearanceSpeedMultiplier: 1
+--- !u!1 &6496735367144168801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1483751072035641522}
+  - component: {fileID: 982421391330354316}
+  - component: {fileID: 5762687438589375348}
+  m_Layer: 0
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1483751072035641522
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6496735367144168801}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5278387344230772643}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &982421391330354316
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6496735367144168801}
+  m_CullTransparentMesh: 1
+--- !u!114 &5762687438589375348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6496735367144168801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Continue
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -1133,6 +1482,165 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &6714249944519163253
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5278387344230772643}
+  - component: {fileID: 8944821023441965616}
+  - component: {fileID: 897299746721142919}
+  - component: {fileID: 8866305202358950168}
+  - component: {fileID: 785335448578702102}
+  m_Layer: 0
+  m_Name: 'Dialogue Box - Tutorial Continue Button '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5278387344230772643
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6714249944519163253}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1483751072035641522}
+  m_Father: {fileID: 1306669139222301834}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 220, y: -139.85}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8944821023441965616
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6714249944519163253}
+  m_CullTransparentMesh: 1
+--- !u!114 &897299746721142919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6714249944519163253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8866305202358950168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6714249944519163253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 897299746721142919}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2422958216808166910}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: ContinueTutorial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 785335448578702102}
+        m_TargetAssemblyTypeName: SoundEffectPlayer, Assembly-CSharp
+        m_MethodName: PlaySoundEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &785335448578702102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6714249944519163253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0e5b6fead01a94cb8ca01f62efa114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
+  soundEffectName: general_button
 --- !u!1 &6734222576055731063
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,7 +1650,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 463490343511184509}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: === Position ===
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1182,7 +1690,7 @@ GameObject:
   - component: {fileID: 4816332256602095028}
   - component: {fileID: 3064185504809166838}
   - component: {fileID: 2757833035836124073}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Dialogue Box - Tutorial Character Name Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1355,7 +1863,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1536,7 +2044,7 @@ GameObject:
   - component: {fileID: 4287988080954609864}
   - component: {fileID: 1664312229678841229}
   - component: {fileID: 1846023022443124995}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Dialogue - Character Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1557,9 +2065,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8949027679899169318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 115, y: -270}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1664312229678841229
@@ -1610,7 +2118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5982119203826469529}
   - component: {fileID: 2714102776090250904}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Position - Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

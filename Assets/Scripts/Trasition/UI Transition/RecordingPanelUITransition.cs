@@ -67,6 +67,7 @@ public class RecordingPanelUITransition : UITransition
         {
             _mainCanvasGroup.blocksRaycasts = true;
             _mainCanvasGroup.interactable = true;
+            
         });
     }
 
@@ -82,17 +83,19 @@ public class RecordingPanelUITransition : UITransition
         {
             _tween.Kill();
             _tween = null;
-        }
+        } 
+        
+        InputManager.Instance.PopActionMap();
         
         _tween = _mainCanvasGroup.DOFade(0, 0.3f);
         _tween.OnComplete(() =>
         {
             _isOpen  = false;
+            SoundEffectManager.Instance.StopAllSoundEFfectLoop();
             _mainCanvasGroup.blocksRaycasts = false;
             _mainCanvasGroup.interactable = false;
             
             recording.ResetRecording();
-            InputManager.Instance.PopActionMap();
         });
     }
     

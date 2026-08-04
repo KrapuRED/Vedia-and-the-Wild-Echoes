@@ -10,6 +10,7 @@ public class TaskData
     public int currentTask;
     public TaskUI taskUI;
     public bool isCompleted;
+    public TaskDataSO taskRecondingData; 
 }
 
 public class TaskManager : MonoBehaviour
@@ -86,6 +87,7 @@ public class TaskManager : MonoBehaviour
                 taskName = contentTask.taskName,
                 flagAppearanceTask = contentTask.flagAppearance,
                 taskUI = newTaskUI,
+                taskRecondingData = contentTask,
                 currentTask = 0
             };
             activeTasks.Add(newTaskData);
@@ -94,7 +96,14 @@ public class TaskManager : MonoBehaviour
 
     private TaskData FindTaskByName(string taskName)
     {
-        return  activeTasks.Find(x => x.taskName == taskName);
+        var activeTaskData = activeTasks.Find(x => x.taskName == taskName);
+        return activeTaskData;
+    }
+
+    private TaskData FindTaskBySoundForestMonitoring(ForestMonitorType forestMonitorType, string soundEffectName)
+    {
+        var activeTaskData = activeTasks.Find(acd => acd.taskRecondingData.clueRecordings[0].forestMonitorType == forestMonitorType);
+        return null;
     }
 
     private void CheckAllTaskCompleted()
@@ -123,17 +132,26 @@ public class TaskManager : MonoBehaviour
         if (_isAllTaskCompleted)
             return;
         
-        var taskData = missionData.MissionRecordingData;
-        if (taskData == null)
+        var recordingData = missionData.MissionRecordingData;
+        if (recordingData == null)
         {
             Debug.LogError($"[{this.name} - OnUpdateTask] Task data is null!");
             return;
         }
         
-        var task = FindTaskByName(taskData.recordingName);
+        TaskData task = null;
+        if (missionData.MissionRecordingData.forestMonitorType == ForestMonitorType.Biodiversity)
+        {
+            task = FindTaskByName(recordingData.recordingName);
+        }
+        else
+        {
+            task = FindTaskByName(missionData.MissionRecordingData.forestMonitorType.ToString());
+        }
+        
         if (task == null)
         {
-            Debug.Log($"[{this.name} - OnUpdateTask] Task data not found!");
+            Debug.LogWarning($"[{this.name} - OnUpdateTask] Task data not found!");
             return;
         }
         

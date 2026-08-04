@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c67d361ec5b1d4ea5230ba9c6695da, type: 3}
   m_Name: RecordingData_Audio_Clue_Loging
   m_EditorClassIdentifier: Assembly-CSharp::RecordingDataSO
-  recordingName: 
+  recordingName: login activity
   recordingSprite: {fileID: 0}
   recordingMaterial: {fileID: 0}
   recordingClip: clue_login

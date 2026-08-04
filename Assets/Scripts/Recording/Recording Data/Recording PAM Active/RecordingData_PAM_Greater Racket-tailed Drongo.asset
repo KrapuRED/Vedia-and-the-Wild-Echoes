@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c67d361ec5b1d4ea5230ba9c6695da, type: 3}
   m_Name: RecordingData_PAM_Greater Racket-tailed Drongo
   m_EditorClassIdentifier: Assembly-CSharp::RecordingDataSO
-  recordingName: Loging Activie
+  recordingName: Greater Racket-tailed Drongo
   recordingSprite: {fileID: 21300000, guid: 139d9d8fcfe3a0e41b475651e48a08bb, type: 3}
   recordingMaterial: {fileID: 0}
   recordingClip: Greater Racket-tailed Drongo

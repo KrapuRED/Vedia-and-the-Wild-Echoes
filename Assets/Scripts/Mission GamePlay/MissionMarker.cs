@@ -13,9 +13,7 @@ public enum MissionMarkerState
 public enum MissionMarkerLocation
 {
    Unkown,
-   Bird,
    Forest,
-   Rain,
    River
 }
 
@@ -57,7 +55,7 @@ public class MissionMarker : MonoBehaviour, IInteractable
    {
       GameEvents.OnMissionMarkerRegistered.Invoke(this);
       GameEvents.OnFlaggedMissionMarker.AddListener(FlaggeMissionMarker);
-      GameEvents.OnMissionTutorial.AddListener(UpdateState);
+      GameEvents.OnMissionTutorial.AddListener(OnUpdateStateByTutorial);
    }
 
    private void OnDisable()
@@ -72,7 +70,7 @@ public class MissionMarker : MonoBehaviour, IInteractable
    private void OnRemoveListeners()
    {
       GameEvents.OnFlaggedMissionMarker.RemoveListener(FlaggeMissionMarker);
-      GameEvents.OnMissionTutorial.RemoveListener(UpdateState);
+      GameEvents.OnMissionTutorial.RemoveListener(OnUpdateStateByTutorial);
    }
     
    #endregion
@@ -85,11 +83,25 @@ public class MissionMarker : MonoBehaviour, IInteractable
    private void BuildSoundEffectName()
    {
       string state = missionMarkerState == MissionMarkerState.Active ? "pam_active" : "passive";
-      string recording = MissionRecordingData.recordingClip;
       string location = missionMarkerLocation.ToString().ToLower();
+
+      if (missionMarkerState == MissionMarkerState.Passive)
+      {
+         _soundEffectName = $"{state}_{location}";
+         Debug.Log($"[{this.name}] sound effect {_soundEffectName}");
+         return;
+      }
+      
+      string recording = MissionRecordingData.recordingClip;
       
       _soundEffectName = $"{state}_{recording}_{location}";
       Debug.Log($"[{this.name}] sound effect {_soundEffectName}");
+   }
+
+   private void OnUpdateStateByTutorial(MissionMarkerState markerState, RecordingDataSO recordingData)
+   {
+      if (isSelectedTutorial)
+         UpdateState(markerState, recordingData);
    }
    
    public void UpdateState(MissionMarkerState markerState, RecordingDataSO recordingData)
