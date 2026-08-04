@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Test_Task_Data 2
   m_EditorClassIdentifier: Assembly-CSharp::TaskDataSO
   taskName: Threat
-  taskIcon: {fileID: 0}
+  taskIcon: {fileID: 21300000, guid: bac543c8a1a66494a96b97704d348beb, type: 3}
   flagAppearance: 1
   clueRecordings:
   - {fileID: 11400000, guid: eea4ee40b94d90b4381d91b74940a64d, type: 2}

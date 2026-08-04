@@ -11,6 +11,7 @@ public class TaskUI : MonoBehaviour
     [SerializeField] private GameObject counterFillSlider;
     [SerializeField] private Transform containerSoundClue;
     [SerializeField] private SoundEffectPlayer buttonPrefab;
+    [SerializeField] private GameObject completedTask;
     
     public void InitTaskUI(TaskDataSO taskData)
     {
@@ -29,6 +30,7 @@ public class TaskUI : MonoBehaviour
         }
         
         counterTask.text = $"0 / {taskData.flagAppearance}";
+        completedTask.SetActive(false);
     }
 
     public void UpdateTaskUI(TaskData taskData)
@@ -36,5 +38,8 @@ public class TaskUI : MonoBehaviour
         counterTask.text = $"{taskData.currentTask} / {taskData.flagAppearanceTask}";
         counterFillSlider.SetActive(true);
         counterSlider.value = taskData.currentTask;
+        
+        if (taskData.currentTask >= taskData.flagAppearanceTask)
+            completedTask.SetActive(true);
     }
 }
