@@ -15,9 +15,9 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
   m_Fog: 1
-  m_FogColor: {r: 0.8244192, g: 0.8616352, b: 0.74512476, a: 1}
+  m_FogColor: {r: 1, g: 0.9315649, b: 0.09119487, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.016
+  m_FogDensity: 0.012
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -334,7 +334,7 @@ Transform:
   m_GameObject: {fileID: 481968442}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.27, y: 3.3, z: 2.97}
+  m_LocalPosition: {x: 23.33, y: 3.3, z: 2.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -685,10 +685,10 @@ Terrain:
   m_TreeBillboardDistance: 15
   m_TreeCrossFadeLength: 1
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 100
+  m_DetailObjectDistance: 24
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
-  m_SplatMapDistance: 400
+  m_SplatMapDistance: 12
   m_HeightmapMinimumLODSimplification: 0
   m_HeightmapMaximumLOD: 0
   m_ShadowCastingMode: 2
@@ -726,7 +726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 13c56cfb23c13184c9f52ae1f4b9b0f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.72
+      value: 7.37
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 13c56cfb23c13184c9f52ae1f4b9b0f7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -766,7 +766,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 13c56cfb23c13184c9f52ae1f4b9b0f7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -801,7 +801,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 12
   m_Type: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9931435, g: 1, b: 0.87106913, a: 1}
   m_Intensity: 1.5
   m_Range: 10
   m_SpotAngle: 30
@@ -864,13 +864,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2067438082}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20505968, y: -0.589355, z: 0.1579172, w: 0.76529306}
+  m_LocalRotation: {x: 0.37135133, y: 0.3504089, z: -0.15381876, w: 0.845962}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 30, y: -75.2, z: 0}
+  m_LocalEulerAnglesHint: {x: 47.4, y: 45, z: 0}
 --- !u!114 &2067438085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -911,7 +911,7 @@ GameObject:
   - component: {fileID: 2098674651}
   - component: {fileID: 2098674650}
   m_Layer: 0
-  m_Name: Global Volume
+  m_Name: Dhika Global Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
