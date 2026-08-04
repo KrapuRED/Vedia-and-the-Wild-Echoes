@@ -157,6 +157,7 @@ public class TaskManager : MonoBehaviour
         
         task.currentTask++;
         task.taskUI.UpdateTaskUI(task);
+        Debug.LogWarning($"[{this.name} - OnUpdateTask] Task {task.taskName} completed!");
         
         if (task.currentTask >= task.flagAppearanceTask)
         {
