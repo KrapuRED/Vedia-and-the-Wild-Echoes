@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MusicManager
   musicLibrary: {fileID: 64202160363615682}
+  musicVolume: 0.5
   musicSource: {fileID: 2236741228622848081}
 --- !u!1 &1771245215928110023
 GameObject:
@@ -437,7 +438,6 @@ GameObject:
   m_Component:
   - component: {fileID: 71244049384261339}
   - component: {fileID: 6446231957208385507}
-  - component: {fileID: 6149940062984283017}
   m_Layer: 0
   m_Name: == Panel - Tutorial Content ==
   m_TagString: Untagged
@@ -474,36 +474,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3478691729099920751}
   m_CullTransparentMesh: 1
---- !u!114 &6149940062984283017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3478691729099920751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4059121843680189396
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,10 +845,6 @@ MonoBehaviour:
   - groupID: clue_hunting
     clips:
     - {fileID: 8300000, guid: dcbe4d2e28270004aaed393928898e76, type: 3}
-  - groupID: passive_rain
-    clips:
-    - {fileID: 8300000, guid: 3fb20a2ddb1a60d42aede96bb8d671e3, type: 3}
-    - {fileID: 8300000, guid: d5ad8291ff87c1943a6f5d77ec376d34, type: 3}
   - groupID: passive_river
     clips:
     - {fileID: 8300000, guid: bccf22f3261c35a408d278999df09168, type: 3}
@@ -887,81 +853,61 @@ MonoBehaviour:
     clips:
     - {fileID: 8300000, guid: b15a7fc8199d11d4e9842fd70993c5fb, type: 3}
     - {fileID: 8300000, guid: 557ce81752a5c274e98aedd90611994a, type: 3}
-  - groupID: passive_bird
-    clips:
+    - {fileID: 8300000, guid: 3fb20a2ddb1a60d42aede96bb8d671e3, type: 3}
+    - {fileID: 8300000, guid: d5ad8291ff87c1943a6f5d77ec376d34, type: 3}
     - {fileID: 8300000, guid: d9115c8c9202b874dab577d6b284cfbb, type: 3}
-  - groupID: pam_active_Bellied Prinia_bird
-    clips:
-    - {fileID: 8300000, guid: 1989a06dea09fe04fb6fd5695c94e390, type: 3}
   - groupID: pam_active_Bellied Prinia_forest
     clips:
+    - {fileID: 8300000, guid: 1989a06dea09fe04fb6fd5695c94e390, type: 3}
     - {fileID: 8300000, guid: 5684579c6de72aa43aa670cf2f3224d8, type: 3}
     - {fileID: 8300000, guid: 7b28f15c331e93b4a82c2636661fc3f8, type: 3}
-  - groupID: pam_active_Bellied Prinia_rain
-    clips:
     - {fileID: 8300000, guid: abe5e151ae1fa8040981ce47e0ab4267, type: 3}
     - {fileID: 8300000, guid: d77f3404f3ec8654e90ae99fc8c5797c, type: 3}
   - groupID: pam_active_Bellied Prinia_river
     clips:
     - {fileID: 8300000, guid: b78e22355ac4f3942b06ffcfc2630b87, type: 3}
     - {fileID: 8300000, guid: baa8b2a1f2718d94b94eff573d4bc0e6, type: 3}
-  - groupID: pam_active_Greater Racket-tailed Drongo_Bird
-    clips:
-    - {fileID: 8300000, guid: b78e22355ac4f3942b06ffcfc2630b87, type: 3}
   - groupID: pam_active_Greater Racket-tailed Drongo_forest
     clips:
     - {fileID: 8300000, guid: f910d6dd325143d46aa16a91cb89a253, type: 3}
     - {fileID: 8300000, guid: 159a0f95e6bdbe345bcbd6b9e8ec2d44, type: 3}
-  - groupID: pam_active_Greater Racket-tailed Drongo_rain
-    clips:
+    - {fileID: 8300000, guid: c84dbe0b29df2fa40a3d02ea40007a48, type: 3}
     - {fileID: 8300000, guid: b9dd48873bebdae4b83d7058ff989c82, type: 3}
     - {fileID: 8300000, guid: 6005dd7b2b6783e4094e828fe87d821f, type: 3}
   - groupID: pam_active_Greater Racket-tailed Drongo_river
     clips:
     - {fileID: 8300000, guid: e24d65b65560ca84da75205c0fbbdfd8, type: 3}
     - {fileID: 8300000, guid: ad4fcbca0e90ca641a6b0474c2f4f4c5, type: 3}
-  - groupID: pam_active_mining_bird
-    clips:
-    - {fileID: 8300000, guid: 2f5c29d93b0436e479ea2bdc26081515, type: 3}
   - groupID: pam_active_mining_forest
     clips:
     - {fileID: 8300000, guid: d4132dcfbbc048e4d8597f785dc13ef2, type: 3}
     - {fileID: 8300000, guid: 759e3ec5c45d6a84b8f41b3587082a5b, type: 3}
-  - groupID: pam_active_mining_rain
-    clips:
-    - {fileID: 8300000, guid: 1250f8ea10848504cb999a26bee1e377, type: 3}
+    - {fileID: 8300000, guid: 2f5c29d93b0436e479ea2bdc26081515, type: 3}
     - {fileID: 8300000, guid: 7cacd9b290fb720419933d47056c8c82, type: 3}
+    - {fileID: 8300000, guid: 1250f8ea10848504cb999a26bee1e377, type: 3}
   - groupID: pam_active_mining_river
     clips:
     - {fileID: 8300000, guid: 34fb54fea9f2c3a42a032a994e3356e2, type: 3}
     - {fileID: 8300000, guid: 138096494c6208e4594b42d30af711ed, type: 3}
-  - groupID: pam_active_login_bird
-    clips:
-    - {fileID: 8300000, guid: 821ccf40944456243a81eda0da673ff0, type: 3}
   - groupID: pam_active_login_forest
     clips:
     - {fileID: 8300000, guid: d93ae52f959d97c499a685198a9afb13, type: 3}
     - {fileID: 8300000, guid: 1687d7bc1bd86d54b8fb38b67c473d00, type: 3}
-  - groupID: pam_active_login_rain
-    clips:
     - {fileID: 8300000, guid: d7d350d9f880c7c468d2100dd711f982, type: 3}
     - {fileID: 8300000, guid: 20cbd3ae84ccfa34e9a31d1994a49cd3, type: 3}
-  - groupID: pam_active_login_River
+    - {fileID: 8300000, guid: 821ccf40944456243a81eda0da673ff0, type: 3}
+  - groupID: pam_active_login_river
     clips:
     - {fileID: 8300000, guid: 33b699119dfa8fa448aff8a468f89e13, type: 3}
     - {fileID: 8300000, guid: 04b32ed53a3cc704b84628bdb365e531, type: 3}
-  - groupID: pam_active_hunting_bird
-    clips:
-    - {fileID: 8300000, guid: 0703dfd0aa3d3c1478bae6dbb7edf370, type: 3}
-  - groupID: pam_active_hunting_orest
+  - groupID: pam_active_hunting_forest
     clips:
     - {fileID: 8300000, guid: a7b2ccf64b892684eb7bf50edbf61846, type: 3}
     - {fileID: 8300000, guid: 1b3e3cd9db3947d46aed231fcfd354fa, type: 3}
-  - groupID: pam_active_hunting_rain
-    clips:
+    - {fileID: 8300000, guid: 0703dfd0aa3d3c1478bae6dbb7edf370, type: 3}
     - {fileID: 8300000, guid: 08fb60c73fcec8243a5ce77f03633854, type: 3}
     - {fileID: 8300000, guid: 65fa868f3eff1674482bc3ce3c114b8f, type: 3}
-  - groupID: pam_active_hunting_River
+  - groupID: pam_active_hunting_river
     clips:
     - {fileID: 8300000, guid: c39a3da3e7b715345b5a83a9bac2cd3d, type: 3}
     - {fileID: 8300000, guid: 152942110ff09ea4e8a90ce1f65feda5, type: 3}
