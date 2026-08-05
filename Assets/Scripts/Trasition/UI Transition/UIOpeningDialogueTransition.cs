@@ -4,15 +4,15 @@ using DG.Tweening;
 
 public class UIOpeningDialogueTransition : UITransition
 {
-    [Header("Opening DialogueUI Transition Configuration")]
+    [Header("Opening DialogueUI SceneTransition Configuration")]
     [SerializeField] private float cameraTransitionDuration = 0.5f;
     [SerializeField] private float dialogueTransitionDuration = 0.5f;
     
-    [Header("Camera UI Transition Configuration")]
+    [Header("Camera UI SceneTransition Configuration")]
     [SerializeField] private Vector3 endPosition;
     private Vector3 _startPositionCam;
     
-    [Header("Dialogue Transition Configuration")]
+    [Header("Dialogue SceneTransition Configuration")]
     [SerializeField] private RectTransform dialogueRectTransform;
     [SerializeField] private CanvasGroup dialogueCanvasGroup;
     [SerializeField] private Vector2 onScreenPosition;
@@ -32,7 +32,7 @@ public class UIOpeningDialogueTransition : UITransition
 
     public override void ShowTransition()
     {
-        Debug.Log($"{gameObject.name} Showing UI Transition");
+        Debug.Log($"{gameObject.name} Showing UI SceneTransition");
         
         _transition?.Kill();
 

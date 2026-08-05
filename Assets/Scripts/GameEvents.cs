@@ -99,6 +99,7 @@ public static class GameEvents
     public static readonly CustomEvents<MissionMarker> OnShowRecordingPanel = new();
     public static readonly CustomEvents OnHideRecordingPanel = new();
     
+    public static readonly CustomEvents OnStartMainGame = new();
     public static readonly CustomEvents<MissionMarker> OnFlaggedMissionMarker = new();
     public static readonly CustomEvents<MissionMarker> OnMissionMarkerRegistered = new();
     public static readonly CustomEvents<MissionMarker> OnMissionMarkerUnregistered = new();

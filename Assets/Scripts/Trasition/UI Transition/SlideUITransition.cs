@@ -3,7 +3,7 @@ using DG.Tweening;
 
 public class SlideUITransition : UITransition
 {
-    [Header("MainMenu UI Transition Configuration")]
+    [Header("MainMenu UI SceneTransition Configuration")]
     [SerializeField] private float transitionDuration = 0.5f;
     
     [Header("UI References & Positions")]

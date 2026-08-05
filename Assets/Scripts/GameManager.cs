@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance {get; private set;}
 
     [SerializeField] private bool isGameActive;
+    [SerializeField] private int currentLevel;
+    [SerializeField] private int maxLevel;
     
     private void Awake()
     {
@@ -17,6 +19,18 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
+    }
+
+    private void Start()
+    {
+        StartMainGame();
+    }
+
+    public void StartMainGame()
+    {
+        string sceneName = $"GamePlay_MainGame_{currentLevel}";
+        TranstionManager.Instance.LoadScene(sceneName, "CrossFade");   
     }
 }

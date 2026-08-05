@@ -28,7 +28,7 @@ public class TutorialManager : MonoBehaviour
     private Dictionary<string, Transform> _originalParentTargets = new();
     private Dictionary<string, int> _originalSiblingTargetIndexs = new();
     
-    private bool _isTutorialDone;
+    [SerializeField] private bool _isTutorialDone;
     private int _currentTutorialIndex;
     private int _currentTutorialDialogueIndex;
     
@@ -54,6 +54,7 @@ public class TutorialManager : MonoBehaviour
         GameEvents.OnUnregisterHighlightTarget.AddListener(UnregisterTutorialHighlightTarget);
         GameEvents.OnRegisterDialoguePosition.AddListener(RegisterTutorialPosition);
         GameEvents.OnUnregisterDialoguePosition.AddListener(UnregisterTutorialPosition);
+        GameEvents.OnStartMainGame.AddListener(StartTutorial);
     }
 
     private void OnDisable() => OnRemoveListeners();
@@ -66,20 +67,12 @@ public class TutorialManager : MonoBehaviour
         GameEvents.OnUnregisterHighlightTarget.RemoveListener(UnregisterTutorialHighlightTarget);
         GameEvents.OnRegisterDialoguePosition.RemoveListener(RegisterTutorialPosition);
         GameEvents.OnUnregisterDialoguePosition.RemoveListener(UnregisterTutorialPosition);
+        GameEvents.OnStartMainGame.RemoveListener(StartTutorial);
+        
     }
     
     #endregion
     
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (!isTutorialActive && !_isTutorialDone)
-            {
-                StartTutorial();
-            }
-        }
-    }
 
     #region Registry & Unregistry - called by TutorialHighlightTarget
 
