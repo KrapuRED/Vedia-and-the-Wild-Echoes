@@ -6,6 +6,7 @@ public class MissionMarkerIndicatorManager : MonoBehaviour
 {
     public static MissionMarkerIndicatorManager Instance {get; private set; }
     
+    [SerializeField] private Transform containerIndicator;
     [SerializeField] private RectTransform canvasRect;
     [SerializeField] private RectTransform indicatorPrefab;
     [SerializeField] private float edgePadding = 60f;
@@ -48,7 +49,7 @@ public class MissionMarkerIndicatorManager : MonoBehaviour
     private void RegisterIndicator(MissionMarker marker)
     {
         if (_indicators.ContainsKey(marker)) return;
-        var indicator = Instantiate(indicatorPrefab, canvasRect);
+        var indicator = Instantiate(indicatorPrefab, containerIndicator);
         _indicators.Add(marker, indicator);
     }
 
@@ -64,7 +65,12 @@ public class MissionMarkerIndicatorManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector2 screenCenter = new Vector2(Screen.width , Screen.height) * 0.5f;
+        if (_indicators.Count <= 0) return;
+        
+        float screenWidth = Screen.width;
+        float screenHeight = Screen.height;
+        
+        Vector2 screenCenter = new Vector2(screenWidth , screenHeight) * 0.5f;
         Vector2 maxBounds = screenCenter - new Vector2(edgePadding , edgePadding);
 
         foreach (var kvp in _indicators)
@@ -90,12 +96,10 @@ public class MissionMarkerIndicatorManager : MonoBehaviour
             
             Vector2 screenPos = new Vector2(viewportPos.x * Screen.width, viewportPos.y * Screen.height);
             Vector2 dir = (screenPos - screenCenter).normalized;
-
             float angle = Mathf.Atan2(dir.y, dir.x);
-            float cos = Mathf.Cos(angle);
-            float sin = Mathf.Sin(angle);
-            float scaleX = cos != 0 ? maxBounds.x / Mathf.Abs(cos) : float.MaxValue;
-            float scaleY = cos != 0 ? maxBounds.y / Mathf.Abs(sin) : float.MaxValue;
+            
+            float scaleX = dir.x != 0 ? maxBounds.x / Mathf.Abs(dir.x) : float.MaxValue;
+            float scaleY = dir.y != 0 ? maxBounds.y / Mathf.Abs(dir.y) : float.MaxValue;
             float scale = Mathf.Min(scaleX, scaleY);
             
             indicator.anchoredPosition = screenCenter + dir * scale - screenCenter; // relative to canvas center anchor

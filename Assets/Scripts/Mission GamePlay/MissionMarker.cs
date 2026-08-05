@@ -88,14 +88,11 @@ public class MissionMarker : MonoBehaviour, IInteractable
       if (missionMarkerState == MissionMarkerState.Passive)
       {
          _soundEffectName = $"{state}_{location}";
-         Debug.Log($"[{this.name}] sound effect {_soundEffectName}");
          return;
       }
       
       string recording = MissionRecordingData.recordingClip;
-      
       _soundEffectName = $"{state}_{recording}_{location}";
-      Debug.Log($"[{this.name}] sound effect {_soundEffectName}");
    }
 
    private void OnUpdateStateByTutorial(MissionMarkerState markerState, RecordingDataSO recordingData)

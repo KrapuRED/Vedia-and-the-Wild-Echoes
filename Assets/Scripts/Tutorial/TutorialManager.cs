@@ -72,7 +72,6 @@ public class TutorialManager : MonoBehaviour
     }
     
     #endregion
-    
 
     #region Registry & Unregistry - called by TutorialHighlightTarget
 
@@ -123,7 +122,10 @@ public class TutorialManager : MonoBehaviour
     public void  StartTutorial()
     {
         if (isTutorialActive || _isTutorialDone)
+        {
+            GameEvents.OnTutorialStepCompleted.Invoke();
             return;
+        }
 
         if (listTutorialDataSO.Count <= 0)
         {

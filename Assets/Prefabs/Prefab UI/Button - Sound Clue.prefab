@@ -146,3 +146,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
   soundEffectName: 
+  soundResetTimer: 10
+  _hasPlayed: 0

@@ -27,14 +27,19 @@ public class RecordingPanelUITransition : UITransition
 
     private void OnRemoveListener()
     {
-        GameEvents.OnShowRecordingPanel.RemoveListener(PlayAnimation);
-        GameEvents.OnHideRecordingPanel.RemoveListener(HideTransition);
-        
+        if (GameEvents.OnShowRecordingPanel != null)
+            GameEvents.OnShowRecordingPanel.RemoveListener(PlayAnimation);
+
+        if (GameEvents.OnHideRecordingPanel != null)
+            GameEvents.OnHideRecordingPanel.RemoveListener(HideTransition);
     }
     #endregion
 
     private void PlayAnimation(MissionMarker missionMarker)
     {
+        if (this == null)
+            return;
+        
         if (recording == null)
         {
             Debug.LogError($"[{this.name}] Recording is NULL");
@@ -49,16 +54,9 @@ public class RecordingPanelUITransition : UITransition
     
     public override void ShowTransition()
     {
-        if (this == null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        if (_tween != null)
-        {
-            _tween.Kill();
-            _tween = null;
-        }
+        if (this == null) return;
+
+        KillActiveTween();
         
         _isOpen = true;
         _tween = _mainCanvasGroup.DOFade(1, 0.3f);
@@ -73,31 +71,38 @@ public class RecordingPanelUITransition : UITransition
 
     public override void HideTransition()
     {
-        if (this == null)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        if (this == null) return;
 
-        if (_tween != null)
-        {
-            _tween.Kill();
-            _tween = null;
-        } 
+        KillActiveTween();
         
         InputManager.Instance.PopActionMap();
         
         _tween = _mainCanvasGroup.DOFade(0, 0.3f);
         _tween.OnComplete(() =>
         {
-            _isOpen  = false;
-            SoundEffectManager.Instance.StopAllSoundEFfectLoop();
+            if (this == null) return; // Safety check dalam async/callback
+            _isOpen = false;
+            
+            if (SoundEffectManager.Instance != null)
+                SoundEffectManager.Instance.StopAllSoundEFfectLoop();
+                
             _mainCanvasGroup.blocksRaycasts = false;
             _mainCanvasGroup.interactable = false;
-            MusicManager.Instance.IncreaseMusicVolume(1f);
             
-            recording.ResetRecording();
+            if (MusicManager.Instance != null)
+                MusicManager.Instance.IncreaseMusicVolume(1f);
+            
+            if (recording != null)
+                recording.ResetRecording();
         });
     }
     
+    private void KillActiveTween()
+    {
+        if (_tween != null && _tween.IsActive())
+        {
+            _tween.Kill();
+            _tween = null;
+        }
+    }
 }

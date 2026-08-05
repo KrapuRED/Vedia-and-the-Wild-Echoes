@@ -25,7 +25,6 @@ public class TaskUI : MonoBehaviour
         foreach (var recording in taskData.clueRecordings)
         {
             var button = Instantiate(buttonPrefab, containerSoundClue);
-            Debug.Log($"Sound Effect : {recording.recordingClip}");
             button.InitSoundEffectPlayer(recording.recordingClip);
         }
         

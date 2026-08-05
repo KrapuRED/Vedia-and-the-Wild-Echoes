@@ -39,7 +39,7 @@ public class MissionManager : MonoBehaviour
     private readonly List<SelectedMissionMarkerData> _promoteBuffer = new();
     private readonly List<SelectedMissionMarkerData> _demoteBuffer = new();
     
-    private bool _isMissionMarkerActive;
+    [SerializeField] private bool _isMissionMarkerActive;
     private readonly HashSet<MissionMarker> _assignedMarkers = new();
     
     private void Awake()
@@ -59,8 +59,10 @@ public class MissionManager : MonoBehaviour
 
     private void OnEnable()
     {
+        OnRemoveListeners();
+        
         GameEvents.OnFlaggedMissionMarker.AddListener(RemoveMissionMarker);
-        GameEvents.OnAllTaskDone.RemoveListener(ClearAllMissionMarkers);
+        GameEvents.OnAllTaskDone.AddListener(ClearAllMissionMarkers);
         GameEvents.OnTutorialStepCompleted.AddListener(StartMission);
     }
 
@@ -70,10 +72,14 @@ public class MissionManager : MonoBehaviour
 
     private void OnRemoveListeners()
     {
-        GameEvents.OnFlaggedMissionMarker.RemoveListener(RemoveMissionMarker);
-        GameEvents.OnAllTaskDone.RemoveListener(ClearAllMissionMarkers);
-        GameEvents.OnTutorialStepCompleted.RemoveListener(StartMission);
+        if (GameEvents.OnFlaggedMissionMarker != null)
+            GameEvents.OnFlaggedMissionMarker.RemoveListener(RemoveMissionMarker);
         
+        if (GameEvents.OnAllTaskDone != null)
+            GameEvents.OnAllTaskDone.RemoveListener(ClearAllMissionMarkers);
+        
+        if (GameEvents.OnTutorialStepCompleted != null)
+            GameEvents.OnTutorialStepCompleted.RemoveListener(StartMission);
     }
     
     #endregion
@@ -88,12 +94,30 @@ public class MissionManager : MonoBehaviour
         UpdateActiveMissionMarker(dt);
     }
 
+    private void RefreshMissionMarkers()
+    {
+        if (missionMarkers == null)
+            missionMarkers = new List<MissionMarker>();
+        else
+            missionMarkers.Clear();
+
+        if (areaMission != null)
+        {
+            missionMarkers = areaMission.GetComponentsInChildren<MissionMarker>(true).ToList();
+        }
+        
+        _markerLookup.Clear();
+        missionMarkerPassive.Clear();
+        missionMarkerActive.Clear();
+         
+    }
+    
     private void ClearAllMissionMarkers()
     {
         missionMarkerActive.Clear();
         missionMarkerPassive.Clear();
         _markerLookup.Clear();
- 
+        
         _isMissionMarkerActive = false;
     }
     
@@ -152,7 +176,7 @@ public class MissionManager : MonoBehaviour
         foreach (var missionMarker in missionMarkerActive)
         {
             if (missionMarker == null)
-                return;
+                continue;
             
             if (missionMarker.missionMarkerState == MissionMarkerState.Passive)
                 continue;
@@ -184,9 +208,21 @@ public class MissionManager : MonoBehaviour
     
     public void StartMission()
     {
+        if (this == null) return;
+
+        _isMissionMarkerActive = true;
+        Debug.LogWarning($"[MissionManager] StartMission Get CALLED in {gameObject.name}");
         if (areaMission == null)
         {
             Debug.LogError($"{nameof(areaMission)} is null in {gameObject.name}");
+            return;
+        }
+        
+        RefreshMissionMarkers();
+        
+        if (missionMarkers.Count == 0)
+        {
+            Debug.LogError($"[MissionManager] Tidak ada MissionMarker ditemukan di bawah {areaMission.name}!");
             return;
         }
         

@@ -56,9 +56,10 @@ public class TranstionManager : MonoBehaviour
 
         scene.allowSceneActivation = true;
 
-        GameEvents.OnStartMainGame.Invoke();
+        yield return null;
         //progressBar.gameObject.SetActive(false);
 
         yield return transition.TranstionOut();
+        GameEvents.OnStartMainGame.Invoke();
     }
 }
