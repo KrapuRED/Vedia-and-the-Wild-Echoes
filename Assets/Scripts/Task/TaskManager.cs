@@ -163,6 +163,7 @@ public class TaskManager : MonoBehaviour
         {
             task.isCompleted = true;
             CheckAllTaskCompleted();
+            activeTasks.Remove(task);
             return;
         }
     }
