@@ -832,19 +832,19 @@ MonoBehaviour:
   soundEffectList:
   - groupID: clue_Greater Racket-tailed Drongo
     clips:
-    - {fileID: 8300000, guid: bd459912b69bc3e47b7e5ddba4d057d6, type: 3}
+    - {fileID: 8300000, guid: 104f863036082ac42b58080e3fe94d63, type: 3}
   - groupID: clue_Bellied Prinia
     clips:
-    - {fileID: 8300000, guid: bd459912b69bc3e47b7e5ddba4d057d6, type: 3}
+    - {fileID: 8300000, guid: 37caa8f9bdfba01449b4e680d148f017, type: 3}
   - groupID: clue_mining
     clips:
-    - {fileID: 8300000, guid: c8cacba14d38910498532b2d6f1a2b77, type: 3}
+    - {fileID: 8300000, guid: 98660b78bda3f86459b56481ebd3c4cb, type: 3}
   - groupID: clue_login
     clips:
-    - {fileID: 8300000, guid: dd7e55f343a96e349888b68d39e34ab0, type: 3}
+    - {fileID: 8300000, guid: 9487a0c1b8d53ba47b84755a37fadef1, type: 3}
   - groupID: clue_hunting
     clips:
-    - {fileID: 8300000, guid: dcbe4d2e28270004aaed393928898e76, type: 3}
+    - {fileID: 8300000, guid: 98660b78bda3f86459b56481ebd3c4cb, type: 3}
   - groupID: passive_river
     clips:
     - {fileID: 8300000, guid: bccf22f3261c35a408d278999df09168, type: 3}

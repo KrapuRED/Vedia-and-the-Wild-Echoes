@@ -555,6 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffac5052b68adb44185da76d4735e2bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RecordingPanelUI
+  closeButton: {fileID: 2737385324467873704}
   statusRecord: {fileID: 6795318195288033911}
   soundRecodingIcon: {fileID: 2315204152417338848}
   soundFlagIcon: {fileID: 5101787614186635817}

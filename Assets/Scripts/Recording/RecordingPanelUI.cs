@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class RecordingPanelUI : MonoBehaviour
 {
+    [SerializeField] private GameObject closeButton;
     [SerializeField] private TMP_Text statusRecord;
     [SerializeField] private Image soundRecodingIcon;
     [SerializeField] private Image soundFlagIcon;
@@ -22,6 +23,7 @@ public class RecordingPanelUI : MonoBehaviour
     {
         correctImage.SetActive(false);
         inCorrectImage.SetActive(false);
+        closeButton.SetActive(true);
         
         string statusText = markerState switch
         {
@@ -62,8 +64,17 @@ public class RecordingPanelUI : MonoBehaviour
         correctImage.SetActive(false);
         inCorrectImage.SetActive(false);
     }
-    
-    public void ShowCorrectRecording() => correctImage.SetActive(true);
-    public void ShowIncorrectRecording() => inCorrectImage.SetActive(true);
+
+    public void ShowCorrectRecording()
+    {
+        closeButton.SetActive(false);
+        correctImage.SetActive(true);
+    }
+
+    public void ShowIncorrectRecording()
+    {
+        closeButton.SetActive(false);
+        inCorrectImage.SetActive(true);
+    }
     
 }

@@ -58,7 +58,6 @@ public class InteractSelector : MonoBehaviour
     
     private void OnClickMissionMarker()
     {
-
         CheckRaycast();
     }
 

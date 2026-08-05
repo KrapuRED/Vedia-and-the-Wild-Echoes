@@ -35,6 +35,12 @@ public class SoundEffectManager : MonoBehaviour
 
    public void PlaySoundEffectLoop(string groupID)
    {
+      if (string.IsNullOrEmpty(groupID))
+      {
+         Debug.LogWarning($"[{this.name}] Tried to play a sound loop with a null/empty groupID.");
+         return;
+      }
+      
       if (_loopSources.ContainsKey(groupID))
          return;
 
