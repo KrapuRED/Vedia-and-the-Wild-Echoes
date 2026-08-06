@@ -8,8 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: IL3DN_Plant_Grass_02
-  m_Shader: {fileID: -6465566751694194690, guid: defca19c9bbd3a64993eb23a1668d5a4, type: 3}
-  m_Parent: {fileID: -876546973899608171, guid: defca19c9bbd3a64993eb23a1668d5a4, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 6fa82fae1aeecf346a7418b3b7ed7db9, type: 3}
+  m_Parent: {fileID: -876546973899608171, guid: 6fa82fae1aeecf346a7418b3b7ed7db9, type: 3}
   m_ModifiedSerializedProperties: 28
   m_ValidKeywords: []
   m_InvalidKeywords:
@@ -51,10 +51,11 @@ Material:
     - _WindSpeed: 0.1
     m_Colors:
     - _BaseColor: {r: 0.64157736, g: 1, b: 0.2117647, a: 1}
+    - _BottomColor: {r: 0.6792453, g: 0.38446525, b: 0.1388394, a: 1}
     - _Color: {r: 0.59944963, g: 0.8490566, b: 0.21092902, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _FarColor: {r: 0.78105646, g: 0.9685534, b: 0.21015768, a: 0}
-    - _NearColor: {r: 0.29411766, g: 0.69803923, b: 0.18039216, a: 1}
+    - _FarColor: {r: 1, g: 0.6741679, b: 0.20440245, a: 0}
+    - _NearColor: {r: 0.69953984, g: 0.7735849, b: 0.24569827, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &4922315226715788114
