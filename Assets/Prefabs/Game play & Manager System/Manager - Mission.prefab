@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissionManager
   maxMissions: 3
   passiveRecordingsList:
-  - {fileID: 11400000, guid: 316f2767b3b56aa4192681196a9cfa71, type: 2}
-  - {fileID: 11400000, guid: f84b7bd5744e0284988f47364a1cdebb, type: 2}
+  - {fileID: 11400000, guid: 8db75555e71d0c64fba4b63634b4dd5f, type: 2}
+  - {fileID: 11400000, guid: ee6a236838275c245ad668a62c90bb64, type: 2}
   activeRecordingsList:
   - {fileID: 11400000, guid: df36745d39389524eb8eb9b65d950c42, type: 2}
   - {fileID: 11400000, guid: be6d491d401e04748a205abb6b7e18fe, type: 2}

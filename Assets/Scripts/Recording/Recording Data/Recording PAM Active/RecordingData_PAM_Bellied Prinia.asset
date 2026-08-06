@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: RecordingData_PAM_Bellied Prinia
   m_EditorClassIdentifier: Assembly-CSharp::RecordingDataSO
   recordingName: Bellied Prinia
-  recordingSprite: {fileID: 21300000, guid: d22ef17b1523f1443b9f63f1ad5228c9, type: 3}
+  recordingSprite: {fileID: 21300000, guid: 927ef386d7d9f3644ada89b9c6ab98db, type: 3}
   recordingMaterial: {fileID: 0}
   recordingClip: Bellied Prinia
   forestMonitorType: 0
+  flaggingMaterial: {fileID: 2100000, guid: aa32209303dbcf247942fffe80085259, type: 2}

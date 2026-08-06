@@ -8,4 +8,5 @@ public class RecordingDataSO : ScriptableObject
     public Material recordingMaterial;
     public string recordingClip;
     public ForestMonitorType forestMonitorType;
+    public Material flaggingMaterial;
 }

@@ -27,7 +27,6 @@ public class MissionMarker : MonoBehaviour, IInteractable
    
    [Header("Rotation Config")]
    [SerializeField] private float maxTilted; 
-   [SerializeField] private Material markerFlaggedMaterial;
    [SerializeField] private Material markerPassiveMaterial;
    [SerializeField] private Material markerActiveMaterial;
    [SerializeField] private bool isFlagged;
@@ -119,7 +118,6 @@ public class MissionMarker : MonoBehaviour, IInteractable
 
       if (missionMarkerState == MissionMarkerState.Active)
       {
-         Debug.LogWarning($"[{gameObject.name} - {nameof(MissionMarker)}] Record Name : {recordingData.recordingName}");
          SoundEffectManager.Instance.PlaySoundEffect(notifSoundEffectName);
       }
       
@@ -156,6 +154,6 @@ public class MissionMarker : MonoBehaviour, IInteractable
       
       isFlagged = true;
       missionMarkerState = MissionMarkerState.Flagged;
-      _meshRenderer.material = markerFlaggedMaterial;
+      _meshRenderer.material = missionRecordingData.flaggingMaterial;
    }
 }

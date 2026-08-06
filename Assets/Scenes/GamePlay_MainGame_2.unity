@@ -3314,6 +3314,18 @@ PrefabInstance:
       propertyPath: buttonEvaluationImpact
       value: 
       objectReference: {fileID: 1626665903}
+    - target: {fileID: 3302856165669882120, guid: 69c1ea43ac04cf7409984dc9ad167f7b, type: 3}
+      propertyPath: 'contentTasks.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: ee56c9e5f2bdf064287a2da42b6117c2, type: 2}
+    - target: {fileID: 3302856165669882120, guid: 69c1ea43ac04cf7409984dc9ad167f7b, type: 3}
+      propertyPath: 'contentTasks.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 15447b166a07cc142a183329b307fdb1, type: 2}
+    - target: {fileID: 3302856165669882120, guid: 69c1ea43ac04cf7409984dc9ad167f7b, type: 3}
+      propertyPath: 'contentTasks.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 0b4fc02d1305a8e47b3463d75af5b137, type: 2}
     - target: {fileID: 5969882048166498725, guid: 69c1ea43ac04cf7409984dc9ad167f7b, type: 3}
       propertyPath: m_Name
       value: Manager - Task

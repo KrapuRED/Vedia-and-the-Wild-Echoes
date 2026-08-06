@@ -604,7 +604,7 @@ MonoBehaviour:
   panelTutorial: {fileID: 8978803134118969393}
   overlayCanvasGroup: {fileID: 6814039471882242129}
   highlightLayer: {fileID: 3764754882090497608}
-  _isTutorialDone: 0
+  _isTutorialDone: 1
 --- !u!1 &3478691729099920751
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,7 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   isGameActive: 0
-  currentLevel: 1
+  currentLevel: 2
   maxLevel: 0
 --- !u!1 &4124962706105356357
 GameObject:
