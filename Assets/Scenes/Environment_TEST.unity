@@ -353,21 +353,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1398942096572350859, guid: cb2afef205b22064d95b6093780e3ff9, type: 3}
-      propertyPath: m_TreeDistance
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 1398942096572350859, guid: cb2afef205b22064d95b6093780e3ff9, type: 3}
-      propertyPath: m_TreeBillboardDistance
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 4351141441362694699, guid: cb2afef205b22064d95b6093780e3ff9, type: 3}
       propertyPath: m_Name
       value: EnvironmentPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 8133870473458815610, guid: cb2afef205b22064d95b6093780e3ff9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
