@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TaskDataSO
   taskName: Threat
   taskIcon: {fileID: 21300000, guid: bac543c8a1a66494a96b97704d348beb, type: 3}
-  flagAppearance: 1
+  flagAppearance: 3
   clueRecordings:
   - {fileID: 11400000, guid: eea4ee40b94d90b4381d91b74940a64d, type: 2}
   - {fileID: 11400000, guid: 6b449d2d15dcba1469eacaf0ddec3b90, type: 2}

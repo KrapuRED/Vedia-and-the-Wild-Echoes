@@ -8,6 +8,8 @@ public class CameraDrag : CursorController
     [SerializeField] private InputActionReference dragHoldAction;
     [SerializeField] private InputActionReference dragDeltaAction;
     [SerializeField] private float dragSpeed = 0.05f;
+    [SerializeField] private Texture2D dragTexture2D;
+    [SerializeField] private Texture2D defaultTexture2D;
     
     private Camera _camera;
     [SerializeField] private bool isDragging;
@@ -19,6 +21,7 @@ public class CameraDrag : CursorController
             _camera = Camera.main;
         
         _inputManager = InputManager.Instance;
+        ChangeCursor(defaultTexture2D);
     }
     
     #region Event System
@@ -49,6 +52,12 @@ public class CameraDrag : CursorController
     }
     #endregion
 
+    private void ChangeCursor(Texture2D  cursorTexture)
+    {
+        Debug.Log("Changing Cursor");
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+    }
+    
     public override void HandleMapChange(string mapName)
     {
         if (_inputManager == null)
@@ -79,10 +88,19 @@ public class CameraDrag : CursorController
         if (dragHoldAction != null)
             dragHoldAction.action.Enable();
     }
-    
-    private void OnDragStarted(InputAction.CallbackContext _) => isDragging = true;
 
-    private void OnDragCanceled(InputAction.CallbackContext _) =>  isDragging = false;
+    private void OnDragStarted(InputAction.CallbackContext _)
+    {
+        ChangeCursor(dragTexture2D);
+        isDragging = true;
+    }
+
+    private void OnDragCanceled(InputAction.CallbackContext _)
+    {
+        ChangeCursor(defaultTexture2D);
+
+        isDragging = false;
+    }
     
     private void LateUpdate()
     {

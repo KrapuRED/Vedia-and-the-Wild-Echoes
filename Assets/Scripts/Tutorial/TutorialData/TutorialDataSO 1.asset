@@ -43,48 +43,4 @@ MonoBehaviour:
     tutorialDialogueLine: Click the red marker.
     listHighligthId: []
     tutorialMission: 1
-  - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
-    tutorialDialogueLine: <color=red> Listen </color> carefully to the recording.
-    listHighligthId: []
-    tutorialMission: 0
-  - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
-    tutorialDialogueLine: That's the sound of a <color=red> chainsaw</color>.
-    listHighligthId: []
-    tutorialMission: 0
-  - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
-    tutorialDialogueLine: It could indicate illegal logging. We need to report it
-      before the recording window expires.
-    listHighligthId: []
-    tutorialMission: 0
-  - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
-    tutorialDialogueLine: At the bottom of the screen is the <color=red> Flag Panel
-      </color>.
-    listHighligthId: []
-    tutorialMission: 0
-  - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
-    tutorialDialogueLine: <color=red>Drag the correct </color> flag onto the recording
-      to classify what you've heard.
-    listHighligthId: []
-    tutorialMission: 2
-  - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
-    tutorialDialogueLine: Excellent work.
-    listHighligthId: []
-    tutorialMission: 0
-  - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
-    tutorialDialogueLine: Correct classifications improve our monitoring records
-      and help protect the forest.
-    listHighligthId: []
-    tutorialMission: 0
-  - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
-    tutorialDialogueLine: You're ready. Continue monitoring the remaining Device.
-    listHighligthId: []
-    tutorialMission: 0
   tutorialDialoguePosition: 1

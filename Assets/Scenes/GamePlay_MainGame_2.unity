@@ -2744,6 +2744,8 @@ MonoBehaviour:
   dragHoldAction: {fileID: -3586932398375380422, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   dragDeltaAction: {fileID: -6699586956996645949, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   dragSpeed: 0.05
+  dragTexture2D: {fileID: 2800000, guid: 903ca0fba350a6f4c95de7c29872a6f8, type: 3}
+  defaultTexture2D: {fileID: 2800000, guid: c5d1763f05781344581dd53f8018f292, type: 3}
   isDragging: 0
 --- !u!1001 &930838160
 PrefabInstance:
