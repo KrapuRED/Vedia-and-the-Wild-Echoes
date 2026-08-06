@@ -11,6 +11,8 @@ public class Recording : MonoBehaviour
     [Header("Delay Configuration")]
     [SerializeField] private float delay;
     
+    public MissionMarker SelectedMissionMarker => currentMission;
+    
     public void UpdateRecording(MissionMarker missionMarker)
     {
         if (missionMarker == null || recordingPanelUI == null)
@@ -44,24 +46,31 @@ public class Recording : MonoBehaviour
     
     private void CheckMission()
     {
-        bool isCorrrect = selectedFlagCard.RecordingData.forestMonitorType ==
+        bool isCorrectType = selectedFlagCard.RecordingData.forestMonitorType ==
                           currentMission.MissionRecordingData.forestMonitorType;
+
+        bool isCorrectRecord = true;
         
-        if (isCorrrect)
+        if (isCorrectType && selectedFlagCard.RecordingData.forestMonitorType == ForestMonitorType.Biodiversity)
+        {
+            isCorrectRecord = currentMission.MissionRecordingData.recordingName == selectedFlagCard.RecordingData.recordingName;
+        }
+
+        if (isCorrectType)
         {
             recordingPanelUI.ShowCorrectRecording();
             SoundEffectManager.Instance.PlaySoundEffect("recording_correct");
-            GameEvents.OnFlaggedMissionMarker.Invoke(currentMission);
         }
         else
         {
             SoundEffectManager.Instance.PlaySoundEffect("recording_incorrect");
             recordingPanelUI.ShowIncorrectRecording();
         }
-        
-        StartCoroutine(OnDelayCoroutine(isCorrrect));
-        
-        ForestMonitorManager.Instance.UpdateIndicator(currentMission.ForestMonitorType, isCorrrect);
+
+        GameEvents.OnFlaggedMissionMarker.Invoke(currentMission, isCorrectType);
+
+        StartCoroutine(OnDelayCoroutine(isCorrectType));
+        ForestMonitorManager.Instance.UpdateIndicator(currentMission.ForestMonitorType, isCorrectRecord);
     }
 
     private void OnTutorialMissionMarker(bool isCorrect)

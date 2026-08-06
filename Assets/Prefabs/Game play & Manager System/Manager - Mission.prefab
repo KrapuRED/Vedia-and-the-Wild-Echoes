@@ -46,12 +46,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissionManager
   maxMissions: 3
   passiveRecordingsList:
-  - {fileID: 11400000, guid: 912af685b1302bd49b4014693fabc02c, type: 2}
-  - {fileID: 11400000, guid: 6ead2549453fbc442b297bc3264e4374, type: 2}
+  - {fileID: 11400000, guid: 316f2767b3b56aa4192681196a9cfa71, type: 2}
+  - {fileID: 11400000, guid: f84b7bd5744e0284988f47364a1cdebb, type: 2}
   activeRecordingsList:
-  - {fileID: 11400000, guid: 4c396eb933d60624b8bcb7c8c6df14ee, type: 2}
-  - {fileID: 11400000, guid: 912af685b1302bd49b4014693fabc02c, type: 2}
-  - {fileID: 11400000, guid: 6ead2549453fbc442b297bc3264e4374, type: 2}
+  - {fileID: 11400000, guid: df36745d39389524eb8eb9b65d950c42, type: 2}
+  - {fileID: 11400000, guid: be6d491d401e04748a205abb6b7e18fe, type: 2}
+  - {fileID: 11400000, guid: bfa21cf59b72dd7429757a4f08887edb, type: 2}
+  - {fileID: 11400000, guid: bfa21cf59b72dd7429757a4f08887edb, type: 2}
+  - {fileID: 11400000, guid: 316f2767b3b56aa4192681196a9cfa71, type: 2}
+  - {fileID: 11400000, guid: f84b7bd5744e0284988f47364a1cdebb, type: 2}
   missionMarkerPassive: []
   missionMarkerActive: []
   minPassiveMarkerTimer: 10
@@ -60,3 +63,4 @@ MonoBehaviour:
   maxActiveMarkerTimer: 35
   areaMission: {fileID: 0}
   missionMarkers: []
+  _isMissionMarkerActive: 0

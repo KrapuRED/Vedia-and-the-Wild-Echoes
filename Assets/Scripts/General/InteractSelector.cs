@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
@@ -55,9 +55,24 @@ public class InteractSelector : MonoBehaviour
             _screenPosition = Pointer.current.position.ReadValue();
         }
     }
+
+    private bool IsPointerOverUI(Vector2 screenPosition)
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current)
+        {
+            position = screenPosition
+        };
+        
+        var results =  new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+        return results.Count > 0;
+    }
     
     private void OnClickMissionMarker()
     {
+        if (IsPointerOverUI(_screenPosition))
+            return;
+        
         CheckRaycast();
     }
 

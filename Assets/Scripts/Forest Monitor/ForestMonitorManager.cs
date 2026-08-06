@@ -72,9 +72,9 @@ public class ForestMonitorManager : MonoBehaviour
         currThreatIndicator = startThreatIndicator;
         currForestSustainability = startForestSustainability;
         
-        biodiversityIndicator.InitForestMonitorUI(maxIndicator, currBiodiversityIndicator);
-        threatIndicator.InitForestMonitorUI(maxIndicator, currThreatIndicator);
-        forestSustainabilityIndicator.InitForestMonitorUI(maxIndicator, currForestSustainability);
+        biodiversityIndicator.InitForestMonitorUI(minIndicator, maxIndicator, currBiodiversityIndicator);
+        threatIndicator.InitForestMonitorUI(minIndicator, maxIndicator, currThreatIndicator);
+        forestSustainabilityIndicator.InitForestMonitorUI(minIndicator, maxIndicator, currForestSustainability);
 
         UpdateForestSustainability();
     }
@@ -90,7 +90,7 @@ public class ForestMonitorManager : MonoBehaviour
         float sustainabilityFraction = (biodiversityFraction * 0.5f) + (threatEmptyFraction * 0.5f);
         currForestSustainability = sustainabilityFraction * maxIndicator;
         
-        forestSustainabilityIndicator.UpdateForestMonitorUI(maxIndicator, currForestSustainability);
+        forestSustainabilityIndicator.UpdateForestMonitorUI(minIndicator, maxIndicator, currForestSustainability);
     }
     
     public void UpdateBiodiversityIndicator(bool isCorrect)
@@ -100,7 +100,7 @@ public class ForestMonitorManager : MonoBehaviour
             
         currBiodiversityIndicator += gainBiodiversityIndicator;
         
-        biodiversityIndicator.UpdateForestMonitorUI(maxIndicator, currBiodiversityIndicator);
+        biodiversityIndicator.UpdateForestMonitorUI(minIndicator, maxIndicator, currBiodiversityIndicator);
         UpdateForestSustainability();
     }
 
@@ -114,9 +114,10 @@ public class ForestMonitorManager : MonoBehaviour
         {
             currBiodiversityIndicator -= reduceBiodiversityIndicatorByThreat;
             currThreatIndicator += gainThreatIndicator;
+            biodiversityIndicator.UpdateForestMonitorUI(minIndicator, maxIndicator, currBiodiversityIndicator);
         }
         
-        threatIndicator.UpdateForestMonitorUI(maxIndicator, currThreatIndicator);
+        threatIndicator.UpdateForestMonitorUI(minIndicator, maxIndicator, currThreatIndicator);
         UpdateForestSustainability();
     }
     
@@ -142,6 +143,6 @@ public class ForestMonitorManager : MonoBehaviour
             currForestSustainability >= eval.EvaluationRange.min && 
             currForestSustainability <= eval.EvaluationRange.max);
         
-        forestEvaluationImpactUI.ForestEvaluation(currBiodiversityIndicator, currThreatIndicator, currForestSustainability, maxIndicator, forestEval);
+        forestEvaluationImpactUI.ForestEvaluation(currBiodiversityIndicator, currThreatIndicator,currForestSustainability, minIndicator , maxIndicator, forestEval);
     }
 }

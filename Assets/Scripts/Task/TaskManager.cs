@@ -100,10 +100,10 @@ public class TaskManager : MonoBehaviour
         return activeTaskData;
     }
 
-    private TaskData FindTaskBySoundForestMonitoring(ForestMonitorType forestMonitorType, string soundEffectName)
+    private TaskData FindTaskBySoundForestMonitoring(string forestMonitorType)
     {
-        var activeTaskData = activeTasks.Find(acd => acd.taskRecondingData.clueRecordings[0].forestMonitorType == forestMonitorType);
-        return null;
+        var activeTaskData = activeTasks.Find(acd => acd.taskRecondingData.clueRecordings[0].forestMonitorType.ToString() == forestMonitorType);
+        return activeTaskData;
     }
 
     private void CheckAllTaskCompleted()
@@ -127,9 +127,11 @@ public class TaskManager : MonoBehaviour
         }
     }
     
-    public void OnUpdateTask(MissionMarker missionData)
+    private void OnUpdateTask(MissionMarker missionData, bool isCorrect)
     {
-        if (_isAllTaskCompleted)
+        if (this == null) return;
+        
+        if (_isAllTaskCompleted || !isCorrect)
             return;
         
         var recordingData = missionData.MissionRecordingData;
@@ -146,7 +148,7 @@ public class TaskManager : MonoBehaviour
         }
         else
         {
-            task = FindTaskByName(missionData.MissionRecordingData.forestMonitorType.ToString());
+            task = FindTaskBySoundForestMonitoring(missionData.MissionRecordingData.forestMonitorType.ToString());
         }
         
         if (task == null)

@@ -12,6 +12,15 @@ public class SoundEffectPlayer : MonoBehaviour
    
    public void PlaySoundEffect()
    {
+      if (this == null)
+         return;
+
+      if (soundResetTimer <= 0)
+      {
+         SoundEffectManager.Instance.PlaySoundEffect(soundEffectName);
+         return;
+      }
+      
       if (!_hasPlayed)
       {
          _hasPlayed = true;

@@ -5,20 +5,13 @@ using System;
 public class CustomEvents
 {
     private event Action _action = delegate { };
-
     public void Invoke()
     {
         _action?.Invoke();
     }
     
-    public void AddListener(Action listener)
-    {
-        _action += listener;
-    }
-    public void RemoveListener(Action listener)
-    {
-        _action += listener;
-    }
+    public void AddListener(Action listener) =>  _action += listener;
+    public void RemoveListener(Action listener) => _action -= listener;
 }
 
 public class CustomEvents<T>
@@ -29,14 +22,8 @@ public class CustomEvents<T>
         _action?.Invoke(arg);
     }
     
-    public void AddListener(Action<T> listener)
-    {
-        _action += listener;
-    }
-    public void RemoveListener(Action<T> listener)
-    {
-        _action += listener;
-    }
+    public void AddListener(Action<T> listener) =>  _action += listener;
+    public void RemoveListener(Action<T> listener) => _action -= listener;
 }
 
 public class CustomEvents<T1, T2>
@@ -47,14 +34,8 @@ public class CustomEvents<T1, T2>
         _action?.Invoke(arg1, arg2);
     }
     
-    public void AddListener(Action<T1, T2> listener)
-    {
-        _action += listener;
-    }
-    public void RemoveListener(Action<T1, T2> listener)
-    {
-        _action += listener;
-    }
+    public void AddListener(Action<T1, T2> listener) => _action += listener;
+    public void RemoveListener(Action<T1, T2> listener) => _action -= listener;
 }
 
 public class CustomEvents<T1, T2, T3>
@@ -65,14 +46,8 @@ public class CustomEvents<T1, T2, T3>
         _action?.Invoke(arg1, arg2, arg3);
     }
     
-    public void AddListener(Action<T1, T2, T3> listener)
-    {
-        _action += listener;
-    }
-    public void RemoveListener(Action<T1, T2, T3> listener)
-    {
-        _action += listener;
-    }
+    public void AddListener(Action<T1, T2, T3> listener) => _action += listener;
+    public void RemoveListener(Action<T1, T2, T3> listener) => _action -= listener;
 }
 
 public class CustomEvents<T1, T2, T3, T4>
@@ -83,24 +58,19 @@ public class CustomEvents<T1, T2, T3, T4>
         _action?.Invoke(arg1, arg2, arg3, arg4);
     }
     
-    public void AddListener(Action<T1, T2, T3, T4> listener)
-    {
-        _action += listener;
-    }
-    public void RemoveListener(Action<T1, T2, T3, T4> listener)
-    {
-        _action += listener;
-    }
+    public void AddListener(Action<T1, T2, T3, T4> listener) => _action += listener;
+    public void RemoveListener(Action<T1, T2, T3, T4> listener) => _action -= listener;
 }
+
 #endregion
 
 public static class GameEvents
 {
     public static readonly CustomEvents<MissionMarker> OnShowRecordingPanel = new();
-    public static readonly CustomEvents OnHideRecordingPanel = new();
+    public static readonly CustomEvents<MissionMarker> OnHideRecordingPanel = new();
     
     public static readonly CustomEvents OnStartMainGame = new();
-    public static readonly CustomEvents<MissionMarker> OnFlaggedMissionMarker = new();
+    public static readonly CustomEvents<MissionMarker, bool> OnFlaggedMissionMarker = new();
     public static readonly CustomEvents<MissionMarker> OnMissionMarkerRegistered = new();
     public static readonly CustomEvents<MissionMarker> OnMissionMarkerUnregistered = new();
     public static readonly CustomEvents<MissionMarkerState, RecordingDataSO> OnMissionTutorial = new();

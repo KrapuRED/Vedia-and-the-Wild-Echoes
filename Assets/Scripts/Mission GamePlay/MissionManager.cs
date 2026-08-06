@@ -189,7 +189,7 @@ public class MissionManager : MonoBehaviour
         
         for (int i = 0; i < _demoteBuffer.Count; i++)
         {
-            GameEvents.OnHideRecordingPanel.Invoke();
+            GameEvents.OnHideRecordingPanel.Invoke(_demoteBuffer[i].missionMarkerData);
             AssignPassiveMissionMarker(_demoteBuffer[i]);
         }
     }
@@ -309,8 +309,11 @@ public class MissionManager : MonoBehaviour
         return null;
     }
     
-    private void RemoveMissionMarker(MissionMarker markerData)
+    private void RemoveMissionMarker(MissionMarker markerData, bool isCorret)
     {
+        if (!isCorret)
+            return;
+        
         var missionMarker =  FindSelectedMissionMarker(markerData);
         
         if (missionMarkerPassive.Contains(missionMarker))

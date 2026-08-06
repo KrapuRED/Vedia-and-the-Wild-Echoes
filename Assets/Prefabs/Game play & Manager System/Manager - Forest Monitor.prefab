@@ -45,11 +45,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ForestMonitorManager
   forestHealthEvaluations:
-  - ForestEvaluationName: THIS ONLY TEST
+  - ForestEvaluationName: Thriving
+    EvaluationRange:
+      min: 90
+      max: 100
+    ForestEvaluationDescription: Ecosystem is highly healthy with rich biodiversity
+      and minimal disturbance.
+  - ForestEvaluationName: Thriving
+    EvaluationRange:
+      min: 75
+      max: 89
+    ForestEvaluationDescription: Forest is in good condition with only minor concerns.
+  - ForestEvaluationName: Recovering
+    EvaluationRange:
+      min: 60
+      max: 74
+    ForestEvaluationDescription: 'Signs of recovery, but several threats still require
+      monitoring. '
+  - ForestEvaluationName: Recovering
+    EvaluationRange:
+      min: 40
+      max: 59
+    ForestEvaluationDescription: Ecosystem shows significant disturbance and declining
+      biodiversity.
+  - ForestEvaluationName: Critical
     EvaluationRange:
       min: 0
-      max: 40
-    ForestEvaluationDescription: THANY YOU TO TRY THIS
+      max: 39
+    ForestEvaluationDescription: Severe ecological degradation requiring immediate
+      conservation action.
   forestEvaluationImpactUI: {fileID: 0}
   biodiversityIndicator: {fileID: 0}
   threatIndicator: {fileID: 0}

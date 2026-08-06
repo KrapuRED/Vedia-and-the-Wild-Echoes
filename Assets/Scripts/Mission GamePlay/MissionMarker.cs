@@ -103,6 +103,9 @@ public class MissionMarker : MonoBehaviour, IInteractable
    
    public void UpdateState(MissionMarkerState markerState, RecordingDataSO recordingData)
    {
+      if (this == null)
+         return;
+      
       if (_meshRenderer == null)
       {
          Debug.LogError($"[{gameObject.name} - {nameof(MissionMarker)}] MeshRenderer not assigned");
@@ -125,20 +128,22 @@ public class MissionMarker : MonoBehaviour, IInteractable
    {
       if (isFlagged)
          return;
-
-      InputManager.Instance.SwitchActionMap(targetMap);
-
+      
       if (TutorialManager.Instance != null && TutorialManager.Instance.IsTutorialActive)
       {
          Debug.Log("On Tutorial Mission Completed");
          TutorialManager.Instance.OnMissionCompleted();
       }
       
+      Debug.Log($"[{name}] Invoking OnShowRecordingPanel");
       GameEvents.OnShowRecordingPanel.Invoke(this);
    }
    
-   private void FlaggeMissionMarker(MissionMarker missionMarkerData)
+   private void FlaggeMissionMarker(MissionMarker missionMarkerData, bool isCorret)
    {
+      if (!isCorret)
+         return;
+         
       if (this !=  missionMarkerData)
          return;
       

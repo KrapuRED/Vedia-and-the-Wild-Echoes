@@ -5,64 +5,72 @@ using System;
 public class RecordingPanelUITransition : UITransition
 {
     [SerializeField] private Recording recording;
-
-    private bool _isOpen;
+    [SerializeField] private string targetMap = "FlaggingController";
+    
     private CanvasGroup _mainCanvasGroup;
     private Tween _tween;
+    [SerializeField] private bool _isSubscribed;
 
     private void Awake()
     {
         _mainCanvasGroup = GetComponent<CanvasGroup>();
+        SubscribeEvents();
     }
 
     #region Event System
-    private void OnEnable()
-    {
-        GameEvents.OnShowRecordingPanel.AddListener(PlayAnimation);
-        GameEvents.OnHideRecordingPanel.AddListener(HideTransition);
-    }
-
-    private void OnDisable() => OnRemoveListener();
+    
     private void OnDestroy() => OnRemoveListener();
 
-    private void OnRemoveListener()
+    private void SubscribeEvents()
     {
-        if (GameEvents.OnShowRecordingPanel != null)
-            GameEvents.OnShowRecordingPanel.RemoveListener(PlayAnimation);
-
-        if (GameEvents.OnHideRecordingPanel != null)
-            GameEvents.OnHideRecordingPanel.RemoveListener(HideTransition);
+        if (_isSubscribed) return;
+        _isSubscribed = true;
+        GameEvents.OnShowRecordingPanel.AddListener(RequestShowRecordingPanel);
+        GameEvents.OnHideRecordingPanel.AddListener(RequestHideRecordingPanel);
+        Debug.Log($"[{name}] Subscribed = {_isSubscribed}");
+    }
+    
+    private void OnRemoveListener()
+    { 
+        if (!_isSubscribed) return;
+        _isSubscribed = false;
+        GameEvents.OnShowRecordingPanel.RemoveListener(RequestShowRecordingPanel);
+        GameEvents.OnHideRecordingPanel.RemoveListener(RequestHideRecordingPanel);
     }
     #endregion
 
-    private void PlayAnimation(MissionMarker missionMarker)
+    private void RequestShowRecordingPanel(MissionMarker missionMarker)
     {
-        if (this == null)
-            return;
-        
         if (recording == null)
         {
             Debug.LogError($"[{this.name}] Recording is NULL");
             return;
         }
         
+        Debug.Log($"[{this.name}] Request Show RecordingPanel");
         recording.UpdateRecording(missionMarker);
+        ShowTransition();
+    }
+    
+    private void RequestHideRecordingPanel(MissionMarker missionMarker)
+    {
+        if (recording == null || recording.SelectedMissionMarker != missionMarker)
+            return;
         
-        if (!_isOpen)
-            ShowTransition();
+        Debug.Log($"[{this.name}] Request Hide RecordingPanel");
+        HideTransition();
     }
     
     public override void ShowTransition()
     {
-        if (this == null) return;
-
+ 
         KillActiveTween();
-        
-        _isOpen = true;
+
         _tween = _mainCanvasGroup.DOFade(1, 0.3f);
         
         _tween.OnComplete(() =>
         {
+            InputManager.Instance.SwitchActionMap(targetMap);
             _mainCanvasGroup.blocksRaycasts = true;
             _mainCanvasGroup.interactable = true;
             MusicManager.Instance.DecreaseMusicVolume(.9f);
@@ -81,8 +89,7 @@ public class RecordingPanelUITransition : UITransition
         _tween.OnComplete(() =>
         {
             if (this == null) return; // Safety check dalam async/callback
-            _isOpen = false;
-            
+
             if (SoundEffectManager.Instance != null)
                 SoundEffectManager.Instance.StopAllSoundEFfectLoop();
                 

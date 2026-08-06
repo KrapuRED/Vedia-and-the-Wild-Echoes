@@ -34,6 +34,9 @@ public class TaskUI : MonoBehaviour
 
     public void UpdateTaskUI(TaskData taskData)
     {
+        if (this == null)
+            return;
+        
         counterTask.text = $"{taskData.currentTask} / {taskData.flagAppearanceTask}";
         counterFillSlider.SetActive(true);
         counterSlider.value = taskData.currentTask;

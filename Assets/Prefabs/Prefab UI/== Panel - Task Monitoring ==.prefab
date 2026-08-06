@@ -293,6 +293,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
   soundEffectName: general_button
+  soundResetTimer: 0
+  _hasPlayed: 0
 --- !u!1 &3341381586603871841
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,4 +33,11 @@ public class GameManager : MonoBehaviour
         string sceneName = $"GamePlay_MainGame_{currentLevel}";
         TranstionManager.Instance.LoadScene(sceneName, "CrossFade");   
     }
+
+    public void NextLevel()
+    {
+        currentLevel++;
+        string sceneName = $"GamePlay_MainGame_{currentLevel}";
+        TranstionManager.Instance.LoadScene(sceneName, "CrossFade");   
+    }
 }
