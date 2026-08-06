@@ -44,14 +44,17 @@ Material:
     - _Cull: 0
     - _GlossMapScale: 1
     - _GlossyReflections: 1
+    - _HeightBlend: 0.37
     - _Parallax: 0.02
     - _QueueControl: 0
+    - _WindIntensity: 0.43
+    - _WindSpeed: 0.1
     m_Colors:
     - _BaseColor: {r: 0.64157736, g: 1, b: 0.2117647, a: 1}
     - _Color: {r: 0.59944963, g: 0.8490566, b: 0.21092902, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _FarColor: {r: 0.78105646, g: 0.9685534, b: 0.21015768, a: 0}
-    - _NearColor: {r: 0.2554413, g: 0.66666657, b: 0.17400414, a: 1}
+    - _NearColor: {r: 0.29411766, g: 0.69803923, b: 0.18039216, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &4922315226715788114

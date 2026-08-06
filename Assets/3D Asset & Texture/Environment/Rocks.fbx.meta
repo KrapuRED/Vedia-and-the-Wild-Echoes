@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dd952e53218e0d343a64b83e057d02db
+guid: 2807e1c9a12939b40914bb72337f6a6f
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bark
-    second: {fileID: 2100000, guid: a7f6d005f4b7c0a43baeb14478235db2, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Leaf
-    second: {fileID: 2100000, guid: 5048b9657843d384a9ca719de6d527c4, type: 2}
+      name: RockS.001
+    second: {fileID: 2100000, guid: 653a492c1e0db004589287b8c9115ea4, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -44,7 +39,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.7
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -102,7 +97,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.7
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
