@@ -418,6 +418,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7366893016960202758, guid: 2ad59893c48e973428aa6c600efb2356, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366893016960202758, guid: 2ad59893c48e973428aa6c600efb2356, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366893016960202758, guid: 2ad59893c48e973428aa6c600efb2356, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -575,6 +587,18 @@ PrefabInstance:
     - target: {fileID: 7366893016960202758, guid: 2ad59893c48e973428aa6c600efb2356, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366893016960202758, guid: 2ad59893c48e973428aa6c600efb2356, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366893016960202758, guid: 2ad59893c48e973428aa6c600efb2356, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366893016960202758, guid: 2ad59893c48e973428aa6c600efb2356, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7458754170974192340, guid: 2ad59893c48e973428aa6c600efb2356, type: 3}
       propertyPath: flagCardData
@@ -737,6 +761,18 @@ PrefabInstance:
     - target: {fileID: 7366893016960202758, guid: 2ad59893c48e973428aa6c600efb2356, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366893016960202758, guid: 2ad59893c48e973428aa6c600efb2356, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366893016960202758, guid: 2ad59893c48e973428aa6c600efb2356, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366893016960202758, guid: 2ad59893c48e973428aa6c600efb2356, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7458754170974192340, guid: 2ad59893c48e973428aa6c600efb2356, type: 3}
       propertyPath: flagCardData

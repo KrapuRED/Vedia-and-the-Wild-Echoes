@@ -108,18 +108,10 @@ public class TaskManager : MonoBehaviour
 
     private void CheckAllTaskCompleted()
     {
-        bool isCompleted = true;
-        foreach (var activeTask in activeTasks)
-        {
-            if (!activeTask.isCompleted)
-            {
-                isCompleted = false;
-            }
-        }
-
+        bool isCompleted = activeTasks.Count <= 0;
         _isAllTaskCompleted = isCompleted;
         
-        if (isCompleted)
+        if (_isAllTaskCompleted)
         {
             buttonEvaluationImpact.SetActive(true);
             SoundEffectManager.Instance.PlaySoundEffect("evaluate_button_pop_up");
@@ -127,14 +119,16 @@ public class TaskManager : MonoBehaviour
         }
     }
     
-    private void OnUpdateTask(MissionMarker missionData, bool isCorrect)
+    private void OnUpdateTask(MissionMarker missionMaker, bool isCorrect)
     {
         if (this == null) return;
         
-        if (_isAllTaskCompleted || !isCorrect)
-            return;
+        Debug.LogWarning($"[{missionMaker.name}] Record : {missionMaker.MissionRecordingData.recordingName} {isCorrect}");
         
-        var recordingData = missionData.MissionRecordingData;
+        if (_isAllTaskCompleted) return;
+        if (!isCorrect) return;
+        
+        var recordingData = missionMaker.MissionRecordingData;
         if (recordingData == null)
         {
             Debug.LogError($"[{this.name} - OnUpdateTask] Task data is null!");
@@ -142,13 +136,13 @@ public class TaskManager : MonoBehaviour
         }
         
         TaskData task = null;
-        if (missionData.MissionRecordingData.forestMonitorType == ForestMonitorType.Biodiversity)
+        if (missionMaker.MissionRecordingData.forestMonitorType == ForestMonitorType.Biodiversity)
         {
             task = FindTaskByName(recordingData.recordingName);
         }
         else
         {
-            task = FindTaskBySoundForestMonitoring(missionData.MissionRecordingData.forestMonitorType.ToString());
+            task = FindTaskBySoundForestMonitoring(missionMaker.MissionRecordingData.forestMonitorType.ToString());
         }
         
         if (task == null)
@@ -157,9 +151,9 @@ public class TaskManager : MonoBehaviour
             return;
         }
         
+        Debug.LogWarning($"[{missionMaker.name}] Record : {missionMaker.MissionRecordingData.recordingName} Task Name : {task.taskName}");
         task.currentTask++;
         task.taskUI.UpdateTaskUI(task);
-        Debug.LogWarning($"[{this.name} - OnUpdateTask] Task {task.taskName} completed!");
         
         if (task.currentTask >= task.flagAppearanceTask)
         {

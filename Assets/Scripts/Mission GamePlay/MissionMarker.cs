@@ -23,6 +23,7 @@ public class MissionMarker : MonoBehaviour, IInteractable
    [SerializeField] private MissionMarkerState missionMarkerState ;
    [SerializeField] private RecordingDataSO  missionRecordingData;
    [SerializeField] private bool isSelectedTutorial;
+   [SerializeField] private string notifSoundEffectName;
    
    [Header("Rotation Config")]
    [SerializeField] private float maxTilted; 
@@ -115,6 +116,12 @@ public class MissionMarker : MonoBehaviour, IInteractable
       this.missionMarkerState = markerState;
       missionRecordingData = recordingData;
       BuildSoundEffectName();
+
+      if (missionMarkerState == MissionMarkerState.Active)
+      {
+         Debug.LogWarning($"[{gameObject.name} - {nameof(MissionMarker)}] Record Name : {recordingData.recordingName}");
+         SoundEffectManager.Instance.PlaySoundEffect(notifSoundEffectName);
+      }
       
       _meshRenderer.material = markerState switch
       {

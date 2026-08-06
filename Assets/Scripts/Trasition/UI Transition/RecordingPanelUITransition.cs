@@ -47,7 +47,6 @@ public class RecordingPanelUITransition : UITransition
             return;
         }
         
-        Debug.Log($"[{this.name}] Request Show RecordingPanel");
         recording.UpdateRecording(missionMarker);
         ShowTransition();
     }
@@ -57,7 +56,8 @@ public class RecordingPanelUITransition : UITransition
         if (recording == null || recording.SelectedMissionMarker != missionMarker)
             return;
         
-        Debug.Log($"[{this.name}] Request Hide RecordingPanel");
+        Debug.LogWarning($"[{this.name}] Request Hide RecordingPanel");
+        InputManager.Instance.PopActionMap();
         HideTransition();
     }
     

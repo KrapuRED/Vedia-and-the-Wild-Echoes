@@ -314,6 +314,7 @@ MonoBehaviour:
   missionMarkerState: 0
   missionRecordingData: {fileID: 11400000, guid: f84b7bd5744e0284988f47364a1cdebb, type: 2}
   isSelectedTutorial: 1
+  notifSoundEffectName: pam_active
   maxTilted: 45
   markerFlaggedMaterial: {fileID: 2100000, guid: 25196af9380af734084ec76ad18063c6, type: 2}
   markerPassiveMaterial: {fileID: 2100000, guid: b9a6975d739d6264ea05434d29366ab8, type: 2}

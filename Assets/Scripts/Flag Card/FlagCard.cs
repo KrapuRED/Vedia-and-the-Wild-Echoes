@@ -9,6 +9,7 @@ public class FlagCard : MonoBehaviour
     [SerializeField] private TMP_Text flagCardName;
     [SerializeField] private Image flagCardImage;
     
+    public FlagCardDataSO flagData => flagCardData;
     public RecordingDataSO RecordingData => flagCardData.recordingData;
 
     private void Start() => InitFlagCard();

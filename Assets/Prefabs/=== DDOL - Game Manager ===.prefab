@@ -683,8 +683,8 @@ Transform:
   m_Children:
   - {fileID: 4460886564083533998}
   - {fileID: 4911792625512005233}
-  - {fileID: 6132662654007024106}
   - {fileID: 3295856130227041020}
+  - {fileID: 6132662654007024106}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &130341701372863040
@@ -1112,6 +1112,9 @@ MonoBehaviour:
   - groupID: task_complete
     clips:
     - {fileID: 8300000, guid: d4c08441122eba048989c790d6830a5b, type: 3}
+  - groupID: pam_active
+    clips:
+    - {fileID: 8300000, guid: 80f9c802d216ece4390616bc97b449f0, type: 3}
 --- !u!114 &5639402848197381757
 MonoBehaviour:
   m_ObjectHideFlags: 0
