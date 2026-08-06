@@ -57,7 +57,6 @@ public class RecordingPanelUITransition : UITransition
             return;
         
         Debug.LogWarning($"[{this.name}] Request Hide RecordingPanel");
-        InputManager.Instance.PopActionMap();
         HideTransition();
     }
     
@@ -79,11 +78,11 @@ public class RecordingPanelUITransition : UITransition
 
     public override void HideTransition()
     {
+        InputManager.Instance.PopActionMap();
+        
         if (this == null) return;
 
         KillActiveTween();
-        
-        InputManager.Instance.PopActionMap();
         
         _tween = _mainCanvasGroup.DOFade(0, 0.3f);
         _tween.OnComplete(() =>

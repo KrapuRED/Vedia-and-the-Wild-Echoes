@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bed9661326f77c4c8582962c4420e24, type: 3}
   m_Name: TutorialDataSO 3
   m_EditorClassIdentifier: Assembly-CSharp::TutorialDataSO
-  tutorialName: 
+  tutorialName: End Tutorial
   tutorialDialogueDatas:
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: Excellent work.
     listHighligthId: []
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: Correct classifications improve our monitoring records
       and help protect the forest.
     listHighligthId: []
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: You're ready. Continue monitoring the remaining Device.
     listHighligthId: []
     tutorialMission: 0

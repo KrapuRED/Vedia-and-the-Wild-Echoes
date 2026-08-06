@@ -324,4 +324,12 @@ public class MissionManager : MonoBehaviour
         
         _assignedMarkers.Remove(markerData);
     }
+
+    public void RemoveActiveRecordindDataByType(ForestMonitorType forestMonitorType)
+    {
+        if (forestMonitorType != ForestMonitorType.Threat)
+            return;
+        
+        activeRecordingsList.RemoveAll(recodData => recodData.forestMonitorType == forestMonitorType);
+    }
 }

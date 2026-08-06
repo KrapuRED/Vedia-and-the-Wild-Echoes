@@ -37,6 +37,7 @@ public class MissionMarker : MonoBehaviour, IInteractable
    private Camera _camera;
    private bool _isMarkerSelected;
    private string _soundEffectName;
+   private bool _isActive;
    
    public bool IsFlagged => isFlagged;
    public MissionMarkerState MissionMarkerState => missionMarkerState;
@@ -116,8 +117,12 @@ public class MissionMarker : MonoBehaviour, IInteractable
       missionRecordingData = recordingData;
       BuildSoundEffectName();
 
-      if (missionMarkerState == MissionMarkerState.Active)
+      if (missionMarkerState ==  MissionMarkerState.Passive)
+         _isActive = false;
+      
+      if (missionMarkerState == MissionMarkerState.Active && !_isActive)
       {
+         _isActive = true;
          SoundEffectManager.Instance.PlaySoundEffect(notifSoundEffectName);
       }
       

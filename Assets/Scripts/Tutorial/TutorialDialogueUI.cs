@@ -12,6 +12,7 @@ public class TutorialDialogueUI : MonoBehaviour
     
     [Tooltip("The panel that should actually move to each step's target position. Defaults to this object's own RectTransform if left empty.")]
     [SerializeField] private RectTransform dialogueRootRect;
+    [SerializeField] private string typeSoundEffect;
     
     [SerializeField] private Image characterIcon;
     [SerializeField] private TMP_Text characterNameText;
@@ -20,6 +21,14 @@ public class TutorialDialogueUI : MonoBehaviour
     private void Awake()
     {
         settings = TextAnimatorSettings.Instance;
+    }
+
+    private void OnEnable()
+    {
+        if (typewriter != null)
+        {
+            typewriter.onCharacterVisible.AddListener(PlayTypeSound);
+        }
     }
 
     public void UpdateTutorialDialogueUI(TutorialDataSO tutorialData, RectTransform positionDialogue, int currDialogueIndex)
@@ -38,14 +47,19 @@ public class TutorialDialogueUI : MonoBehaviour
         }
         
         var tutorialDialogueData = tutorialData.tutorialDialogueDatas[currDialogueIndex];
-        
+
+        characterIcon.sprite = tutorialDialogueData.characterSprite;
         characterNameText.text  = tutorialDialogueData.characterName;
         BuildDialogueText(tutorialDialogueData.tutorialDialogueLine);
     }
-
-    private string AddEffect<T>(TextAnimatorSettings.Category<T> category, string tag) where T: ScriptableObject
+    
+    private void PlayTypeSound(Char character)
     {
-        return $"{category.openingSymbol}{tag}{category.closingSymbol}{tag}{category.openingSymbol}/{category.closingSymbol}, ";
+        if (Char.IsWhiteSpace(character))
+            return;
+        
+        if (!string.IsNullOrEmpty(typeSoundEffect))
+            SoundEffectManager.Instance.PlaySoundEffect(typeSoundEffect);
     }
     
     private void BuildDialogueText(string line)
@@ -57,7 +71,7 @@ public class TutorialDialogueUI : MonoBehaviour
     
     private void SetFlipped(bool isFlipped)
     {
-        float scaleX = isFlipped ? -1f : 1f;
+        float scaleX = isFlipped ? 1f : -1f;
         
         if (characterIcon != null)
             FlipRectX(characterIcon.rectTransform, scaleX);

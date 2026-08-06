@@ -15,72 +15,72 @@ MonoBehaviour:
   tutorialName: 'Tutorial Start '
   tutorialDialogueDatas:
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: Before we begin, I'll show you how our Passive Acoustic
       Monitoring, or PAM, system works.
     listHighligthId: []
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: Instead of watching the forest with cameras, we listen
       to it. Every sound tells us something about the condition of the ecosystem.
     listHighligthId: []
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: This is the Bioacoustic Monitoring screen. It displays
       the PAM Device deployed throughout the forest.
     listHighligthId: []
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: On the right is your <color=red> Task Board </color>.
     listHighligthId:
     - TaskMonitor
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: Each assignment includes an audio clue. Click the <color=red>
       speaker icon </color> whenever you need to hear the reference sound again.
     listHighligthId:
     - TaskMonitor
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: Your job is to match what you hear from the forest with
       the correct task.
     listHighligthId:
     - TaskMonitor
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: At the bottom right is the <color=red> Forest Health Indicator</color>.
     listHighligthId:
     - ForestMonitor
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: Bird Icon is <color=red>BiodiversityIndicator</color>,
       it reflects the variety of wildlife we've successfully identified.
     listHighligthId:
     - ForestMonitor
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: Warning Icon is <color=red> Threat Level </color>, it represents
       disturbances such as illegal logging or poaching detected in the area.
     listHighligthId:
     - ForestMonitor
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: Tree Icon is <color=red> Forest Sustainability </color>,
       it influenced by both biodiversity and forest threats
     listHighligthId:
     - ForestMonitor
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: Every correct decision helps keep the forest healthy.
     listHighligthId:
     - ForestMonitor

@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class CameraDrag : CursorController
 {
+    [SerializeField] private Collider borderCam;
+    
     [Header("Cursor Converter Configuration")]
     [SerializeField] private string actionMapName;
     [SerializeField] private InputActionReference dragHoldAction;
@@ -120,6 +122,22 @@ public class CameraDrag : CursorController
         forward.Normalize();
         
         Vector3 dragVector = (-right * mouseDelta.x - forward * mouseDelta.y) * dragSpeed;
-        transform.position += dragVector;
+        Vector3 targetPosition = transform.position + dragVector;
+    
+        transform.position = ClampToBorder(targetPosition);
+    }
+    
+    private Vector3 ClampToBorder(Vector3 position)
+    {
+        if (borderCam == null)
+            return position;
+
+        Bounds bounds = borderCam.bounds;
+
+        position.x = Mathf.Clamp(position.x, bounds.min.x, bounds.max.x);
+        position.z = Mathf.Clamp(position.z, bounds.min.z, bounds.max.z);
+        // y left untouched — you're dragging on a horizontal plane, not clamping height
+
+        return position;
     }
 }

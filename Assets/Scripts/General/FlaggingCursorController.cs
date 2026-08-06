@@ -54,7 +54,9 @@ public class FlaggingCursorController : MonoBehaviour
     private void Update()
     {
         if (!_inputManager.IsCurrentActionMap(actionMap))
+        {
             return;
+        }
         
         if (!_isDragging || _draggedRect == null) return;
 
@@ -123,6 +125,11 @@ public class FlaggingCursorController : MonoBehaviour
         if (!_inputManager.IsCurrentActionMap(actionMap))
             return;
         
+        DropFlagCard();
+    }
+
+    private void DropFlagCard()
+    {
         if (_selectedFlagCard != null)
         {
             // TODO: check for a valid drop target here (raycast again),

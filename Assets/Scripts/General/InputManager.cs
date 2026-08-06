@@ -82,14 +82,8 @@ public class InputManager : MonoBehaviour
 
         if (_overlayStack.Count <= 1)
         {
-            if (_overlayStack.Count == 1)
-            {
-                string lastMap =  _overlayStack.Pop();
-                if (lastMap != currentMapName)
-                    GetActionMap(lastMap)?.Disable();
-            }
-            
-            ExecuteSwitchActionMapDirect(currentMapName);
+            if (currentMapName != defaultActionMap)
+                ExecuteSwitchActionMapDirect(defaultActionMap);
             return;
         }
         

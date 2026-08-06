@@ -123,8 +123,6 @@ public class TaskManager : MonoBehaviour
     {
         if (this == null) return;
         
-        Debug.LogWarning($"[{missionMaker.name}] Record : {missionMaker.MissionRecordingData.recordingName} {isCorrect}");
-        
         if (_isAllTaskCompleted) return;
         if (!isCorrect) return;
         
@@ -151,16 +149,15 @@ public class TaskManager : MonoBehaviour
             return;
         }
         
-        Debug.LogWarning($"[{missionMaker.name}] Record : {missionMaker.MissionRecordingData.recordingName} Task Name : {task.taskName}");
         task.currentTask++;
         task.taskUI.UpdateTaskUI(task);
         
         if (task.currentTask >= task.flagAppearanceTask)
         {
             task.isCompleted = true;
-            CheckAllTaskCompleted();
+            MissionManager.Instance.RemoveActiveRecordindDataByType(task.taskRecondingData.clueRecordings[0].forestMonitorType);
             activeTasks.Remove(task);
-            return;
+            CheckAllTaskCompleted();
         }
     }
 }

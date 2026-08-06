@@ -15,31 +15,31 @@ MonoBehaviour:
   tutorialName: PAM Device
   tutorialDialogueDatas:
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: Each <color=red> marker on the map </color>represents a
       PAM device placed throughout the forest.
     listHighligthId: []
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: A <color=red> yellow marker </color> means the device is
       recording the forest's normal soundscape. You can listen to these recordings
       at any time.
     listHighligthId: []
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: If a device detects an irregular soundscape, it will send
       an alert and the marker will <color=red> turn red </color>.
     listHighligthId: []
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: Look, one of the stations has detected an irregular soundscape.
     listHighligthId: []
     tutorialMission: 0
   - characterName: Dr.Kirana
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: Click the red marker.
     listHighligthId: []
     tutorialMission: 1
