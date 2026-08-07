@@ -10,7 +10,13 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue Character Position Config")]
     [SerializeField] private List<DialogueCharacterController> slots = new();
     
-    [Header(("Dialogue Data Config"))] 
+    [Header("Character Pool")]
+    [Tooltip("Parent transform holding ONE instance of every Character that can appear in dialogue.")]
+    [SerializeField] private Transform characterPoolRoot;
+    private List<Character> _characterPool = new();
+
+    [Header(("Dialogue Data Config"))] [SerializeField]
+    private UIOpeningDialogueTransition dialogueTransition;
     [SerializeField] private DialogueBox dialogueBox;
     [SerializeField] private DialogueDataSO dialogueDataSO;
     
@@ -28,6 +34,15 @@ public class DialogueManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+        if (characterPoolRoot != null)
+        {
+            _characterPool = characterPoolRoot.GetComponentsInChildren<Character>(true).ToList();
+        }
+        else
+        {
+            Debug.LogWarning($"[{gameObject.name}] Character Pool Root is not assigned");
+        }
     }
 
     private void Update()
@@ -40,17 +55,18 @@ public class DialogueManager : MonoBehaviour
 
     private Character FindCharacterByData(CharacterDataSO characterData)
     {
-        foreach (var slot in slots)
-        {
-            var match = slot.Characters.FirstOrDefault(c => c.CharacterData == characterData);
-            if (match != null)
-                return match;
-        }
- 
-        Debug.Log($"[{gameObject.name}] Character {characterData.name} not found");
-        return null;
+        var match = _characterPool.FirstOrDefault(c => c.CharacterData == characterData);
+        if (match == null)
+            Debug.Log($"[{gameObject.name}] Character {characterData.name} not found in pool");
+
+        return match;
     }
 
+    private DialogueCharacterController GetSlotByPosition(PositionCharacter position)
+    {
+        return slots.FirstOrDefault(s => s.PositionCharacter == position);
+    }
+    
     private void TouchSlot(DialogueCharacterController slot)
     {
         _recencyOrder.Remove(slot);
@@ -59,6 +75,7 @@ public class DialogueManager : MonoBehaviour
 
     private DialogueCharacterController GetLeastRecentlyUsedSlot()
     {
+
         for (int i = _recencyOrder.Count - 1; i >= 0; i--)
         {
             if (slots.Contains(_recencyOrder[i]))
@@ -70,20 +87,43 @@ public class DialogueManager : MonoBehaviour
     
     private DialogueCharacterController AssignSlot(CharacterDataSO characterData)
     {
-        var existingSlot = slots.FirstOrDefault(s => s.ActiveCharacter != null && s.ActiveCharacter.CharacterData == characterData);
-        if (existingSlot != null)
+        var exisitingSlot = slots.FirstOrDefault(s => s.ActiveCharacter != null
+                                                      && s.ActiveCharacter.CharacterData == characterData);
+
+        if (exisitingSlot != null)
         {
-            TouchSlot(existingSlot);
-            return existingSlot;
+            TouchSlot(exisitingSlot);
+            return exisitingSlot;
         }
         
-        var freeSlot = slots.FirstOrDefault(s => s.ActiveCharacter == null);
-        if (freeSlot != null)
-        {
-            TouchSlot(freeSlot);
-            return freeSlot;
-        }
         
+        int activeSlot =  slots.Count(s => s.ActiveCharacter != null);
+
+        if (activeSlot == 0)
+        {
+            var middle = GetSlotByPosition(PositionCharacter.Middle);
+            TouchSlot(middle);
+            return middle;
+        }
+
+        if (activeSlot == 1)
+        {
+            var middle = GetSlotByPosition(PositionCharacter.Middle);
+            var left = GetSlotByPosition(PositionCharacter.Left);
+            var right = GetSlotByPosition(PositionCharacter.Right);
+
+            if (middle.ActiveCharacter != null)
+            {
+                var perCharacter = middle.ActiveCharacter;
+                middle.ClearActiveCharacterReference();
+                left.AssignCharacter(perCharacter);
+                TouchSlot(left);
+            }
+            
+            TouchSlot(right);
+            return right;
+        }
+
         var lru = GetLeastRecentlyUsedSlot();
         TouchSlot(lru);
         return lru;
@@ -93,19 +133,19 @@ public class DialogueManager : MonoBehaviour
     {
         var line = dialogueDataSO.dialogueData[_currDialogueIndex];
         var targetData = line.characterData;
+        var targetCharacter = FindCharacterByData(targetData);
+        
+        if (targetCharacter == null) return;
         
         var targetSlot = AssignSlot(targetData);
 
-        foreach (var slot in slots)
+        if (targetSlot.ActiveCharacter != null && targetSlot.ActiveCharacter != targetCharacter)
         {
-            if (slot != targetSlot && slot.ActiveCharacter != null && slot.ActiveCharacter.CharacterData == targetData)
-            {
-                slot.ClearSlot();
-            }
+            targetSlot.ActiveCharacter.FullHideCharacter();
         }
         
-        targetSlot.ChangeCharacterByData(targetData);
-        
+        targetSlot.AssignCharacter(targetCharacter);
+
         foreach (var slot in slots)
         {
             if (slot == targetSlot)
@@ -113,9 +153,11 @@ public class DialogueManager : MonoBehaviour
                 slot.ShowActiveCharacter();
             }
             else
+            {
                 slot.DimActiveCharacter();
+            }
         }
-
+        
         dialogueBox.UpdateDialogueBox(line);
     }
 
@@ -155,14 +197,18 @@ public class DialogueManager : MonoBehaviour
         
         DisplayCurrentLine();
     }
-
-    public void SkipDialogue()
-    {
-        
-    }
     
     public void EndDialogue()
     {
         Debug.Log($"[{gameObject.name} - EndDialogue] {dialogueDataSO.DialogueName} is done");
+
+        foreach (var slot in slots)
+        {
+            if (slot.ActiveCharacter != null)
+                slot.ActiveCharacter.FullHideCharacter();
+        }
+        
+        dialogueTransition.HideTransition();
+        isDialogueActive = false;
     }
 }

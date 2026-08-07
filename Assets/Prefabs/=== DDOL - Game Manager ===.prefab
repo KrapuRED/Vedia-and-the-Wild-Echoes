@@ -701,8 +701,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   isGameActive: 0
-  currentLevel: 1
-  maxLevel: 0
+  currentLevel: 0
+  maxLevel: 2
 --- !u!1 &4124962706105356357
 GameObject:
   m_ObjectHideFlags: 0

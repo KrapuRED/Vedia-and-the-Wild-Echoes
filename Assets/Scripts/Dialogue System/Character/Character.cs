@@ -22,22 +22,25 @@ public class Character : MonoBehaviour
    [SerializeField] private Color dimColor;
    [SerializeField] private Color showColor;
    
+   [Header("Move Character")]
+   [SerializeField] private float moveDuration = 0.5f;
+   [SerializeField] private Ease moveEase = Ease.InOutQuad;
+   
    private bool isInitialized = false;
    private SpriteRenderer[] _spriteRenderers;
    private Sequence _fadeSequence;
+   private Tween _moveTween;
    
    public bool IsInitialized => isInitialized;
 
    public CharacterDataSO CharacterData => characterData;
 
-   private void Awake()
-   {
-      InitCharacter();
-   }
+   private void Awake() => InitCharacter();
 
    private void OnDestroy()
    {
       _fadeSequence?.Kill();
+      _moveTween?.Kill();
    }
    
    public void InitCharacter()
@@ -54,6 +57,26 @@ public class Character : MonoBehaviour
       FullHideCharacter();
    }
 
+   public void MoveCharacter(Transform newPosition)
+   {
+      if (!isInitialized)
+      {
+         Debug.LogWarning($"[{gameObject.name}] Character not initialized");
+         return;
+      }
+
+      if (newPosition == null)
+      {
+         Debug.LogWarning($"[{gameObject.name}] newPosition is null");
+         return;
+      }
+      
+      _moveTween?.Kill();
+      _moveTween = transform.DOMove(newPosition.position, moveDuration)
+         .SetEase(moveEase)
+         .OnComplete(() => _moveTween = null);
+   }
+   
    private void PlayAnimationFade(Color targetColor)
    {
       _fadeSequence?.Kill();
@@ -84,7 +107,7 @@ public class Character : MonoBehaviour
          Debug.LogWarning($"[{gameObject.name}] Character not initialized");
          return;
       }
-
+      isFullHide = false;
       PlayAnimationFade(dimColor);
    }
 
@@ -95,7 +118,8 @@ public class Character : MonoBehaviour
          Debug.LogWarning($"[{gameObject.name}] Character not initialized");
          return;
       }
-
+      
+      isFullHide = false;
       PlayAnimationFade(showColor);
    }
    
@@ -112,6 +136,7 @@ public class Character : MonoBehaviour
          spriteRenderer.enabled = false;
       }
       
+      isFullHide = true;
       Debug.Log($"[{gameObject.name}] Full Hide Character");
    }
 }

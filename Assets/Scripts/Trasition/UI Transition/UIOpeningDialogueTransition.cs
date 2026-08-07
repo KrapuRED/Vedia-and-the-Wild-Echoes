@@ -68,6 +68,7 @@ public class UIOpeningDialogueTransition : UITransition
             onTransitionOut?.Invoke();
             dialogueCanvasGroup.interactable = false;
             dialogueCanvasGroup.blocksRaycasts = false;
+            GameManager.Instance.NextLevel();
         });
     }
 }

@@ -311,4 +311,11 @@ public class TutorialManager : MonoBehaviour
         isMissionTutorialComplete = true;
         ContinueTutorial(); 
     }
+
+    public void ResetTutorial()
+    {
+        isTutorialActive = false;
+        _isTutorialDone = false;
+        isMissionTutorialComplete = false;
+    }
 }

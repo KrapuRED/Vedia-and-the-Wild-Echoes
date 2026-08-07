@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da99e292a6131a49b0831f541a36a90, type: 3}
+  m_Name: Story_dialogue_Opening
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueDataSO
+  DialogueName: 
+  dialogueData:
+  - characterName: Vedia
+    characterData: {fileID: 11400000, guid: 6e91d9f9f7c650147953e5f5bf983b23, type: 2}
+    dialogueLines: So... this is the Bioacoustic Monitoring Station.
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: You must be Vedia.
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: Welcome to Arunika Utara.
+  - characterName: Vedia
+    characterData: {fileID: 11400000, guid: 6e91d9f9f7c650147953e5f5bf983b23, type: 2}
+    dialogueLines: Nice to meet you.
+  - characterName: Vedia
+    characterData: {fileID: 11400000, guid: 6e91d9f9f7c650147953e5f5bf983b23, type: 2}
+    dialogueLines: I'm Vedia, a Junior Bioacoustic Monitoring Officer from the Pusat
+      Kehutanan Cerdas Nusantara.
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: Glad to have you here.
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: I'm Raka, a Forest Ranger from the Balai Ranger Hutan Arunika.
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: Our rangers patrol the forest every day...
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: but Arunika Utara is simply too vast for us to monitor alone.
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: Illegal logging, poaching, and other disturbances can happen before
+      a patrol ever reaches them.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: The PAM devices installed throughout the forest record these sounds
+      continuously.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: Together with your monitoring station, they help us understand
+      what's happening across Arunika Utar
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: When a recording suggests illegal activity...
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: my team responds in the field.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: When it reveals wildlife...
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: my team studies the biodiversity.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: And your role is to analyze the recordings, helping both of us
+      make informed decisions.
+  - characterName: Vedia
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: So this station connects conservation, research, and forest protection.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: Exactly.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: Now, let's begin your first monitoring session.

@@ -5,41 +5,24 @@ using System.Linq;
 
 public class DialogueCharacterController : MonoBehaviour
 {
-    [SerializeField] private List<Character> characters = new();
     [SerializeField] private Character activeCharacter;
     [SerializeField] private PositionCharacter positionCharacter;
     
     public Character ActiveCharacter => activeCharacter;
-    public IReadOnlyList<Character> Characters => characters;
-    
-    private void Awake()
+    public PositionCharacter PositionCharacter => positionCharacter;
+
+    public void AssignCharacter(Character characterTarget)
     {
-        characters = GetComponentsInChildren<Character>(true).ToList();
-    }
+       if (characterTarget == null) return;
 
-    public void ChangeCharacterByData(CharacterDataSO targetData)
-    {
-        var targetCharacter = characters.FirstOrDefault(c => c.CharacterData == targetData);
-
-        if (targetCharacter == null)
-        {
-            Debug.LogWarning($"[{gameObject.name}] Character data {targetData.name} tidak ditemukan di child!");
-            return;
-        }
+       if (activeCharacter == characterTarget)
+       {
+           ShowActiveCharacter();
+           return;
+       }
         
-        if (activeCharacter == targetCharacter)
-        {
-            ShowActiveCharacter();
-            return;
-        }      
-        
-        if (activeCharacter != null)
-        {
-            activeCharacter.FullHideCharacter();
-        }
-
-        activeCharacter = targetCharacter;
-        ShowActiveCharacter();
+       activeCharacter = characterTarget;
+       characterTarget.MoveCharacter(transform);
     }
     
     public void ShowActiveCharacter() => activeCharacter?.ShowCharacter();

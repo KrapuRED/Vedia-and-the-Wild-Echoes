@@ -20,5 +20,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         uiTransition.HideTransition();
+        TutorialManager.Instance.ResetTutorial();
+        
     }
 }

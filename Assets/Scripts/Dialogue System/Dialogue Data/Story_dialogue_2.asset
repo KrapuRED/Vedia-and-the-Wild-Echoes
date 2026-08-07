@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da99e292a6131a49b0831f541a36a90, type: 3}
+  m_Name: Story_dialogue_2
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueDataSO
+  DialogueName: Dialogue After Level 2
+  dialogueData:
+  - characterName: Vedia
+    characterData: {fileID: 11400000, guid: 6e91d9f9f7c650147953e5f5bf983b23, type: 2}
+    dialogueLines: There are still so many unexplored areas...
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: Arunika Utara has many stories left to tell.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: our monitoring network is only beginning to grow.
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: The Expedition Team is preparing to install more PAM devices deeper
+      into the forest. Once they're online...
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: we'll be able to monitor places we've never reached before.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: Which means more bird species to discover...
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: new behaviors to study...
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: And a better understanding of this ecosystem.
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: But it also means new challenges. The farther we expand...
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: the more likely we are to uncover illegal activities hidden deep
+      within the forest.
+  - characterName: Vedia
+    characterData: {fileID: 11400000, guid: 6e91d9f9f7c650147953e5f5bf983b23, type: 2}
+    dialogueLines: So every new device opens another window into the forest...
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: Exactly.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: Every recording helps us understand nature a little better.
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: And every accurate report helps us protect it.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: Your journey as a Bioacoustic Monitoring Officer has only just
+      begun, Vedia.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: There are still countless voices waiting to be heard.

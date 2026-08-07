@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e09f69832313db4e8a95232d1324af2, type: 3}
-  m_Name: Character_Data_Lucy
+  m_Name: Character_Data_Veida
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDataSO
-  characterName: Lucy
+  characterName: Vedia
   characterIcon: {fileID: 0}
-  characterPrefab: {fileID: 0}
+  characterPrefab: {fileID: 7984283517726815695, guid: 51ac8a2c9f875254b91acbd9c1c3a643, type: 3}

@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (!isGameActive)
+            return;
+        
         StartMainGame();
     }
 
@@ -34,10 +37,33 @@ public class GameManager : MonoBehaviour
         TranstionManager.Instance.LoadScene(sceneName, "CrossFade");   
     }
 
+    public void NextStory()
+    {
+        string sceneName = $"GamePlay_MainStory_{currentLevel}";
+        isGameActive = false;
+        
+        TranstionManager.Instance.LoadScene(sceneName, "CrossFade"); 
+    }
+
     public void NextLevel()
     {
         currentLevel++;
+
+        if (currentLevel > maxLevel)
+        {
+            isGameActive = false;
+            TranstionManager.Instance.LoadScene("Credit", "CrossFade");
+            return;
+        }
+        
+        isGameActive = true;
         string sceneName = $"GamePlay_MainGame_{currentLevel}";
         TranstionManager.Instance.LoadScene(sceneName, "CrossFade");   
+    }
+
+    public void EndGame()
+    {
+        currentLevel = 0;
+        TranstionManager.Instance.LoadScene("Gameplay_MainMenu", "CrossFade");
     }
 }

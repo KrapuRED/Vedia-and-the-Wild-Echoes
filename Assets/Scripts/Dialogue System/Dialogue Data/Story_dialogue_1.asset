@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da99e292a6131a49b0831f541a36a90, type: 3}
+  m_Name: Story_dialogue_1
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueDataSO
+  DialogueName: Dialogue After Level 1
+  dialogueData:
+  - characterName: Vedia
+    characterData: {fileID: 11400000, guid: 6e91d9f9f7c650147953e5f5bf983b23, type: 2}
+    dialogueLines: There are... even more monitoring devices?
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: Arunika Utara is much larger than this.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: We've only completed monitoring one part of the forest.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: Each new area means more recordings for us to analyze...
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: and more opportunities to understand the wildlife that lives here.
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: It also means more ground for my ranger team to cover.
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: We can't patrol every corner of the forest every day.
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: Your reports help us decide where our patrols are needed most.
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: The more accurate your findings, the faster we can respond.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: 'And every bird you identify adds to our research. '
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: 'Over time, we can learn where different species live... '
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: how they behave... and how the forest changes throughout the seasons.
+  - characterName: Vedia
+    characterData: {fileID: 11400000, guid: 6e91d9f9f7c650147953e5f5bf983b23, type: 2}
+    dialogueLines: So every recording supports both conservation... and research.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: Exactly
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: Every sound has a story to tell.
+  - characterName: Dr. Kirana
+    characterData: {fileID: 11400000, guid: 568bc2434f3e31748815b8129dc2fb9b, type: 2}
+    dialogueLines: Our job is to understand it.
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: Ready for the next sector?
+  - characterName: Raka
+    characterData: {fileID: 11400000, guid: 4eb30ff8eed74a748871de56c5b344ec, type: 2}
+    dialogueLines: There's still a lot of forest waiting to be heard.
