@@ -22,7 +22,7 @@ public class DialogueCharacterController : MonoBehaviour
        }
         
        activeCharacter = characterTarget;
-       characterTarget.MoveCharacter(transform);
+       characterTarget.MoveCharacter(transform, positionCharacter);
     }
     
     public void ShowActiveCharacter() => activeCharacter?.ShowCharacter();

@@ -19,27 +19,32 @@ MonoBehaviour:
     tutorialDialogueLine: <color=red> Listen </color> carefully to the recording.
     listHighligthId: []
     tutorialMission: 0
+    tutorialActionMapMission: 
   - characterName: Dr.Kirana
     characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: That's the sound of a <color=red> chainsaw</color>.
     listHighligthId: []
     tutorialMission: 0
+    tutorialActionMapMission: 
   - characterName: Dr.Kirana
     characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: It could indicate illegal logging. We need to report it
       before the recording window expires.
     listHighligthId: []
     tutorialMission: 0
+    tutorialActionMapMission: 
   - characterName: Dr.Kirana
     characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: At the bottom of the screen is the <color=red> Flag Panel
       </color>.
     listHighligthId: []
     tutorialMission: 0
+    tutorialActionMapMission: 
   - characterName: Dr.Kirana
     characterSprite: {fileID: -1687011945, guid: 56cf509b78d164741a5ad60c05a60ab8, type: 3}
     tutorialDialogueLine: <color=red>Drag the correct </color> flag onto the recording
       to classify what you've heard.
     listHighligthId: []
     tutorialMission: 2
+    tutorialActionMapMission: FlaggingController
   tutorialDialoguePosition: 4

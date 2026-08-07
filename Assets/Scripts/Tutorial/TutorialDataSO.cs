@@ -27,6 +27,7 @@ public class TutorialDialogueData
     [TextArea(10,10)]public string tutorialDialogueLine;
     public List<string> listHighligthId = new();
     public TutorialMissionType tutorialMission;
+    public string tutorialActionMapMission;
 }
 
 [CreateAssetMenu(fileName = "TutorialDataSO", menuName = "Tutorial DataSO/TutorialDataSO")]

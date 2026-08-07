@@ -507,7 +507,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 612.5, y: -270}
+  m_AnchoredPosition: {x: 480, y: -270}
   m_SizeDelta: {x: 600, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7659025444893745805
@@ -806,7 +806,6 @@ MonoBehaviour:
   typewriter: {fileID: 5009725140788913066}
   dialogueRootRect: {fileID: 8949027679899169318}
   typeSoundEffect: bleep
-  characterIcon: {fileID: 1846023022443124995}
   characterNameText: {fileID: 2757833035836124073}
   dialogueText: {fileID: 6560555084573838780}
 --- !u!114 &2175315578930013212
@@ -2229,7 +2228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4287988080954609864
 RectTransform:
   m_ObjectHideFlags: 0

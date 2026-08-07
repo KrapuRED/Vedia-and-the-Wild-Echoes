@@ -64,8 +64,19 @@ public class InputManager : MonoBehaviour
         return map;
     }
 
+    public void SwitchActionMapByManager(string mapName)
+    {
+        if (_switchMapCoroutine != null)
+            StopCoroutine(_switchMapCoroutine);
+
+        _switchMapCoroutine = StartCoroutine(DeferredSwitchActionMap(mapName));
+    }
+    
     public void SwitchActionMap(string mapName)
     {
+        if (TutorialManager.Instance.IsTutorialActive)
+            return;
+        
         if (_switchMapCoroutine != null)
             StopCoroutine(_switchMapCoroutine);
 

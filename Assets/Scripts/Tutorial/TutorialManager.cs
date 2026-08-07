@@ -68,7 +68,6 @@ public class TutorialManager : MonoBehaviour
         GameEvents.OnRegisterDialoguePosition.RemoveListener(RegisterTutorialPosition);
         GameEvents.OnUnregisterDialoguePosition.RemoveListener(UnregisterTutorialPosition);
         GameEvents.OnStartMainGame.RemoveListener(StartTutorial);
-        
     }
     
     #endregion
@@ -180,6 +179,7 @@ public class TutorialManager : MonoBehaviour
         isTutorialActive = false;
         _isTutorialDone = true;
         isTutorialActive = false;
+   
         panelTutorial.SetActive(isTutorialActive);
         
         GameEvents.OnTutorialStepCompleted.Invoke();
@@ -223,6 +223,9 @@ public class TutorialManager : MonoBehaviour
         {
             buttonContinueTutorial.SetActive(false);
             isMissionTutorialComplete = false;
+            
+            if (!string.IsNullOrEmpty(currentDialogueData.tutorialActionMapMission))
+                InputManager.Instance.SwitchActionMapByManager(currentDialogueData.tutorialActionMapMission);
         }
         else
         {

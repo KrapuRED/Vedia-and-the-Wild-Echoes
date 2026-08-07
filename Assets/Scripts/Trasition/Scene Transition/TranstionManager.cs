@@ -11,7 +11,6 @@ public class TranstionManager : MonoBehaviour
     public static  TranstionManager Instance {get; private set;}
 
     [SerializeField] private Transform contianerTransition;
-    //[SerializeField] private Slider progressBar;
     [SerializeField] private List<SceneTransition> transitions =  new();
 
     private CancellationTokenSource _cts;
@@ -43,9 +42,7 @@ public class TranstionManager : MonoBehaviour
         scene.allowSceneActivation = false;
 
         yield return transition.TranstionIn();
-
-        //progressBar.gameObject.SetActive(true);
-
+        
         do
         {
             //progressBar.value = scene.progress;
@@ -57,7 +54,6 @@ public class TranstionManager : MonoBehaviour
         scene.allowSceneActivation = true;
 
         yield return null;
-        //progressBar.gameObject.SetActive(false);
 
         yield return transition.TranstionOut();
         GameEvents.OnStartMainGame.Invoke();

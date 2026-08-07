@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDataSO
   characterName: Vedia
   characterIcon: {fileID: 0}
-  characterPrefab: {fileID: 7984283517726815695, guid: 51ac8a2c9f875254b91acbd9c1c3a643, type: 3}
+  characterPrefab: {fileID: 1965906937733653501, guid: fe727af8ba9580b4d9795ebf513c849d, type: 3}

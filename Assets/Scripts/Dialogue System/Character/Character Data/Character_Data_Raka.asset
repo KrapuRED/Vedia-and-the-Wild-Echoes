@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDataSO
   characterName: Raka
   characterIcon: {fileID: 0}
-  characterPrefab: {fileID: 5507785207557721132, guid: 56ba5f74f5951dc4d9471025e8872baa, type: 3}
+  characterPrefab: {fileID: 3679777017866295572, guid: ee02fed31fb164646a70f49c2dba64d6, type: 3}

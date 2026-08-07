@@ -14,7 +14,6 @@ public class TutorialDialogueUI : MonoBehaviour
     [SerializeField] private RectTransform dialogueRootRect;
     [SerializeField] private string typeSoundEffect;
     
-    [SerializeField] private Image characterIcon;
     [SerializeField] private TMP_Text characterNameText;
     [SerializeField] private TMP_Text dialogueText;
 
@@ -42,13 +41,11 @@ public class TutorialDialogueUI : MonoBehaviour
         {
             dialogueRootRect.position = positionDialogue.position;
 
-            bool onRightSide = positionDialogue.position.x > Screen.width * 0.5f;
-            SetFlipped(onRightSide);
+            //bool onRightSide = positionDialogue.position.x > Screen.width * 0.5f;
+            //SetFlipped(onRightSide);
         }
         
         var tutorialDialogueData = tutorialData.tutorialDialogueDatas[currDialogueIndex];
-
-        characterIcon.sprite = tutorialDialogueData.characterSprite;
         characterNameText.text  = tutorialDialogueData.characterName;
         BuildDialogueText(tutorialDialogueData.tutorialDialogueLine);
     }
@@ -69,7 +66,7 @@ public class TutorialDialogueUI : MonoBehaviour
         typewriter.ShowText(builtText);
     }
     
-    private void SetFlipped(bool isFlipped)
+    /*private void SetFlipped(bool isFlipped)
     {
         float scaleX = isFlipped ? 1f : -1f;
         
@@ -82,7 +79,7 @@ public class TutorialDialogueUI : MonoBehaviour
         {
             characterIcon.transform.SetAsFirstSibling();
         }
-    }
+    }*/
 
     private static void FlipRectX(RectTransform rect, float scaleX)
     {

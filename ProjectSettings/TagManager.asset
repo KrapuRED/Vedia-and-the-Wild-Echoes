@@ -56,11 +56,11 @@ TagManager:
   - name: Ground
     uniqueID: 3990991521
     locked: 0
-  - name: Character
-    uniqueID: 1792149815
-    locked: 0
   - name: Vein
     uniqueID: 3242372587
+    locked: 0
+  - name: Character
+    uniqueID: 1792149815
     locked: 0
   m_RenderingLayers:
   - Default

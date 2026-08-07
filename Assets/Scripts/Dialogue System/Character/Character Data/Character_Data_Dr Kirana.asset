@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDataSO
   characterName: Dr Kirana
   characterIcon: {fileID: 0}
-  characterPrefab: {fileID: 523471102370663659, guid: a8b041005bd67974685d85d458fceba5, type: 3}
+  characterPrefab: {fileID: 672274336802359071, guid: c54c0ba1824456f47b99448474f116ca, type: 3}

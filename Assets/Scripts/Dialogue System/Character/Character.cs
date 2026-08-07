@@ -57,8 +57,11 @@ public class Character : MonoBehaviour
       FullHideCharacter();
    }
 
-   public void MoveCharacter(Transform newPosition)
+   public void MoveCharacter(Transform newPosition, PositionCharacter position)
    {
+      if (position == PositionCharacter.Left)
+         transform.localRotation = Quaternion.Euler(0, 180, 0);
+      
       if (!isInitialized)
       {
          Debug.LogWarning($"[{gameObject.name}] Character not initialized");
