@@ -23,4 +23,8 @@ public class MainMenu : MonoBehaviour
         TutorialManager.Instance.ResetTutorial();
         
     }
+    
+    
+    public void Credits() =>  TranstionManager.Instance.LoadScene("Credit", "CrossFade");
+    public void QuitGame() => Application.Quit();
 }
