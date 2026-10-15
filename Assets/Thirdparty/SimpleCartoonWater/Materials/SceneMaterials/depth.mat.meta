@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f1b35425bf5e1444ba134fadd5d07583
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 255729
+  packageName: Simple Cartoon Water URP
+  packageVersion: 1.2
+  assetPath: Assets/SimpleCartoonWater/Materials/SceneMaterials/depth.mat
+  uploadId: 818388
