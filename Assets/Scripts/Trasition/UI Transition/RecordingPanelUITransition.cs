@@ -78,6 +78,7 @@ public class RecordingPanelUITransition : UITransition
 
     public override void HideTransition()
     {
+        
         InputActionManager.Instance.PopActionMap();
         
         if (this == null) return;
