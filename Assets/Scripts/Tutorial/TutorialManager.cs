@@ -225,7 +225,7 @@ public class TutorialManager : MonoBehaviour
             isMissionTutorialComplete = false;
             
             if (!string.IsNullOrEmpty(currentDialogueData.tutorialActionMapMission))
-                InputManager.Instance.SwitchActionMapByManager(currentDialogueData.tutorialActionMapMission);
+                InputActionManager.Instance.SwitchActionMapByManager(currentDialogueData.tutorialActionMapMission);
         }
         else
         {

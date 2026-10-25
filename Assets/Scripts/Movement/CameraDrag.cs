@@ -15,14 +15,14 @@ public class CameraDrag : CursorController
     
     private Camera _camera;
     [SerializeField] private bool isDragging;
-    private InputManager _inputManager;
+    private InputActionManager _inputManager;
     
     private void Awake()
     {
         if (_camera == null)
             _camera = Camera.main;
         
-        _inputManager = InputManager.Instance;
+        _inputManager = InputActionManager.Instance;
         ChangeCursor(defaultTexture2D);
     }
     
@@ -64,7 +64,7 @@ public class CameraDrag : CursorController
     {
         if (_inputManager == null)
         {
-            Debug.LogError($"[{gameObject.name}] No InputManager found!");
+            Debug.LogError($"[{gameObject.name}] No InputActionManager found!");
             return;
         }
         

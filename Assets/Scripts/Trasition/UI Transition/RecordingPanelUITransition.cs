@@ -69,7 +69,7 @@ public class RecordingPanelUITransition : UITransition
         
         _tween.OnComplete(() =>
         {
-            InputManager.Instance.SwitchActionMap(targetMap);
+            InputActionManager.Instance.SwitchActionMap(targetMap);
             _mainCanvasGroup.blocksRaycasts = true;
             _mainCanvasGroup.interactable = true;
             MusicManager.Instance.DecreaseMusicVolume(.9f);
@@ -78,7 +78,7 @@ public class RecordingPanelUITransition : UITransition
 
     public override void HideTransition()
     {
-        InputManager.Instance.PopActionMap();
+        InputActionManager.Instance.PopActionMap();
         
         if (this == null) return;
 
