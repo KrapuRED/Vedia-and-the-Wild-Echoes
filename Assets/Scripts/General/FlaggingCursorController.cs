@@ -23,12 +23,12 @@ public class FlaggingCursorController : MonoBehaviour
     private int _originalSiblingIndex;
     private bool _isDragging;
     
-    private InputManager _inputManager;
+    private InputActionManager _inputManager;
     private Camera _camera;
 
     private void Awake()
     {
-        _inputManager = InputManager.Instance;
+        _inputManager = InputActionManager.Instance;
         _camera = Camera.main;
     }
 

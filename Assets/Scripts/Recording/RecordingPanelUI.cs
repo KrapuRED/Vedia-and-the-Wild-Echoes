@@ -12,6 +12,7 @@ public class RecordingPanelUI : MonoBehaviour
     [SerializeField] private Image soundRecodingIcon;
     [SerializeField] private GameObject correctImage;
     [SerializeField] private GameObject inCorrectImage;
+    [SerializeField] private RecordingPanelUITransition recordingPanelUITransition;
     
     private void SetImageAlpha(Image img, float alpha)
     {
@@ -81,8 +82,22 @@ public class RecordingPanelUI : MonoBehaviour
 
     public void ShowIncorrectRecording()
     {
-        closeButton.SetActive(false);
         inCorrectImage.SetActive(true);
+
+        if (TutorialManager.Instance.IsTutorialActive)
+        {
+            //clear recording
+        }
+        
+        closeButton.SetActive(false);
+    }
+
+    public void HidePanel()
+    {
+        if (TutorialManager.Instance.IsTutorialActive)
+            return;
+        
+        recordingPanelUITransition.HideTransition();
     }
     
 }

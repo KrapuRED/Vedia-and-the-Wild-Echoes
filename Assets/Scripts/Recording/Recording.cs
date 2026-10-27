@@ -52,8 +52,6 @@ public class Recording : MonoBehaviour
     
     private void CheckMission()
     {
-        InputManager.Instance.PopActionMap();
-        
         bool isCorrectType = selectedFlagCard.RecordingData.forestMonitorType ==
                           currentMission.MissionRecordingData.forestMonitorType;
 
@@ -79,6 +77,9 @@ public class Recording : MonoBehaviour
         else
         {
             SoundEffectManager.Instance.PlaySoundEffect("recording_incorrect");
+            selectedFlagCard = null;
+            flagIcon.gameObject.SetActive(false);
+            
             recordingPanelUI.ShowIncorrectRecording();
         }
         
@@ -91,7 +92,7 @@ public class Recording : MonoBehaviour
     {
         if (!isCorrect)
         {
-            InputManager.Instance.SwitchActionMap("FlaggingController");
+            InputActionManager.Instance.SwitchActionMap("FlaggingController");
             return;
         }
 

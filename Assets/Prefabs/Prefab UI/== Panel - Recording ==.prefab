@@ -380,7 +380,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2413202976749659631}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -425,6 +425,7 @@ MonoBehaviour:
   soundRecodingIcon: {fileID: 2315204152417338848}
   correctImage: {fileID: 141675807688346143}
   inCorrectImage: {fileID: 4822466377606475726}
+  recordingPanelUITransition: {fileID: 1593918041902207728}
 --- !u!114 &7864158051313100899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -559,9 +560,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1593918041902207728}
-        m_TargetAssemblyTypeName: RecordingPanelUITransition, Assembly-CSharp
-        m_MethodName: HideTransition
+      - m_Target: {fileID: 1157170592244971001}
+        m_TargetAssemblyTypeName: RecordingPanelUI, Assembly-CSharp
+        m_MethodName: HidePanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour
+public class InputActionManager : MonoBehaviour
 {
-    public static InputManager Instance {get; private set; }
+    public static InputActionManager Instance {get; private set; }
 
     [Header("Settings")]
     [SerializeField] private bool isCursorConfined;

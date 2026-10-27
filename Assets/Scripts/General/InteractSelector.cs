@@ -12,12 +12,12 @@ public class InteractSelector : MonoBehaviour
     private bool _isPointerOverUI;
     private Camera _camera;
     private Vector2 _screenPosition;
-    private InputManager _inputManager;
+    private InputActionManager _inputManager;
     
     private void Awake()
     {
         _camera = Camera.main;
-        _inputManager = InputManager.Instance;
+        _inputManager = InputActionManager.Instance;
     }
 
     #region Event System
